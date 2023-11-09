@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
-using ApiApplication.Models;
+using MoviesAggregator.Models;
 
-namespace ApiApplication.Controllers
+namespace MoviesAggregator.Controllers
 {
     [Route("[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -30,6 +30,7 @@ namespace ApiApplication.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
 
 
                 return Created("", payload);

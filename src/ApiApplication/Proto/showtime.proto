@@ -1,0 +1,38 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "ShowTimeProto";
+
+package showtime;
+
+
+service ShowTimeApi {
+  rpc CreateShowTime (ShowtimeCreationRequest) returns (responseModel);
+}
+message movieRequest {
+  string title= 1;
+  string imdbId=2;
+  string stars= 3;
+  google.protobuf.Timestamp releaseDate= 4;
+}
+
+message ShowtimeCreationRequest {
+   movieRequest movie = 1;
+   string title = 2;
+   google.protobuf.Timestamp sessionDate = 3;
+   int32 auditoriumId = 4;
+}
+
+// Exception model
+message moviesApiException {
+  string Message = 1;
+  int32 StatusCode = 2;
+}
+
+// Response model
+message responseModel {
+  bool success = 1;
+  google.protobuf.Any data  = 2;
+  repeated moviesApiException exceptions = 3;
+}

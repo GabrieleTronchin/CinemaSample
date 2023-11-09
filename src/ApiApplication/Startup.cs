@@ -28,6 +28,8 @@ namespace ApiApplication
             services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
 
+            services.AddGrpc();
+
             services.AddDbContext<CinemaContext>(options =>
             {
                 options.UseInMemoryDatabase("CinemaDb")
