@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
 
-namespace ISP.TicketConnector.API.Controllers.Buildings
+namespace ApiApplication.Controllers
 {
     [Route("[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,7 +75,7 @@ namespace ISP.TicketConnector.API.Controllers.Buildings
                 }
 
 
-                return AcceptedAtAction(nameof(GetById), new { name =1}, payload);
+                return AcceptedAtAction(nameof(GetById), new { name = 1 }, payload);
             }
             catch (ArgumentNullException e)
             {
@@ -110,7 +110,7 @@ namespace ISP.TicketConnector.API.Controllers.Buildings
             {
                 _logger.LogError($"{nameof(Delete)}", e);
 
-                return StatusCode(StatusCodes.Status500InternalServerError,e);
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
             }
         }
     }

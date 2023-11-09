@@ -14,8 +14,6 @@ namespace ApiApplication
 {
     public class Startup
     {
-        private Options.SwaggerOptions swaggerOptions = new();
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -58,14 +56,11 @@ namespace ApiApplication
 
             if (env.IsDevelopment())
             {
-                Configuration.GetSection("Swagger").Bind(swaggerOptions);
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint(swaggerOptions.Endpoint, swaggerOptions.Name);
-                    options.DocumentTitle = swaggerOptions.Title;
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                     options.RoutePrefix = string.Empty;
-
                 });
             }
 
