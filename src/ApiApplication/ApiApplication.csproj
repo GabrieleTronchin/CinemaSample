@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.22" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
 	<PackageReference Include="Grpc.AspNetCore" Version="2.54.0" />
 	<Protobuf Include="Proto\showtime.proto" GrpcServices="Server" />
@@ -23,6 +22,10 @@
 	<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
 	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
 	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cinema\Cinema.Application\Cinema.Application.csproj" />
   </ItemGroup>
 
 </Project>

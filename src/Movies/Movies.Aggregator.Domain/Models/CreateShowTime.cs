@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Movies.Aggregator.Domain.Models
+﻿namespace Movies.Aggregator.Domain.Models
 {
     public class CreateShowTime
     {

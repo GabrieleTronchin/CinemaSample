@@ -1,6 +1,5 @@
-﻿using ApiApplication.Database;
-using ApiApplication.Database.Entities;
-using ApiApplication.Database.Repositories.Abstractions;
+﻿using Cinema.Domain;
+using Cinema.Persistence.Repositories.Abstractions;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using ShowTimeProto;
@@ -36,7 +35,7 @@ namespace ApiApplication
                         Title = request.Movie.Title,
                         ReleaseDate = request.Movie.ReleaseDate.ToDateTime(),
                         Stars = request.Movie.Stars,
-                 
+
                     },
                     SessionDate = request.SessionDate.ToDateTime(),
                 };

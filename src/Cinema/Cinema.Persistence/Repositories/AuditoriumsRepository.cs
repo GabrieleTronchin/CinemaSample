@@ -1,10 +1,8 @@
-﻿using ApiApplication.Database.Entities;
-using ApiApplication.Database.Repositories.Abstractions;
+﻿using Cinema.Domain;
+using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace ApiApplication.Database.Repositories
+namespace Cinema.Persistence.Repositories
 {
     public class AuditoriumsRepository : IAuditoriumsRepository
     {

@@ -1,11 +1,7 @@
-using ApiApplication.Database;
-using ApiApplication.Database.Repositories;
-using ApiApplication.Database.Repositories.Abstractions;
+using Cinema.Application;
+using Cinema.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,20 +21,9 @@ namespace ApiApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IShowtimesRepository, ShowtimesRepository>();
-            services.AddTransient<ITicketsRepository, TicketsRepository>();
-            services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
+            services.AddApplication();
 
             services.AddGrpc();
-           
-
-            services.AddDbContext<CinemaContext>(options =>
-            {
-                options.UseInMemoryDatabase("CinemaDb")
-                    .EnableSensitiveDataLogging()
-                    .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-            });
-
 
             services.AddSwaggerGen(options =>
             {
@@ -77,7 +62,7 @@ namespace ApiApplication
             {
                 endpoints.MapControllers();
                 endpoints.MapGrpcService<ShowtimeService>();
-            
+
             });
 
             SampleData.Initialize(app);

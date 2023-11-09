@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using System;
-using MoviesAggregator.Models;
 using Movies.Aggregator.Domain;
+using MoviesAggregator.Models;
 
 namespace MoviesAggregator.Controllers
 {
@@ -35,7 +31,7 @@ namespace MoviesAggregator.Controllers
                     return BadRequest(ModelState);
                 }
 
-                await _showtimeService.Create(new Movies.Aggregator.Domain.Models.CreateShowTime() { ImdbId=payload.ImdbId, AuditoriumId= payload.AuditoriumId, SessionDate= payload.SessionDate });
+                await _showtimeService.Create(new Movies.Aggregator.Domain.Models.CreateShowTime() { ImdbId = payload.ImdbId, AuditoriumId = payload.AuditoriumId, SessionDate = payload.SessionDate });
 
                 return Created("", payload);
             }

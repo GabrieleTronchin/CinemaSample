@@ -1,10 +1,8 @@
-﻿using ApiApplication.Database.Entities;
+﻿using Cinema.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 
-namespace ApiApplication.Database
+namespace Cinema.Persistence
 {
     public class SampleData
     {

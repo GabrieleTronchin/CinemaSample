@@ -1,10 +1,6 @@
-﻿using ApiApplication.Database.Entities;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cinema.Domain;
 
-namespace ApiApplication.Database.Repositories.Abstractions
+namespace Cinema.Persistence.Repositories.Abstractions
 {
     public interface ITicketsRepository
     {

@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using ShowTimeProto;
 
@@ -24,7 +23,7 @@ namespace Cinema.Client
         //TODO Fix async
         public async Task<responseModel> CreateShowTime(ShowtimeCreationRequest request)
         {
-           return await  _client.CreateShowTimeAsync(request, _metadata);
+            return await _client.CreateShowTimeAsync(request, _metadata);
         }
 
     }

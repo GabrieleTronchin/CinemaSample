@@ -1,7 +1,7 @@
-﻿using ApiApplication.Database.Entities;
+﻿using Cinema.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiApplication.Database
+namespace Cinema.Persistence
 {
     public class CinemaContext : DbContext
     {

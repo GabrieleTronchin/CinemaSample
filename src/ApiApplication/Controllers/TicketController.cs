@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 using System;
-using ApiApplication.Database.Repositories.Abstractions;
-using ApiApplication.Database.Repositories;
+using System.Threading.Tasks;
 
 namespace ApiApplication.Controllers
 {

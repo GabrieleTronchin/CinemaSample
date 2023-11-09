@@ -1,4 +1,4 @@
-﻿namespace ApiApplication.Database.Entities
+﻿namespace Cinema.Domain
 {
     public class SeatEntity
     {

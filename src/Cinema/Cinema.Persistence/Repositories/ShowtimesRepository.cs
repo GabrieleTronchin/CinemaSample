@@ -1,14 +1,9 @@
-﻿using ApiApplication.Database.Entities;
-using ApiApplication.Database.Repositories.Abstractions;
+﻿using Cinema.Domain;
+using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace ApiApplication.Database.Repositories
+namespace Cinema.Persistence.Repositories
 {
     public class ShowtimesRepository : IShowtimesRepository
     {

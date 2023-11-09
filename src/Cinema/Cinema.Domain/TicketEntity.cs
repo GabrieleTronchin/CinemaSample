@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ApiApplication.Database.Entities
+﻿namespace Cinema.Domain
 {
     public class TicketEntity
     {

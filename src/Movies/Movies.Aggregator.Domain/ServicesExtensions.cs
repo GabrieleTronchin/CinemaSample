@@ -1,6 +1,6 @@
-﻿using Movies.Client;
+﻿using Cinema.Client;
 using Microsoft.Extensions.DependencyInjection;
-using Cinema.Client;
+using Movies.Client;
 
 namespace Movies.Aggregator.Domain
 {
