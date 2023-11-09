@@ -31,8 +31,7 @@ namespace ApiApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
-
-                return Created("", payload);
+                throw new NotImplementedException();
             }
             catch (ArgumentNullException e)
             {

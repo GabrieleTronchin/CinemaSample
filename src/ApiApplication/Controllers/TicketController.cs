@@ -3,19 +3,24 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
+using ApiApplication.Database.Repositories.Abstractions;
+using ApiApplication.Database.Repositories;
 
 namespace ApiApplication.Controllers
 {
     [Route("[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class ReservationController : Controller
+    public class TicketController : Controller
     {
         private readonly ILogger<ShowtimeController> _logger;
+        private readonly ITicketsRepository _ticketsRepository;
 
-        public ReservationController(ILogger<ShowtimeController> logger)
+        public TicketController(ILogger<ShowtimeController> logger,
+                                ITicketsRepository ticketsRepository)
         {
             _logger = logger;
+            _ticketsRepository = ticketsRepository;
         }
 
         [HttpPost]
@@ -29,6 +34,7 @@ namespace ApiApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
+                //_ticketsRepository.CreateAsync()
 
                 return Created("", payload);
             }
