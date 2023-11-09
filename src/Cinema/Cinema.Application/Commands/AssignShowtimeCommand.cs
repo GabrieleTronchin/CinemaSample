@@ -1,4 +1,4 @@
-﻿namespace Cinema.Application.Showtime.Commands
+﻿namespace Cinema.Application.Commands
 {
     public class AssignShowtimeCommand
     {
