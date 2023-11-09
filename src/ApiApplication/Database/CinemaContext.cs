@@ -7,7 +7,7 @@ namespace ApiApplication.Database
     {
         public CinemaContext(DbContextOptions<CinemaContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<AuditoriumEntity> Auditoriums { get; set; }

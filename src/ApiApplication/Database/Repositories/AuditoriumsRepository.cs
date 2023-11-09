@@ -1,8 +1,8 @@
 ﻿using ApiApplication.Database.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
 using ApiApplication.Database.Repositories.Abstractions;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ApiApplication.Database.Repositories
 {

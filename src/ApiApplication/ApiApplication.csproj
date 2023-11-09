@@ -16,6 +16,9 @@
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <Protobuf Include="movies.proto" GrpcServices="Client" />
+	<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+	<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>

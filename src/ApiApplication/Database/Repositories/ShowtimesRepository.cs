@@ -1,12 +1,12 @@
 ﻿using ApiApplication.Database.Entities;
+using ApiApplication.Database.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using ApiApplication.Database.Repositories.Abstractions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ApiApplication.Database.Repositories
 {

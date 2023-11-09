@@ -1,7 +1,7 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Grpc.Net.Client;
+﻿using Grpc.Net.Client;
 using ProtoDefinitions;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ApiApplication
 {

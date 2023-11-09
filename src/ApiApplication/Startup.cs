@@ -8,11 +8,14 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace ApiApplication
 {
     public class Startup
     {
+        private Options.SwaggerOptions swaggerOptions = new();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,6 +36,13 @@ namespace ApiApplication
                     .EnableSensitiveDataLogging()
                     .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             });
+
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Cinema", Version = "v1" });
+            });
+
             services.AddControllers();
 
             services.AddHttpClient();
@@ -46,8 +56,20 @@ namespace ApiApplication
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            if (env.IsDevelopment())
+            {
+                Configuration.GetSection("Swagger").Bind(swaggerOptions);
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint(swaggerOptions.Endpoint, swaggerOptions.Name);
+                    options.DocumentTitle = swaggerOptions.Title;
+                    options.RoutePrefix = string.Empty;
 
+                });
+            }
+
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -58,6 +80,6 @@ namespace ApiApplication
             });
 
             SampleData.Initialize(app);
-        }      
+        }
     }
 }
