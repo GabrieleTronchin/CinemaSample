@@ -22,7 +22,7 @@ Opzini di comunicazione:
 1. La ui recupera i dati e li manda via rest al servizio ( accoppiamento UI )
 2. Aggregator prj sincrono (x)
 3. Aggregator prj async => invece di grpc si utilizza un BUS
-4. Accoppiamento con servizio e sidecar container
+4. Accoppiamento con servizio e sidecar container (https://docs.dapr.io/concepts/dapr-services/sidecar/)
 
 
 ### Solution - **Reserve seats**
