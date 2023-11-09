@@ -1,6 +1,4 @@
-﻿using Cinema.Application.Events;
-
-namespace Cinema.Application.Events.Models
+﻿namespace Cinema.Application.Events.Models
 {
     public class BookingConfirmedIntegrationEvent : IntegrationEvent
     {

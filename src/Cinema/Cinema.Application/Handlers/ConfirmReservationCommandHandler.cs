@@ -12,7 +12,7 @@ namespace Cinema.Application.Handlers
 
         }
 
-        public Task<ReserveSeatCommandComplete> Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
+        public async Task<ReserveSeatCommandComplete> Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
