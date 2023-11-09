@@ -1,4 +1,4 @@
-﻿namespace VacationRental.ServiceBus.IntegrationEvents;
+﻿namespace Cinema.Application.Events.Models;
 
 public class RentalUpdateCompletedIntegrationEvent : IntegrationEvent
 {

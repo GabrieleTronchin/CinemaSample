@@ -1,11 +1,11 @@
-﻿using ApiApplication.Models.Showtime;
+﻿using Cinema.Api.Models.Showtime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace ApiApplication.Controllers
+namespace Cinema.Api.Controllers
 {
     [Route("[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

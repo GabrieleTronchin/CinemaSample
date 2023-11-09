@@ -6,7 +6,7 @@ using ShowTimeProto;
 using System;
 using System.Threading.Tasks;
 
-namespace ApiApplication
+namespace Cinema.Api
 {
 
     public class ShowtimeService : ShowTimeApi.ShowTimeApiBase

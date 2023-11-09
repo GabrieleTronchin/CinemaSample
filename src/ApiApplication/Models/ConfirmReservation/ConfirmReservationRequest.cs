@@ -1,4 +1,4 @@
-﻿namespace ApiApplication.Models.ConfirmReservation
+﻿namespace Cinema.Api.Models.ConfirmReservation
 {
     public class ConfirmReservationRequest
     {

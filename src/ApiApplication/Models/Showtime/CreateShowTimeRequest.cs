@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiApplication.Models.Showtime
+namespace Cinema.Api.Models.Showtime
 {
     public class CreateShowTimeRequest
     {

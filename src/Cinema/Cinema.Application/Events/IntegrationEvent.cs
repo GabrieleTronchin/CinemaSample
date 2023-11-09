@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace VacationRental.ServiceBus;
+namespace Cinema.Application.Events;
 
 [ExcludeFromCodeCoverage]
 public abstract class IntegrationEvent
