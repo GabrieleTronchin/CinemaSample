@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ApiApplication.Models
+namespace Cinema.Api.Models.SeatReservation
 {
     public class SeatReservationResponse
     {

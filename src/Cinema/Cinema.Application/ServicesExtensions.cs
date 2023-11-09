@@ -1,6 +1,6 @@
-﻿using Cinema.Persistence;
+﻿using Cinema.Application.Mapper;
+using Cinema.Persistence;
 using Microsoft.Extensions.DependencyInjection;
-using VacationRental.Calendar.Application.Mapper;
 
 namespace Cinema.Application
 {

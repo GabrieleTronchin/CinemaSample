@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
-namespace VacationRental.Calendar.Application.Mapper;
-public interface IAppCalendarMapperAccessor
+namespace Cinema.Application.Mapper;
+public interface IApplicationMapperAccessor
 {
     IMapper AppCalendarMapper { get; }
 }

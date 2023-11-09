@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Cinema.Application.Events.Models;
 using VacationRental.Calendar.Domain;
-using VacationRental.ServiceBus.IntegrationEvents;
 
-namespace VacationRental.Calendar.Application.Mapper;
-public class AppCalendarMapperAccessor : IAppCalendarMapperAccessor
+namespace Cinema.Application.Mapper;
+public class ApplicationMapperAccessor : IApplicationMapperAccessor
 {
-    public AppCalendarMapperAccessor()
+    public ApplicationMapperAccessor()
     {
 
         AppCalendarMapper = new MapperConfiguration(m =>
