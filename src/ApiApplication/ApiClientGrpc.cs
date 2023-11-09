@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using Grpc.Core;
+using Grpc.Net.Client;
 using ProtoDefinitions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,7 +23,12 @@ namespace ApiApplication
                 });
             var client = new MoviesApi.MoviesApiClient(channel);
 
-            var all = await client.GetAllAsync(new Empty());
+            var metadata = new Metadata
+            {
+                { "X-Apikey", "68e5fbda-9ec9-4858-97b2-4a8349764c63" }
+            };
+
+            var all = await client.GetAllAsync(new Empty(), metadata);
             all.Data.TryUnpack<showListResponse>(out var data);
             return data;
         }

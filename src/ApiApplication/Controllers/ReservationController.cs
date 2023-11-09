@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
 
-namespace ISP.TicketConnector.API.Controllers.Buildings
+namespace ApiApplication.Controllers
 {
     [Route("[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

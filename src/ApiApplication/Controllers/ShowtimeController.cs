@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
+using ApiApplication.Models;
 
 namespace ApiApplication.Controllers
 {
@@ -18,25 +19,10 @@ namespace ApiApplication.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
-        {
-            return Ok();
-        }
-
-        [HttpGet("ById/{id:required}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetById([FromRoute] string id)
-        {
-            return Ok();
-        }
-
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] object payload)
+        public async Task<IActionResult> Post([FromBody] CreateShowTime payload)
         {
             try
             {
@@ -45,8 +31,10 @@ namespace ApiApplication.Controllers
                     return BadRequest(ModelState);
                 }
 
+                var testClient = new ApiClientGrpc();
+                var result =  await testClient.GetAll();
 
-                return CreatedAtAction(nameof(GetById), new { id = 1 }, payload);
+                return Created("", result);
             }
             catch (ArgumentNullException e)
             {
@@ -57,58 +45,6 @@ namespace ApiApplication.Controllers
             catch (Exception e)
             {
                 _logger.LogError($"{nameof(Post)}", e);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
-        }
-
-
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        public async Task<IActionResult> Put([FromBody] object payload)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-
-                return AcceptedAtAction(nameof(GetById), new { name = 1 }, payload);
-            }
-            catch (ArgumentNullException e)
-            {
-                _logger.LogError($"{nameof(Put)}", e);
-
-                return StatusCode(StatusCodes.Status400BadRequest, e);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(Put)}", e);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
-        }
-
-        [HttpDelete("{id:required}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromRoute] string id)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(Delete)}", e);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, e);
             }
