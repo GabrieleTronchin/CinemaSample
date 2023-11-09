@@ -1,14 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	
+	
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Cinema.Client\Cinema.Client.csproj" />
-    <ProjectReference Include="..\Movies.Client\Movies.Client.csproj" />
+	  <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+	  <Protobuf Include="showtime.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

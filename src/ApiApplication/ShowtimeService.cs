@@ -3,18 +3,19 @@ using ApiApplication.Database.Entities;
 using ApiApplication.Database.Repositories.Abstractions;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using ShowTimeProto;
 using System;
 using System.Threading.Tasks;
 
-namespace ShowTimeProto
+namespace ApiApplication
 {
 
-    public class ShowtimeServer : ShowTimeApi.ShowTimeApiBase
+    public class ShowtimeService : ShowTimeApi.ShowTimeApiBase
     {
         private readonly IShowtimesRepository _showtimesRepository;
-        private readonly ILogger<ShowtimeServer> _logger;
+        private readonly ILogger<ShowtimeService> _logger;
 
-        public ShowtimeServer(ILogger<ShowtimeServer> logger,IShowtimesRepository showtimesRepository)
+        public ShowtimeService(ILogger<ShowtimeService> logger, IShowtimesRepository showtimesRepository)
         {
             _showtimesRepository = showtimesRepository;
             _logger = logger;
@@ -35,6 +36,7 @@ namespace ShowTimeProto
                         Title = request.Movie.Title,
                         ReleaseDate = request.Movie.ReleaseDate.ToDateTime(),
                         Stars = request.Movie.Stars,
+                 
                     },
                     SessionDate = request.SessionDate.ToDateTime(),
                 };
@@ -48,11 +50,11 @@ namespace ShowTimeProto
             {
                 //TODO Fix return
 
-                _logger.LogError(ex, $"An error occurred at {nameof(ShowtimeServer)}");
-                var errorRetModel = new responseModel() { Success = false  };
+                _logger.LogError(ex, $"An error occurred at {nameof(ShowtimeService)}");
+                var errorRetModel = new responseModel() { Success = false };
                 errorRetModel.Exceptions.Add(new moviesApiException() { Message = ex.Message, StatusCode = 500 });
 
-                return errorRetModel; 
+                return errorRetModel;
             }
 
         }

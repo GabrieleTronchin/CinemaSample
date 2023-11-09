@@ -3,6 +3,7 @@ using ApiApplication.Database.Repositories;
 using ApiApplication.Database.Repositories.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ namespace ApiApplication
             services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
 
             services.AddGrpc();
+           
 
             services.AddDbContext<CinemaContext>(options =>
             {
@@ -74,6 +76,8 @@ namespace ApiApplication
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<ShowtimeService>();
+            
             });
 
             SampleData.Initialize(app);

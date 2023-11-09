@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System;
 using MoviesAggregator.Models;
+using Movies.Aggregator.Domain;
 
 namespace MoviesAggregator.Controllers
 {
@@ -13,10 +14,13 @@ namespace MoviesAggregator.Controllers
     public class ShowtimeController : Controller
     {
         private readonly ILogger<ShowtimeController> _logger;
+        private readonly IShowtimeService _showtimeService;
 
-        public ShowtimeController(ILogger<ShowtimeController> logger)
+        public ShowtimeController(ILogger<ShowtimeController> logger,
+                                  IShowtimeService showtimeService)
         {
             _logger = logger;
+            _showtimeService = showtimeService;
         }
 
 
@@ -31,7 +35,7 @@ namespace MoviesAggregator.Controllers
                     return BadRequest(ModelState);
                 }
 
-
+                await _showtimeService.Create(new Movies.Aggregator.Domain.Models.CreateShowTime() { ImdbId=payload.ImdbId, AuditoriumId= payload.AuditoriumId, SessionDate= payload.SessionDate });
 
                 return Created("", payload);
             }
