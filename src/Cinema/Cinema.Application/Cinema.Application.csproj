@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Showtime\Handlers\" />
-    <Folder Include="Showtime\Mapper\" />
-    <Folder Include="Showtime\Queries\" />
+    <Folder Include="Auditorium\Handlers\" />
+    <Folder Include="Auditorium\Mapper\" />
+    <Folder Include="Auditorium\Queries\" />
   </ItemGroup>
 
 </Project>

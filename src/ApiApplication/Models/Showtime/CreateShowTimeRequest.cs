@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiApplication.Models
+namespace ApiApplication.Models.Showtime
 {
-    public class CreateShowTime
+    public class CreateShowTimeRequest
     {
         [Required]
         public string ImdbId { get; set; }

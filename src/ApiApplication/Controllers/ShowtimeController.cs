@@ -1,4 +1,4 @@
-﻿using ApiApplication.Models;
+﻿using ApiApplication.Models.Showtime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,7 +22,7 @@ namespace ApiApplication.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] CreateShowTime payload)
+        public async Task<IActionResult> Post([FromBody] CreateShowTimeRequest payload)
         {
             try
             {
