@@ -1,6 +1,5 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Domain;
-using Cinema.Persistence.Repositories;
 using Cinema.Persistence.Repositories.Abstractions;
 using MediatR;
 

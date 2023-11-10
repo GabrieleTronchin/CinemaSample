@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cinema.Api.Models.SeatReservation
+﻿namespace Cinema.Api.Models.SeatReservation
 {
     public class Seat
     {

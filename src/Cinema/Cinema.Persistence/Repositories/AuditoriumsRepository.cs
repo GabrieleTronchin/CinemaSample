@@ -44,7 +44,7 @@ namespace Cinema.Persistence.Repositories
             {
                 return await _context.Auditoriums
                                 .Include(x => x.Seats)
-       
+
                                 .ToListAsync(cancel);
             }
 

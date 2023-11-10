@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Cinema.Application.Queries.Auditorium.Models;
+using Cinema.Domain;
 using Auditorium = Cinema.Application.Queries.Auditorium.Models;
 using Showtime = Cinema.Application.Queries.Showtime.Models;
-using Cinema.Domain;
-using Cinema.Application.Queries.Auditorium.Models;
 
 namespace Cinema.Application.Mapper;
 public class ApplicationMapperAccessor : IApplicationMapperAccessor
