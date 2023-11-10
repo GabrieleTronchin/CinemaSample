@@ -19,16 +19,18 @@ namespace Cinema.Persistence.Repositories
             if (filter == null)
             {
                 return await _context.Auditoriums
-                                .Include(x => x.Showtimes)
                                 .Include(x => x.Seats)
+                                .Include(x => x.Showtimes)
+                                .ThenInclude(x => x.Movie)
                                 .ToListAsync(cancel);
             }
 
             return await _context.Auditoriums
-                .Include(x => x.Showtimes)
-                .Include(x => x.Seats)
-                .Where(filter)
-                .ToListAsync(cancel);
+                                .Include(x => x.Seats)
+                                .Include(x => x.Showtimes)
+                                .ThenInclude(x => x.Movie)
+                                .Where(filter)
+                                .ToListAsync(cancel);
         }
 
         public async Task<AuditoriumEntity> GetAsync(int auditoriumId, CancellationToken cancel)

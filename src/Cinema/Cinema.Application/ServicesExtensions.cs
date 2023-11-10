@@ -1,4 +1,5 @@
 ﻿using Cinema.Application.Mapper;
+using Cinema.Application.Queries.Auditorium;
 using Cinema.Application.Queries.Showtime;
 using Cinema.Persistence;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ namespace Cinema.Application
             services.AddSingleton<IApplicationMapperAccessor, ApplicationMapperAccessor>();
 
             services.AddTransient<IShowtimeQueries, ShowtimeQueries>();
+            services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
 
             services.AddPersistence();
             return services;
