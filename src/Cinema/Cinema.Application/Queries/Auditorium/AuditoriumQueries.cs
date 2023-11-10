@@ -26,19 +26,9 @@ namespace Cinema.Application.Queries.Auditorium
 
         public async Task<IEnumerable<AuditoriumReadModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            var allAuditoriums = await _repository.GetAllAsync(null, cancellationToken);
+            //in real word scenario the idea is to compose query using TSQL and Dapper
+            var allAuditoriums = await _repository.GetAllWithAllDependecyAsync(null, cancellationToken);
             var auditoriums = _mapper.AppMapper.Map<List<AuditoriumReadModel>>(allAuditoriums);
-
-            //this is a workaround to fill seat ( in real word scenario the idea is to compose query using TSQL and Dapper
-            foreach (var auditorium in auditoriums)
-            {
-                foreach (var showtime in auditorium.Showtimes)
-                {
-                    //showtime.Seats
-                }
-            }
-
-
             return auditoriums;
         }
     }

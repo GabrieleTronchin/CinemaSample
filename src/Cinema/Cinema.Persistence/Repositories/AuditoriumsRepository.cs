@@ -14,7 +14,7 @@ namespace Cinema.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<AuditoriumEntity>> GetAllAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel)
+        public async Task<IEnumerable<AuditoriumEntity>> GetAllWithAllDependecyAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel)
         {
             if (filter == null)
             {
@@ -22,6 +22,8 @@ namespace Cinema.Persistence.Repositories
                                 .Include(x => x.Seats)
                                 .Include(x => x.Showtimes)
                                 .ThenInclude(x => x.Movie)
+                                 .Include(x => x.Showtimes)
+                                 .ThenInclude(x => x.Tickets)
                                 .ToListAsync(cancel);
             }
 
@@ -29,6 +31,25 @@ namespace Cinema.Persistence.Repositories
                                 .Include(x => x.Seats)
                                 .Include(x => x.Showtimes)
                                 .ThenInclude(x => x.Movie)
+                                 .Include(x => x.Showtimes)
+                                 .ThenInclude(x => x.Tickets)
+                                .Where(filter)
+                                .ToListAsync(cancel);
+        }
+
+
+        public async Task<IEnumerable<AuditoriumEntity>> GetAllAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel)
+        {
+            if (filter == null)
+            {
+                return await _context.Auditoriums
+                                .Include(x => x.Seats)
+       
+                                .ToListAsync(cancel);
+            }
+
+            return await _context.Auditoriums
+                                .Include(x => x.Seats)
                                 .Where(filter)
                                 .ToListAsync(cancel);
         }

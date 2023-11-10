@@ -1,7 +1,9 @@
-﻿namespace Cinema.Api.Models.ConfirmReservation
+﻿using System;
+
+namespace Cinema.Api.Models.ConfirmReservation
 {
     public class ConfirmReservationRequest
     {
-        public string ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
     }
 }
