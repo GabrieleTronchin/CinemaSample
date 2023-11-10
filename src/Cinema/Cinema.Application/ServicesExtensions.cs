@@ -1,5 +1,5 @@
 ﻿using Cinema.Application.Mapper;
-using Cinema.Application.Queries;
+using Cinema.Application.Queries.Showtime;
 using Cinema.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 

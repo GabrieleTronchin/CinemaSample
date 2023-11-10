@@ -1,7 +1,7 @@
 ﻿using Cinema.Api.Mapper;
 using Cinema.Api.Models.Showtime;
 using Cinema.Application.Commands;
-using Cinema.Application.Queries;
+using Cinema.Application.Queries.Showtime;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +77,7 @@ namespace Cinema.Api.Controllers
 
                 var result = await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
 
-                return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+                return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
             }
             catch (ArgumentNullException e)
             {

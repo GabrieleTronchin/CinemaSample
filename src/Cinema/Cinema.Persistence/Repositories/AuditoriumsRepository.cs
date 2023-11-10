@@ -1,6 +1,7 @@
 ﻿using Cinema.Domain;
 using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories
 {
@@ -13,11 +14,31 @@ namespace Cinema.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<AuditoriumEntity>> GetAllAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel)
+        {
+            if (filter == null)
+            {
+                return await _context.Auditoriums
+                                .Include(x => x.Showtimes)
+                                .Include(x => x.Seats)
+                                .ToListAsync(cancel);
+            }
+
+            return await _context.Auditoriums
+                .Include(x => x.Showtimes)
+                .Include(x => x.Seats)
+                .Where(filter)
+                .ToListAsync(cancel);
+        }
+
         public async Task<AuditoriumEntity> GetAsync(int auditoriumId, CancellationToken cancel)
         {
             return await _context.Auditoriums
+                .Include(x => x.Showtimes)
                 .Include(x => x.Seats)
                 .FirstOrDefaultAsync(x => x.Id == auditoriumId, cancel);
         }
+
+
     }
 }

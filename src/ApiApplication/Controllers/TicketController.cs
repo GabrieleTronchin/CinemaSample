@@ -1,4 +1,9 @@
-﻿using Cinema.Persistence.Repositories.Abstractions;
+﻿using Cinema.Api.Mapper;
+using Cinema.Api.Models.ConfirmReservation;
+using Cinema.Api.Models.SeatReservation;
+using Cinema.Application.Commands;
+
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,19 +17,40 @@ namespace Cinema.Api.Controllers
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class TicketController : Controller
     {
-        private readonly ILogger<ShowtimeController> _logger;
-        private readonly ITicketsRepository _ticketsRepository;
+        private readonly ILogger<TicketController> _logger;
+        private readonly IMediator _mediator;
+        private readonly IApiMapperAccessor _mapper;
 
-        public TicketController(ILogger<ShowtimeController> logger,
-                                ITicketsRepository ticketsRepository)
+        public TicketController(ILogger<TicketController> logger,
+                                  IMediator mediator,
+                                  IApiMapperAccessor apiMapperAccessor)
         {
             _logger = logger;
-            _ticketsRepository = ticketsRepository;
+            _mediator = mediator;
+            _mapper = apiMapperAccessor;
         }
 
-        [HttpPost]
+
+
+        [HttpGet("Single/{id:required}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public async Task<IActionResult> GetSingle([FromRoute] int id)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+        }
+
+
+        [HttpPost("Reservation")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] object payload)
+        public async Task<ActionResult<SeatReservationResponse>> PostReservation([FromBody] SeatReservationRequest payload)
         {
             try
             {
@@ -33,19 +59,50 @@ namespace Cinema.Api.Controllers
                     return BadRequest(ModelState);
                 }
 
-                //_ticketsRepository.CreateAsync()
+                var result = await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
 
-                return Created("", payload);
+                return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
             }
             catch (ArgumentNullException e)
             {
-                _logger.LogError($"{nameof(Post)}", e);
+                _logger.LogError($"{nameof(PostReservation)}", e);
 
                 return StatusCode(StatusCodes.Status400BadRequest, e);
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(Post)}", e);
+                _logger.LogError($"{nameof(PostReservation)}", e);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+        }
+
+
+
+        [HttpPost("Buy")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<SeatReservationResponse>> PostBuy([FromBody] ConfirmReservationRequest payload)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
+
+                return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogError($"{nameof(PostReservation)}", e);
+
+                return StatusCode(StatusCodes.Status400BadRequest, e);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{nameof(PostReservation)}", e);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, e);
             }

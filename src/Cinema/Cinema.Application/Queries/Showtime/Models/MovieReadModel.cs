@@ -1,4 +1,4 @@
-﻿namespace Cinema.Application.Queries.Models
+﻿namespace Cinema.Application.Queries.Showtime.Models
 {
     public class MovieReadModel
     {

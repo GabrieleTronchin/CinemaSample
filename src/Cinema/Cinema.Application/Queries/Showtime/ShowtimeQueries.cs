@@ -1,8 +1,8 @@
 ﻿using Cinema.Application.Mapper;
-using Cinema.Application.Queries.Models;
+using Cinema.Application.Queries.Showtime.Models;
 using Cinema.Persistence.Repositories.Abstractions;
 
-namespace Cinema.Application.Queries
+namespace Cinema.Application.Queries.Showtime
 {
     public class ShowtimeQueries : IShowtimeQueries
     {
@@ -16,13 +16,13 @@ namespace Cinema.Application.Queries
             _applicationMapperAccessor = applicationMapperAccessor;
         }
 
-        public async Task<IEnumerable<ShowTimeReadModel>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<ShowTimeReadModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var showtimes = await _showtimesRepository.GetAllAsync(null, cancellationToken);
             return _applicationMapperAccessor.AppMapper.Map<IEnumerable<ShowTimeReadModel>>(showtimes);
         }
 
-        public async Task<ShowTimeReadModel?> GetSingleAsync(int id, CancellationToken cancellationToken)
+        public async Task<ShowTimeReadModel?> GetSingleAsync(int id, CancellationToken cancellationToken = default)
         {
             var showtime = await _showtimesRepository.GetWithMoviesByIdAsync(id, cancellationToken);
 
