@@ -20,22 +20,28 @@ namespace Cinema.Application.Handlers
 
         public async Task<ReservationComplete> Handle(ReservationCommand request, CancellationToken cancellationToken)
         {
+
+
+
             //-It should not be possible to reserve the same seats two times in 10 minutes.
             //- It shouldn't be possible to reserve an already sold seat.
             //- All the seats, when doing a reservation, need to be contiguous.
-            var showtimeWithTicket = await _showtimesRepository.GetWithTicketsByIdAsync(request.ShowtimeId, cancellationToken);
+            
+            throw new NotImplementedException();
 
-            var seat2Book = request.Seats.Select(x => new SeatEntity() { Row = x.Row, SeatNumber = x.SeatsNumber, AuditoriumId = request.AuditoriumId });
+            //var showtimeWithTicket = await _showtimesRepository.GetWithTicketsByIdAsync(request.ShowtimeId, cancellationToken);
 
-            var createdTicket = await _ticketsRepository.CreateAsync(showtimeWithTicket, seat2Book, cancellationToken);
+            //var seat2Book = request.Seats.Select(x => new SeatEntity() { Row = x.Row, SeatNumber = x.SeatsNumber, AuditoriumId = request.AuditoriumId });
 
-            return new ReservationComplete()
-            {
-                AuditoriumId = showtimeWithTicket.AuditoriumId,
-                MovieTitle = showtimeWithTicket.Movie.Title,
-                Id = createdTicket.Id,
-                SeatsNumber = request.Seats
-            };
+            //var createdTicket = await _ticketsRepository.CreateAsync(showtimeWithTicket, seat2Book, cancellationToken);
+
+            //return new ReservationComplete()
+            //{
+            //    AuditoriumId = showtimeWithTicket.AuditoriumId,
+            //    MovieTitle = showtimeWithTicket.Movie.Title,
+            //    Id = createdTicket.Id,
+            //    SeatsNumber = request.Seats
+            //};
         }
 
     }

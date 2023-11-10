@@ -1,4 +1,4 @@
-﻿using Cinema.Domain;
+﻿using Cinema.Domain.AuditoriumDefinition;
 using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories.Abstractions

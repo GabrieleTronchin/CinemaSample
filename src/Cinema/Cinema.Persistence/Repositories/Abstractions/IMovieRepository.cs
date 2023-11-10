@@ -1,4 +1,4 @@
-﻿using Cinema.Domain;
+﻿using Cinema.Domain.Showtime;
 
 namespace Cinema.Persistence.Repositories.Abstractions
 {

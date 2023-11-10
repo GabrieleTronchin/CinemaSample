@@ -1,4 +1,4 @@
-﻿using Cinema.Domain;
+﻿using Cinema.Domain.AuditoriumDefinition;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence

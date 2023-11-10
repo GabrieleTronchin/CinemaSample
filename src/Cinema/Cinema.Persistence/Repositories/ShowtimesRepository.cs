@@ -1,4 +1,5 @@
 ﻿using Cinema.Domain;
+using Cinema.Domain.NewFolder;
 using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -44,9 +45,10 @@ namespace Cinema.Persistence.Repositories
 
         public async Task<ShowtimeEntity> CreateShowtime(ShowtimeEntity showtimeEntity, CancellationToken cancel)
         {
-            var showtime = await _context.Showtimes.AddAsync(showtimeEntity, cancel);
-            await _context.SaveChangesAsync(cancel);
-            return showtime.Entity;
+            throw new NotImplementedException();
+            //var showtime = await _context.Showtimes.AddAsync(showtimeEntity, cancel);
+            //await _context.SaveChangesAsync(cancel);
+            //return showtime.Entity;
         }
     }
 }
