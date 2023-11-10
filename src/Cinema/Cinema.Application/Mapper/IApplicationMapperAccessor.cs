@@ -3,5 +3,5 @@
 namespace Cinema.Application.Mapper;
 public interface IApplicationMapperAccessor
 {
-    IMapper AppCalendarMapper { get; }
+    IMapper AppMapper { get; }
 }

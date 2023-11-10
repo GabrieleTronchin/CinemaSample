@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cinema.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("v1/[controller]")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class TicketController : Controller

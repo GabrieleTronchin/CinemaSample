@@ -1,3 +1,4 @@
+using Cinema.Api.Mapper;
 using Cinema.Application;
 using Cinema.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,8 @@ namespace Cinema.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IApiMapperAccessor, ApiMapperAccessor>();
+
             services.AddApplication();
 
             services.AddGrpc();

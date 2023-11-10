@@ -6,13 +6,13 @@ public class ApplicationMapperAccessor : IApplicationMapperAccessor
     public ApplicationMapperAccessor()
     {
 
-        AppCalendarMapper = new MapperConfiguration(m =>
+        AppMapper = new MapperConfiguration(m =>
         {
 
         }).CreateMapper();
 
     }
 
-    public IMapper AppCalendarMapper { get; }
+    public IMapper AppMapper { get; }
 
 }

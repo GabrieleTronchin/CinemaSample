@@ -1,6 +1,7 @@
-﻿using Cinema.Domain;
-using Cinema.Persistence.Repositories.Abstractions;
+﻿using Cinema.Api.Mapper;
+using Cinema.Application.Commands;
 using Grpc.Core;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using ShowTimeProto;
 using System;
@@ -11,54 +12,40 @@ namespace Cinema.Api
 
     public class ShowtimeService : ShowTimeApi.ShowTimeApiBase
     {
-        private readonly IShowtimesRepository _showtimesRepository;
         private readonly ILogger<ShowtimeService> _logger;
+        private readonly IMediator _mediator;
+        private readonly IApiMapperAccessor _mapper;
 
-        public ShowtimeService(ILogger<ShowtimeService> logger, IShowtimesRepository showtimesRepository)
+        public ShowtimeService(ILogger<ShowtimeService> logger,
+                               IMediator mediator,
+                               IApiMapperAccessor apiMapperAccessor)
         {
-            _showtimesRepository = showtimesRepository;
             _logger = logger;
+            _mediator = mediator;
+            _mapper = apiMapperAccessor;
         }
 
         public override async Task<responseModel> CreateShowTime(ShowtimeCreationRequest request, ServerCallContext context)
         {
             try
             {
-                //TODO refactor completly move on a single domain model and add also a API
+                _logger.LogDebug("New Request received on {grpcServiceName}", nameof(ShowtimeService));
 
-                ShowtimeEntity showtimeEntity = new()
-                {
-                    AuditoriumId = request.AuditoriumId,
-                    Movie = new MovieEntity()
-                    {
-                        ImdbId = request.Movie.ImdbId,
-                        Title = request.Movie.Title,
-                        ReleaseDate = request.Movie.ReleaseDate.ToDateTime(),
-                        Stars = request.Movie.Stars,
+                await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(request));
 
-                    },
-                    SessionDate = request.SessionDate.ToDateTime(),
-                };
-                var t = context.CancellationToken;
 
-                var ret = await _showtimesRepository.CreateShowtime(showtimeEntity, t);
+                _logger.LogDebug("Request completed {grpcServiceName}", nameof(ShowtimeService));
 
-                return new responseModel() { Success = true }; //TODO Fix return
+                return new responseModel() { Success = true };
             }
             catch (Exception ex)
             {
-                //TODO Fix return
-
-                _logger.LogError(ex, $"An error occurred at {nameof(ShowtimeService)}");
+                _logger.LogError(ex, "An error occurred at {grpcServiceName}", nameof(ShowtimeService));
                 var errorRetModel = new responseModel() { Success = false };
                 errorRetModel.Exceptions.Add(new moviesApiException() { Message = ex.Message, StatusCode = 500 });
-
                 return errorRetModel;
             }
-
         }
-
-
     }
 
 }

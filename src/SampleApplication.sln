@@ -27,9 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3EBC81
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cinema", "Cinema", "{B24BF83A-81D1-4BC2-971E-EAB41401CDB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Persistence", "Cinema\Cinema.Persistence\Cinema.Persistence.csproj", "{0C571608-EDA2-470E-A75B-8A52761CC719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Persistence", "Cinema\Cinema.Persistence\Cinema.Persistence.csproj", "{0C571608-EDA2-470E-A75B-8A52761CC719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Application", "Cinema\Cinema.Application\Cinema.Application.csproj", "{8FE6AC1A-D94A-4D29-A47C-26AE1315AC76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Application", "Cinema\Cinema.Application\Cinema.Application.csproj", "{8FE6AC1A-D94A-4D29-A47C-26AE1315AC76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain", "Cinema\Cinema.Domain\Cinema.Domain.csproj", "{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB}"
 EndProject

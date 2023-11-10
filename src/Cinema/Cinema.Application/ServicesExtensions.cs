@@ -1,4 +1,5 @@
 ﻿using Cinema.Application.Mapper;
+using Cinema.Application.Queries;
 using Cinema.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,9 @@ namespace Cinema.Application
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
             services.AddSingleton<IApplicationMapperAccessor, ApplicationMapperAccessor>();
+
+            services.AddTransient<IShowtimeQueries, ShowtimeQueries>();
+
             services.AddPersistence();
             return services;
         }
