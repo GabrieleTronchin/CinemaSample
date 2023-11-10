@@ -48,9 +48,9 @@ namespace Cinema.Api.Controllers
         }
 
 
-        [HttpPost("Reservation")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<SeatReservationResponse>> PostReservation([FromBody] SeatReservationRequest payload)
+        public async Task<ActionResult<SeatReservationResponse>> Post([FromBody] SeatReservationRequest payload)
         {
             try
             {
@@ -59,19 +59,19 @@ namespace Cinema.Api.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
+                var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
 
                 return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
             }
             catch (ArgumentNullException e)
             {
-                _logger.LogError($"{nameof(PostReservation)}", e);
+                _logger.LogError($"{nameof(Post)}", e);
 
                 return StatusCode(StatusCodes.Status400BadRequest, e);
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(PostReservation)}", e);
+                _logger.LogError($"{nameof(Post)}", e);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, e);
             }
@@ -79,9 +79,9 @@ namespace Cinema.Api.Controllers
 
 
 
-        [HttpPost("Buy")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<SeatReservationResponse>> PostBuy([FromBody] ConfirmReservationRequest payload)
+        public async Task<ActionResult<SeatReservationResponse>> Put([FromBody] ConfirmReservationRequest payload)
         {
             try
             {
@@ -90,19 +90,24 @@ namespace Cinema.Api.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var result = await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
+                var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
 
-                return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
+                if (!result.Success)
+                    throw new InvalidOperationException("An error occurred completing your payment.");
+                
+                
+                return Accepted();
+
             }
             catch (ArgumentNullException e)
             {
-                _logger.LogError($"{nameof(PostReservation)}", e);
+                _logger.LogError($"{nameof(Put)}", e);
 
                 return StatusCode(StatusCodes.Status400BadRequest, e);
             }
             catch (Exception e)
             {
-                _logger.LogError($"{nameof(PostReservation)}", e);
+                _logger.LogError($"{nameof(Put)}", e);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, e);
             }

@@ -4,6 +4,7 @@ namespace Cinema.Application.Commands
 {
     public class ReservationCommand : IRequest<ReservationComplete>
     {
+        public Guid Id { get; set; }
         public int ShowtimeId { get; set; }
         public IEnumerable<Seat> Seats { get; set; }
         public int AuditoriumId { get; set; }

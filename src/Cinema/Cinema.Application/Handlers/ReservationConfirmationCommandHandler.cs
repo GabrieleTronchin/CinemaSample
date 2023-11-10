@@ -21,6 +21,10 @@ namespace Cinema.Application.Handlers
 
                 //Add  saga pattern
 
+                //-We will need the GUID of the reservation, it is only possible to do it while the seats are reserved.
+                //- It is not possible to buy two times the same seat.
+                //-We are not going to use a Payment abstraction for this case, just have an Endpoint which I can Confirm a Reservation.
+
                 await _ticketsRepository.ConfirmPaymentAsync(ticket2Confirm, cancellationToken);
 
                 return new ReservationConfirmationComplete() { Success = true };
