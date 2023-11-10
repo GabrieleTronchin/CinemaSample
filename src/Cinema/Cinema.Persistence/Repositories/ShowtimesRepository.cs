@@ -1,5 +1,5 @@
 ﻿using Cinema.Domain;
-using Cinema.Domain.NewFolder;
+using Cinema.Domain.Showtime;
 using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

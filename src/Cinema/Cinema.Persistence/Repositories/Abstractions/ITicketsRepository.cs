@@ -2,7 +2,7 @@
 
 using Cinema.Domain;
 using Cinema.Domain.AuditoriumDefinition;
-using Cinema.Domain.NewFolder;
+using Cinema.Domain.Showtime;
 using Cinema.Domain.Ticket;
 
 namespace Cinema.Persistence.Repositories.Abstractions
