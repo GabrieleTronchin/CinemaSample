@@ -22,9 +22,11 @@
             return ticket;
         }
 
-        public void ConfirmPaymentAsync()
+        public void ConfirmPayment()
         {
             if (this.Paid) throw new InvalidOperationException("It's already paid.");
+
+            //TODO Add domain notification
 
             this.Paid = true;
         }

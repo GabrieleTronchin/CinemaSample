@@ -2,8 +2,6 @@
 using Cinema.Application.Mapper;
 using Cinema.Domain.AuditoriumDefinition.Repository;
 using Cinema.Domain.Showtime;
-using Cinema.Domain.Showtime.Repository;
-using Cinema.Persistence.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -12,19 +10,13 @@ namespace Cinema.Application.Handlers
     public class CreateShowtimeCommandHandler : IRequestHandler<CreateShowtimeCommand, CreateShowtimeCommandComplete>
     {
         private readonly ILogger<CreateShowtimeCommandHandler> _logger;
-        private readonly IShowtimesRepository _showtimesRepository;
         private readonly IAuditoriumRepository _auditoriumRepository;
-        private readonly IApplicationMapperAccessor _applicationMapperAccessor;
 
         public CreateShowtimeCommandHandler(ILogger<CreateShowtimeCommandHandler> logger,
-                                            IApplicationMapperAccessor applicationMapperAccessor,
-                                            IShowtimesRepository showtimesRepository,
                                             IAuditoriumRepository auditoriumRepository)
         {
             _logger = logger;
-            _showtimesRepository = showtimesRepository;
             _auditoriumRepository = auditoriumRepository;
-            _applicationMapperAccessor = applicationMapperAccessor;
         }
 
         public async Task<CreateShowtimeCommandComplete> Handle(CreateShowtimeCommand request, CancellationToken cancellationToken)

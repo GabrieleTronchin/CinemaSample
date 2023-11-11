@@ -18,16 +18,16 @@ public class ShowtimeEntity
         };
     }
 
-    public static void ReserveSeats(IEnumerable<ShowtimeSeatEntity> showtimeSeats)
+    public void ReserveSeats(IEnumerable<Seat> seats)
     {
 
         //Contiguous for same row?
-        var seatsRow = showtimeSeats.First().Seat.RowNumber;
-        if (!showtimeSeats.Select(x => x.Seat).All(x => x.RowNumber == seatsRow))
+        var seatsRow = seats.First().RowNumber;
+        if (!seats.All(x => x.RowNumber == seatsRow))
             throw new InvalidOperationException("Just select seats from a single row");
 
 
-        var seatNumbers = showtimeSeats.Select(x => x.Seat).Select(x => x.SeatNumber).ToArray();
+        var seatNumbers = seats.Select(x => x.SeatNumber).ToArray();
         Array.Sort(seatNumbers);
 
         for (int i = 1; i < seatNumbers.Length; i++)
@@ -35,14 +35,19 @@ public class ShowtimeEntity
                 throw new InvalidOperationException("Seat numbers not contiguous");
 
 
-        foreach (var seat in showtimeSeats)
-            seat.SetReserved();
+        foreach (var seat in seats)
+        {
+            Seats.Single(x => x.Seat.RowNumber == seat.RowNumber
+                          && x.Seat.SeatNumber == seat.SeatNumber).SetReserved();
+
+        }
+
 
     }
 
     public Guid Id { get; private set; }
     public int AuditoriumId { get; private set; }
-    public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; } = Enumerable.Empty<ShowtimeSeatEntity>();
+    public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; }
 
     public Guid MovieId { get; private set; }
     public MovieEntity Movie { get; private set; }
