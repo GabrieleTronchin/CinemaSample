@@ -1,8 +1,6 @@
-﻿
+﻿using Cinema.Domain.Showtime;
 
-using Cinema.Domain.Showtime;
-
-namespace Cinema.Persistence.Configuration.AuditoriumDefinition;
+namespace Cinema.Persistence.Configuration.Showtime;
 
 internal class ShowtimeConfiguration : IEntityTypeConfiguration<ShowtimeEntity>
 {

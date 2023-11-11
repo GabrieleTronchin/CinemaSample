@@ -23,6 +23,6 @@ namespace Cinema.Application.Commands
 
     public record AssignShowtimeCommandComplete
     {
-        public int? Id { get; set; }
+        public Guid? Id { get; set; }
     }
 }

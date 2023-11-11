@@ -1,10 +1,8 @@
-﻿
-
-using Cinema.Domain;
+﻿using Cinema.Domain;
 using Cinema.Domain.Showtime;
 using System.Text.Json;
 
-namespace Cinema.Persistence.Configuration.AuditoriumDefinition;
+namespace Cinema.Persistence.Configuration.Showtime;
 
 internal class ShowtimeSeatConfiguration : IEntityTypeConfiguration<ShowtimeSeatEntity>
 {

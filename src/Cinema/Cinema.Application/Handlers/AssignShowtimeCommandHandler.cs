@@ -12,17 +12,14 @@ namespace Cinema.Application.Handlers
         private readonly ILogger<AssignShowtimeCommandHandler> _logger;
         private readonly IShowtimesRepository _showtimesRepository;
         private readonly IApplicationMapperAccessor _applicationMapperAccessor;
-        private readonly IMovieRepository _movieRepository;
 
         public AssignShowtimeCommandHandler(ILogger<AssignShowtimeCommandHandler> logger,
                                             IApplicationMapperAccessor applicationMapperAccessor,
-                                            IShowtimesRepository showtimesRepository,
-                                            IMovieRepository movieRepository)
+                                            IShowtimesRepository showtimesRepository)
         {
             _logger = logger;
             _showtimesRepository = showtimesRepository;
             _applicationMapperAccessor = applicationMapperAccessor;
-            _movieRepository = movieRepository;
         }
 
         public async Task<AssignShowtimeCommandComplete> Handle(AssignShowtimeCommand request, CancellationToken cancellationToken)
@@ -33,17 +30,17 @@ namespace Cinema.Application.Handlers
 
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var showtimeEntity = _applicationMapperAccessor.AppMapper.Map<ShowtimeEntity>(request);
+                //var showtimeEntity = _applicationMapperAccessor.AppMapper.Map<ShowtimeEntity>(request);
 
-                var movie = await _movieRepository.GetByExternalId(showtimeEntity.Movie.ImdbId, cancellationToken);
+                //var movie = await _movieRepository.GetByExternalId(showtimeEntity.Movie.ImdbId, cancellationToken);
 
-                if (movie == null) await _movieRepository.CreateAsync(showtimeEntity.Movie, cancellationToken);
+                //if (movie == null) await _movieRepository.CreateAsync(showtimeEntity.Movie, cancellationToken);
 
-                var createdShowTime = await _showtimesRepository.CreateShowtime(showtimeEntity, cancellationToken);
+                //var createdShowTime = await _showtimesRepository.CreateShowtime(showtimeEntity, cancellationToken);
 
-                _logger.LogDebug("A event has been handle on '{CommandHandler}'", nameof(AssignShowtimeCommandHandler));
+                //_logger.LogDebug("A event has been handle on '{CommandHandler}'", nameof(AssignShowtimeCommandHandler));
 
-                return new AssignShowtimeCommandComplete() { Id = createdShowTime.Id };
+                return new AssignShowtimeCommandComplete() { Id = Guid.NewGuid() };
             }
             catch (Exception ex)
             {

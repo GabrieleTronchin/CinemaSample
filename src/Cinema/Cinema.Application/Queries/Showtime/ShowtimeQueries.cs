@@ -22,9 +22,9 @@ namespace Cinema.Application.Queries.Showtime
             return _applicationMapperAccessor.AppMapper.Map<IEnumerable<ShowTimeReadModel>>(showtimes);
         }
 
-        public async Task<ShowTimeReadModel?> GetSingleAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<ShowTimeReadModel?> GetSingleAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var showtime = await _showtimesRepository.GetWithMoviesByIdAsync(id, cancellationToken);
+            var showtime = await _showtimesRepository.GetAsync(id, cancellationToken);
 
             return _applicationMapperAccessor.AppMapper.Map<ShowTimeReadModel>(showtime);
         }

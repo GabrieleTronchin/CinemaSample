@@ -25,7 +25,7 @@ namespace Cinema.Application.Handlers
                 //- It is not possible to buy two times the same seat.
                 //-We are not going to use a Payment abstraction for this case, just have an Endpoint which I can Confirm a Reservation.
 
-                await _ticketsRepository.ConfirmPaymentAsync(ticket2Confirm, cancellationToken);
+                //await _ticketsRepository.ConfirmPaymentAsync(ticket2Confirm, cancellationToken);
 
                 return new ReservationConfirmationComplete() { Success = true };
             }

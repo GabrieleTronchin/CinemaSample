@@ -13,19 +13,14 @@ namespace Cinema.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<ShowtimeEntity> GetWithMoviesByIdAsync(int id, CancellationToken cancel)
+        public async Task<ShowtimeEntity> GetAsync(Guid id, CancellationToken cancel)
         {
             return await _context.Showtimes
                 .Include(x => x.Movie)
-                .FirstOrDefaultAsync(x => x.Id == id, cancel);
+                 .Include(x => x.Seats)
+                .SingleOrDefaultAsync(x => x.Id == id, cancel);
         }
 
-        public async Task<ShowtimeEntity> GetWithTicketsByIdAsync(int id, CancellationToken cancel)
-        {
-            return await _context.Showtimes
-                .Include(x => x.Tickets)
-                .FirstOrDefaultAsync(x => x.Id == id, cancel);
-        }
 
         public async Task<IEnumerable<ShowtimeEntity>> GetAllAsync(Expression<Func<ShowtimeEntity, bool>> filter, CancellationToken cancel)
         {
@@ -33,10 +28,12 @@ namespace Cinema.Persistence.Repositories
             {
                 return await _context.Showtimes
                 .Include(x => x.Movie)
+                .Include(x => x.Seats)
                 .ToListAsync(cancel);
             }
             return await _context.Showtimes
                 .Include(x => x.Movie)
+                .Include(x => x.Seats)
                 .Where(filter)
                 .ToListAsync(cancel);
         }
@@ -44,9 +41,6 @@ namespace Cinema.Persistence.Repositories
         public async Task<ShowtimeEntity> CreateShowtime(ShowtimeEntity showtimeEntity, CancellationToken cancel)
         {
             throw new NotImplementedException();
-            //var showtime = await _context.Showtimes.AddAsync(showtimeEntity, cancel);
-            //await _context.SaveChangesAsync(cancel);
-            //return showtime.Entity;
         }
     }
 }

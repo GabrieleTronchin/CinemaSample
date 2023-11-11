@@ -5,6 +5,6 @@ namespace Cinema.Application.Queries.Showtime
     public interface IShowtimeQueries
     {
         Task<IEnumerable<ShowTimeReadModel>> GetAllAsync(CancellationToken cancellationToken = default);
-        Task<ShowTimeReadModel?> GetSingleAsync(int id, CancellationToken cancellationToken = default);
+        Task<ShowTimeReadModel?> GetSingleAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

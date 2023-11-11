@@ -37,7 +37,7 @@ namespace Cinema.Api.Controllers
         [HttpGet("Single/{id:required}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<IActionResult> GetSingle([FromRoute] int id)
+        public async Task<IActionResult> GetSingle([FromRoute] Guid id)
         {
             try
             {

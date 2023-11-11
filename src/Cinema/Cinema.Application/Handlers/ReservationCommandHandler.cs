@@ -1,6 +1,6 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Domain.Showtime.Repository;
-using Cinema.Persistence.Repositories.Abstractions;
+using Cinema.Domain.Ticket.Repository;
 using MediatR;
 
 namespace Cinema.Application.Handlers

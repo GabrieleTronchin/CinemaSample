@@ -1,10 +1,8 @@
-﻿
-
-using Cinema.Domain;
+﻿using Cinema.Domain;
 using Cinema.Domain.Ticket;
 using System.Text.Json;
 
-namespace Cinema.Persistence.Configuration.AuditoriumDefinition;
+namespace Cinema.Persistence.Configuration.Ticket;
 
 internal class TicketConfiguration : IEntityTypeConfiguration<TicketEntity>
 {

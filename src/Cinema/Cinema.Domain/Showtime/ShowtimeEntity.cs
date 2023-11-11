@@ -43,7 +43,7 @@ public class ShowtimeEntity
     }
 
     public Guid Id { get; private set; }
-    public Guid AuditoriumId { get; private set; }
+    public int AuditoriumId { get; private set; }
     public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; } = Enumerable.Empty<ShowtimeSeatEntity>();
 
     public Guid MovieId { get; private set; }

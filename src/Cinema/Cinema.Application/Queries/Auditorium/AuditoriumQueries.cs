@@ -27,7 +27,7 @@ namespace Cinema.Application.Queries.Auditorium
         public async Task<IEnumerable<AuditoriumReadModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             //in real word scenario the idea is to compose query using TSQL and Dapper
-            var allAuditoriums = await _repository.GetAllWithAllDependecyAsync(null, cancellationToken);
+            var allAuditoriums = await _repository.GetAllAsync(null, cancellationToken);
             var auditoriums = _mapper.AppMapper.Map<List<AuditoriumReadModel>>(allAuditoriums);
             return auditoriums;
         }
