@@ -1,4 +1,6 @@
-﻿namespace Cinema.Application.Queries.Auditorium.Models
+﻿using Cinema.Application.Queries.Auditorium.Models;
+
+namespace Cinema.Application.Queries
 {
     public class ShowTimeReadModel
     {

@@ -4,6 +4,9 @@ using Cinema.Domain.AuditoriumDefinition.Repository;
 
 namespace Cinema.Application.Queries.Auditorium
 {
+    /// <summary>
+    /// Just a sample of read model
+    /// </summary>
     public class AuditoriumQueries : IAuditoriumQueries
     {
         private readonly IAuditoriumRepository _repository;
@@ -28,8 +31,16 @@ namespace Cinema.Application.Queries.Auditorium
         {
             //in real word scenario the idea is to compose query using TSQL and Dapper
             var allAuditoriums = await _repository.GetAllAsync(null, cancellationToken);
-            var auditoriums = _mapper.AppMapper.Map<List<AuditoriumReadModel>>(allAuditoriums);
-            return auditoriums;
+
+            var readModelAuditorium = new List<AuditoriumReadModel>();
+
+            foreach (var item in allAuditoriums)
+            {
+                var seats = item.Seats.Select(s => new SeatReadModel() { Row = s.RowNumber, SeatNumber = s.SeatNumber });
+                readModelAuditorium.Add(new AuditoriumReadModel() { Id = item.Id, Seats= seats });
+            }
+
+            return readModelAuditorium;
         }
     }
 }

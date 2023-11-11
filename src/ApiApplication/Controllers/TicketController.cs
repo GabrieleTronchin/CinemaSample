@@ -32,21 +32,6 @@ namespace Cinema.Api.Controllers
 
 
 
-        [HttpGet("Single/{id:required}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-
-        public async Task<IActionResult> GetSingle([FromRoute] int id)
-        {
-            try
-            {
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
-        }
-
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -61,7 +46,8 @@ namespace Cinema.Api.Controllers
 
                 var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
 
-                return CreatedAtAction(nameof(GetSingle), new { id = result.Id }, result);
+                return StatusCode(StatusCodes.Status201Created, result);
+
             }
             catch (ArgumentNullException e)
             {
@@ -94,9 +80,9 @@ namespace Cinema.Api.Controllers
 
                 if (!result.Success)
                     throw new InvalidOperationException("An error occurred completing your payment.");
+                
 
-
-                return Accepted();
+                return StatusCode(StatusCodes.Status202Accepted);
 
             }
             catch (ArgumentNullException e)
