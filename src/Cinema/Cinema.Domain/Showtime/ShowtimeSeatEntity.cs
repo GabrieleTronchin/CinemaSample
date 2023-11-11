@@ -1,6 +1,4 @@
-﻿using Cinema.Domain.AuditoriumDefinition;
-
-namespace Cinema.Domain.Showtime;
+﻿namespace Cinema.Domain.Showtime;
 public class ShowtimeSeatEntity
 {
     const short DEFAULT_COOLDOWN = 10;

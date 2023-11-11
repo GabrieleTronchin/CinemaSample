@@ -2,10 +2,10 @@
 
 namespace Cinema.Persistence;
 
-    public class SampleData
+public class SampleData
+{
+    public static void Initialize(IApplicationBuilder app)
     {
-        public static void Initialize(IApplicationBuilder app)
-        {
         using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
         var context = serviceScope.ServiceProvider.GetService<CinemaDbContext>();
         context.Database.EnsureCreated();
@@ -22,8 +22,8 @@ namespace Cinema.Persistence;
         var seats = new List<Seat>();
         for (short r = 1; r <= rows; r++)
             for (short s = 1; s <= seatsPerRow; s++)
-                seats.Add(new Seat(r, s ));
+                seats.Add(new Seat(r, s));
         return seats;
     }
 }
-    
+

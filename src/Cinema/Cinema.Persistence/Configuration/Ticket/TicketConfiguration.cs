@@ -1,6 +1,4 @@
-﻿using Cinema.Domain;
-using Cinema.Domain.Ticket;
-using System.Text.Json;
+﻿using Cinema.Domain.Ticket;
 
 namespace Cinema.Persistence.Configuration.Ticket;
 

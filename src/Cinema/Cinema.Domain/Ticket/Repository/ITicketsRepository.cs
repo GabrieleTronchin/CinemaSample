@@ -1,6 +1,4 @@
-﻿using Cinema.Domain.Showtime;
-
-namespace Cinema.Domain.Ticket.Repository
+﻿namespace Cinema.Domain.Ticket.Repository
 {
     public interface ITicketsRepository
     {

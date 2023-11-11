@@ -1,5 +1,4 @@
-﻿using Cinema.Domain.Showtime;
-using Cinema.Domain.Ticket;
+﻿using Cinema.Domain.Ticket;
 using Cinema.Domain.Ticket.Repository;
 
 namespace Cinema.Persistence.Repositories

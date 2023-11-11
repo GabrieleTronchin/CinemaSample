@@ -1,11 +1,4 @@
-﻿
-
-using Cinema.Domain;
-using Cinema.Domain.AuditoriumDefinition;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
-
-namespace Cinema.Persistence.Configuration.AuditoriumDefinition;
+﻿namespace Cinema.Persistence.Configuration.AuditoriumDefinition;
 
 internal class AuditoriumConfiguration : IEntityTypeConfiguration<AuditoriumEntity>
 {

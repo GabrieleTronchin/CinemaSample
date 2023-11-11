@@ -1,6 +1,4 @@
-﻿using Cinema.Domain.Showtime;
-
-namespace Cinema.Domain.AuditoriumDefinition;
+﻿namespace Cinema.Domain.AuditoriumDefinition;
 public class AuditoriumEntity
 {
     public static AuditoriumEntity Create(int Id, ICollection<Seat> seats)

@@ -3,7 +3,6 @@ using Cinema.Domain.Showtime.Repository;
 using Cinema.Domain.Ticket.Repository;
 using Cinema.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.Persistence
 {
