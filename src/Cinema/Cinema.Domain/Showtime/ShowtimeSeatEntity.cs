@@ -5,7 +5,8 @@ public class ShowtimeSeatEntity
 
     public static ShowtimeSeatEntity Create(Seat seat)
     {
-        return new ShowtimeSeatEntity {
+        return new ShowtimeSeatEntity
+        {
             Id = Guid.NewGuid(),
             ReservationCooldown = TimeSpan.FromMinutes(DEFAULT_COOLDOWN),
             Purchased = false,
@@ -15,9 +16,11 @@ public class ShowtimeSeatEntity
     }
 
 
-    public void SetReserved() {
-        if (Purchased) throw new InvalidOperationException("Already sold.");
-        
+    public void SetReserved()
+    {
+        if (Purchased)
+            throw new InvalidOperationException("Already sold.");
+
         if (DateTime.UtcNow >= DateTime.UtcNow.Add(ReservationCooldown))
             throw new InvalidOperationException("Reserved.");
 

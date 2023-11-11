@@ -2,14 +2,16 @@
 {
     public class TicketEntity
     {
-        public static TicketEntity Create(IEnumerable<Seat> seats, int showtimeId, string movieTile) {
+        public static TicketEntity Create(IEnumerable<Seat> seats, int showtimeId, string movieTile)
+        {
 
             if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
 
             if (string.IsNullOrWhiteSpace(movieTile)) throw new ArgumentException($"Invalid {movieTile}");
 
-            var ticket = new TicketEntity {
-                Id=Guid.NewGuid(),
+            var ticket = new TicketEntity
+            {
+                Id = Guid.NewGuid(),
                 CreatedTime = DateTime.Now,
                 Paid = false,
                 Seats = seats,
@@ -19,7 +21,8 @@
             return ticket;
         }
 
-        public void ConfirmPaymentAsync() {
+        public void ConfirmPaymentAsync()
+        {
             if (this.Paid) throw new InvalidOperationException("It's already paid.");
 
             this.Paid = true;

@@ -1,5 +1,4 @@
-﻿using Cinema.Domain;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.Persistence

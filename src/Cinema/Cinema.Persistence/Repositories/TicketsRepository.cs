@@ -1,5 +1,4 @@
-﻿using Cinema.Domain;
-using Cinema.Persistence.Repositories.Abstractions;
+﻿using Cinema.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence.Repositories

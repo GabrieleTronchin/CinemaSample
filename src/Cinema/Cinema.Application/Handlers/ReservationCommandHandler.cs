@@ -1,5 +1,4 @@
 ﻿using Cinema.Application.Commands;
-using Cinema.Domain;
 using Cinema.Persistence.Repositories.Abstractions;
 using MediatR;
 
@@ -26,7 +25,7 @@ namespace Cinema.Application.Handlers
             //-It should not be possible to reserve the same seats two times in 10 minutes.
             //- It shouldn't be possible to reserve an already sold seat.
             //- All the seats, when doing a reservation, need to be contiguous.
-            
+
             throw new NotImplementedException();
 
             //var showtimeWithTicket = await _showtimesRepository.GetWithTicketsByIdAsync(request.ShowtimeId, cancellationToken);

@@ -1,5 +1,4 @@
-﻿using Cinema.Domain;
-using Cinema.Domain.Showtime;
+﻿using Cinema.Domain.Showtime;
 using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories.Abstractions

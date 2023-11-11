@@ -94,8 +94,8 @@ namespace Cinema.Api.Controllers
 
                 if (!result.Success)
                     throw new InvalidOperationException("An error occurred completing your payment.");
-                
-                
+
+
                 return Accepted();
 
             }

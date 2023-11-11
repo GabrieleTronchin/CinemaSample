@@ -18,7 +18,8 @@ public class ShowtimeEntity
         };
     }
 
-    public void ReserveSeats(IEnumerable<ShowtimeSeatEntity> seats) {
+    public void ReserveSeats(IEnumerable<ShowtimeSeatEntity> seats)
+    {
 
         //Contiguous for same row?
         var seatsRow = seats.First().Seat.Row;
