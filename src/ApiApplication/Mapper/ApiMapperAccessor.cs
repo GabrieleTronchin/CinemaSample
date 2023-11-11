@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
+using Cinema.Api.Models.Showtime;
 using Cinema.Application.Commands;
 using Cinema.Application.Queries.Auditorium.Models;
 using Cinema.Domain.AuditoriumDefinition;
@@ -15,6 +16,9 @@ public class ApiMapperAccessor : IApiMapperAccessor
 
         ApiMapper = new MapperConfiguration(m =>
         {
+            m.CreateMap<CreateShowTimeRequest, CreateShowtimeCommand>();
+            m.CreateMap<MovieApiModel, Movie>();
+
             m.CreateMap<SeatReservationRequest, ReservationCommand>()
              .ForMember(x => x.Id, op => op.MapFrom(s => Guid.NewGuid()));
 

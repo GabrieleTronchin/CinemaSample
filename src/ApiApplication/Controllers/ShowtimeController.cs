@@ -41,9 +41,9 @@ namespace Cinema.Api.Controllers
                     return BadRequest(ModelState);
                 }
 
-                await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(payload));
+                var response = await _mediator.Send(_mapper.ApiMapper.Map<CreateShowtimeCommand>(payload));
 
-                return StatusCode(StatusCodes.Status201Created);
+                return StatusCode(StatusCodes.Status201Created, response);
             }
             catch (ArgumentNullException e)
             {

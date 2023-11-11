@@ -2,7 +2,7 @@
 
 namespace Cinema.Application.Commands
 {
-    public class AssignShowtimeCommand : IRequest<AssignShowtimeCommandComplete>
+    public class CreateShowtimeCommand : IRequest<CreateShowtimeCommandComplete>
     {
 
         public DateTime SessionDate { get; set; }
@@ -13,7 +13,7 @@ namespace Cinema.Application.Commands
 
     }
 
-    public record Movie
+    public class Movie
     {
         public string Title { get; set; }
         public string ImdbId { get; set; }
@@ -21,7 +21,7 @@ namespace Cinema.Application.Commands
         public DateTime ReleaseDate { get; set; }
     }
 
-    public record AssignShowtimeCommandComplete
+    public record CreateShowtimeCommandComplete
     {
         public Guid? Id { get; set; }
     }

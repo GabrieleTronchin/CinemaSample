@@ -4,17 +4,15 @@ using Cinema.Domain.AuditoriumDefinition;
 namespace Cinema.Domain.Showtime;
 public class ShowtimeEntity
 {
-    public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, IEnumerable<Seat> seats, DateTime sessionDate)
+    public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, DateTime sessionDate)
     {
-        if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
-
         var showtimeId = Guid.NewGuid();
 
         return new ShowtimeEntity
         {
             Id = showtimeId,
             Movie = movie,
-            Seats = seats.Select(x => ShowtimeSeatEntity.Create(x, showtimeId)),
+            Seats = auditorium.Seats.Select(x => ShowtimeSeatEntity.Create(x, showtimeId)),
             AuditoriumId = auditorium.Id,
             SessionDate = sessionDate
         };

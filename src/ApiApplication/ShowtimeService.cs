@@ -31,7 +31,7 @@ namespace Cinema.Api
             {
                 _logger.LogDebug("New Request received on {grpcServiceName}", nameof(ShowtimeService));
 
-                await _mediator.Send(_mapper.ApiMapper.Map<AssignShowtimeCommand>(request));
+                await _mediator.Send(_mapper.ApiMapper.Map<CreateShowtimeCommand>(request));
 
 
                 _logger.LogDebug("Request completed {grpcServiceName}", nameof(ShowtimeService));
