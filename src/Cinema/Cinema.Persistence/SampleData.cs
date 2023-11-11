@@ -1,6 +1,4 @@
-﻿
-
-using Cinema.Domain;
+﻿using Cinema.Domain;
 
 namespace Cinema.Persistence;
 
@@ -12,19 +10,19 @@ namespace Cinema.Persistence;
         var context = serviceScope.ServiceProvider.GetService<CinemaDbContext>();
         context.Database.EnsureCreated();
 
-        context.Auditoriums.Add(AuditoriumEntity.Create(1, GenerateSeats(28, 22)));
-        context.Auditoriums.Add(AuditoriumEntity.Create(2, GenerateSeats(21, 18)));
-        context.Auditoriums.Add(AuditoriumEntity.Create(3, GenerateSeats(15, 21)));
+        context.Auditoriums.Add(AuditoriumEntity.Create(1, GenerateSeats(1,28, 22)));
+        context.Auditoriums.Add(AuditoriumEntity.Create(2, GenerateSeats(2,21, 18)));
+        context.Auditoriums.Add(AuditoriumEntity.Create(3, GenerateSeats(3,15, 21)));
 
         context.SaveChanges();
     }
 
-    private static List<Seat> GenerateSeats(short rows, short seatsPerRow)
+    private static List<SeatEntity> GenerateSeats(int auditoriumId, short rows, short seatsPerRow)
     {
-        var seats = new List<Seat>();
+        var seats = new List<SeatEntity>();
         for (short r = 1; r <= rows; r++)
             for (short s = 1; s <= seatsPerRow; s++)
-                seats.Add(Seat.Create( r, s ));
+                seats.Add(SeatEntity.Create(auditoriumId, r, s ));
         return seats;
     }
 }

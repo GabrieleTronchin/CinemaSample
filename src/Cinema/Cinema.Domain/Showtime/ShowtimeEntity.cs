@@ -4,7 +4,7 @@ using Cinema.Domain.AuditoriumDefinition;
 namespace Cinema.Domain.Showtime;
 public class ShowtimeEntity
 {
-    public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, IEnumerable<Seat> seats, DateTime sessionDate)
+    public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, IEnumerable<SeatEntity> seats, DateTime sessionDate)
     {
         if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
 
@@ -24,12 +24,12 @@ public class ShowtimeEntity
     {
 
         //Contiguous for same row?
-        var seatsRow = seats.First().Seat.RowNumber;
-        if (!seats.Select(x => x.Seat).All(x => x.RowNumber == seatsRow))
+        var seatsRow = seats.First().RowNumber;
+        if (!seats.All(x => x.RowNumber == seatsRow))
             throw new InvalidOperationException("Just select seats from a single row");
 
 
-        var seatNumbers = seats.Select(x => x.Seat).Select(x => x.SeatNumber).ToArray();
+        var seatNumbers = seats.Select(x => x.SeatNumber).ToArray();
         Array.Sort(seatNumbers);
 
         for (int i = 1; i < seatNumbers.Length; i++)

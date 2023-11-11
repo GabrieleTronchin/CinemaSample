@@ -11,12 +11,8 @@ internal class AuditoriumConfiguration : IEntityTypeConfiguration<AuditoriumEnti
     {
         builder.HasKey(t => t.Id);
 
-        //TODO Check if works with real Db
-        builder.Property(t => t.Seats)
-               .HasConversion(
-                  seats => JsonSerializer.Serialize(seats, new JsonSerializerOptions()),
-                  value => JsonSerializer.Deserialize<List<Seat>>(value, new JsonSerializerOptions())
-                );
+        builder.HasMany(s => s.Seats)
+            .WithOne()
+            .HasForeignKey(s => s.AuditoriumId);
     }
 }
-

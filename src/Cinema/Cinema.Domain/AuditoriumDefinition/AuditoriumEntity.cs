@@ -3,7 +3,7 @@
 namespace Cinema.Domain.AuditoriumDefinition;
 public class AuditoriumEntity
 {
-    public static AuditoriumEntity Create(int Id, IEnumerable<Seat> seats)
+    public static AuditoriumEntity Create(int Id, IEnumerable<SeatEntity> seats)
     {
         return new AuditoriumEntity
         {
@@ -13,5 +13,5 @@ public class AuditoriumEntity
     }
 
     public int Id { get; private set; }
-    public IEnumerable<Seat> Seats { get; private set; } = Enumerable.Empty<Seat>();
+    public IEnumerable<SeatEntity> Seats { get; private set; } = Enumerable.Empty<SeatEntity>();
 }

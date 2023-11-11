@@ -10,13 +10,6 @@ internal class ShowtimeSeatConfiguration : IEntityTypeConfiguration<ShowtimeSeat
     public void Configure(EntityTypeBuilder<ShowtimeSeatEntity> builder)
     {
         builder.HasKey(t => t.Id);
-
-        builder.Property(t => t.Seat)
-            .HasConversion(
-                    seat => seat.Code,
-                    value => Seat.Create(value)
-                );
-
     }
 }
 
