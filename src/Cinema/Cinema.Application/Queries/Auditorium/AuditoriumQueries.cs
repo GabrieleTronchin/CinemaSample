@@ -6,10 +6,10 @@ namespace Cinema.Application.Queries.Auditorium
 {
     public class AuditoriumQueries : IAuditoriumQueries
     {
-        private readonly IAuditoriumsRepository _repository;
+        private readonly IAuditoriumRepository _repository;
         private readonly IApplicationMapperAccessor _mapper;
 
-        public AuditoriumQueries(IAuditoriumsRepository repository,
+        public AuditoriumQueries(IAuditoriumRepository repository,
                                IApplicationMapperAccessor applicationMapperAccessor)
         {
             _repository = repository; // using same rep as write model, but it could be different ex.: Dapper

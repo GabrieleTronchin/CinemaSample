@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cinema.Domain
+﻿namespace Cinema.Domain.AuditoriumDefinition;
+public class AuditoriumEntity
 {
-    public class AuditoriumEntity
-    {
-        public int Id { get; set; }
-        public ICollection<SeatEntity> Seats { get; set; }
-    }
-
+    public Guid Id { get; private set; }
+    public IEnumerable<Seat> Seats { get; private set; }
 }

@@ -12,7 +12,7 @@ namespace Cinema.Persistence
         {
             services.AddTransient<IShowtimesRepository, ShowtimesRepository>();
             services.AddTransient<ITicketsRepository, TicketsRepository>();
-            services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
+            services.AddTransient<IAuditoriumRepository, AuditoriumsRepository>();
             services.AddTransient<IMovieRepository, MovieRepository>();
 
             services.AddDbContext<CinemaContext>(options =>

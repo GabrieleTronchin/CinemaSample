@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories
 {
-    public class AuditoriumsRepository : IAuditoriumsRepository
+    public class AuditoriumsRepository : IAuditoriumRepository
     {
         private readonly CinemaContext _context;
 

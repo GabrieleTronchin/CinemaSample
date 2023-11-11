@@ -1,19 +1,24 @@
-﻿using Cinema.Domain.NewFolder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace Cinema.Domain.Showtime;
 
-namespace Cinema.Domain
+public class MovieEntity
 {
-    public class MovieEntity
+    public static MovieEntity Create(string title, string stars, string imdbId, DateTime releaseDate)
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string ImdbId { get; set; }
-        public string Stars { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public List<ShowtimeEntity> Showtimes { get; set; }
+        return new MovieEntity
+        {
+            Id = Guid.NewGuid(),
+            Title = title,
+            ImdbId = imdbId,
+            Stars = stars,
+            ReleaseDate = releaseDate
+        };
     }
+
+    public Guid Id { get; private set; }
+    public string Title { get; private set; }
+    public string ImdbId { get; private set; }
+    public string Stars { get; private set; }
+    public DateTime ReleaseDate { get; private set; }
 }
+
