@@ -10,8 +10,6 @@ namespace Cinema.Persistence
         }
 
         public DbSet<AuditoriumEntity> Auditoriums { get; set; }
-        public DbSet<SeatEntity> Seats { get; set; }
-
         public DbSet<MovieEntity> Movies { get; set; }
         public DbSet<ShowtimeEntity> Showtimes { get; set; }
         public DbSet<ShowtimeSeatEntity> ShowtimesSeats { get; set; }

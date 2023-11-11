@@ -13,8 +13,6 @@ internal class AuditoriumConfiguration : IEntityTypeConfiguration<AuditoriumEnti
     {
         builder.HasKey(entry => entry.Id);
         builder.Property(entry => entry.Id).ValueGeneratedOnAdd();
-
-        // Configure Seat as Owned Entity to store it as a complex type
         builder.OwnsMany(a => a.Seats, seatBuilder =>
             {
                 seatBuilder.Property(s => s.RowNumber);

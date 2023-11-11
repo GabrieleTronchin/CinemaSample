@@ -15,6 +15,3 @@ public class AuditoriumEntity
     public int Id { get; private set; }
     public ICollection<Seat> Seats { get; private set; }
 }
-
-
-public record Seat(short RowNumber , short SeatNumber);

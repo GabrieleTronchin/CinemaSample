@@ -5,7 +5,7 @@ public class ShowtimeSeatEntity
 {
     const short DEFAULT_COOLDOWN = 10;
 
-    public static ShowtimeSeatEntity Create(SeatEntity seat, Guid showtimeId)
+    public static ShowtimeSeatEntity Create(Seat seat, Guid showtimeId)
     {
         return new ShowtimeSeatEntity
         {
@@ -14,9 +14,7 @@ public class ShowtimeSeatEntity
             ReservationCooldown = TimeSpan.FromMinutes(DEFAULT_COOLDOWN),
             Purchased = false,
             ReservationTime = null,
-            AuditoriumId = seat.AuditoriumId,
-            SeatNumber = seat.SeatNumber,
-            RowNumber = seat.RowNumber,
+            Seat = seat
         };
     }
 
@@ -41,9 +39,7 @@ public class ShowtimeSeatEntity
 
     public Guid Id { get; private set; }
     public Guid ShowtimeId { get; private set; }
-    public int AuditoriumId { get; private set; }
-    public short SeatNumber { get; private set; }
-    public short RowNumber { get; private set; }
+    public Seat Seat { get; private set; }
     public TimeSpan ReservationCooldown { get; private set; }
     public DateTime? ReservationTime { get; private set; }
     public bool Purchased { get; private set; }

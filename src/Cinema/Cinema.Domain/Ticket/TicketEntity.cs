@@ -6,7 +6,7 @@ namespace Cinema.Domain.Ticket
     {
 
         //Use Seat record or SeatEntity?
-        public static TicketEntity Create(IEnumerable<SeatEntity> seats, Guid showtimeId, string movieTile)
+        public static TicketEntity Create(ICollection<Seat> seats, Guid showtimeId, string movieTile)
         {
             if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
 
@@ -17,7 +17,7 @@ namespace Cinema.Domain.Ticket
                 Id = Guid.NewGuid(),
                 CreatedTime = DateTime.Now,
                 Paid = false,
-                Seats = string.Join(",", seats.Select(s => $"{s.RowNumber}{s.SeatNumber}")),
+                Seats = seats,
                 MovieTitle = movieTile,
                 ShowtimeId = showtimeId,
             };
@@ -34,7 +34,7 @@ namespace Cinema.Domain.Ticket
         public Guid Id { get; private set; }
         public Guid ShowtimeId { get; private set; }
         public string MovieTitle { get; private set; } = string.Empty;
-        public string Seats { get; private set; } = string.Empty;
+        public ICollection<Seat> Seats { get; private set; }
         public DateTime CreatedTime { get; private set; }
         public bool Paid { get; private set; }
     }
