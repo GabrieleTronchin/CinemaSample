@@ -10,9 +10,6 @@ internal class MovieEntityConfiguration : IEntityTypeConfiguration<MovieEntity>
     {
         builder.HasKey(t => t.Id);
 
-        //Add entity db constraints
-
-
         builder.HasIndex(t => t.Title); //example
     }
 }

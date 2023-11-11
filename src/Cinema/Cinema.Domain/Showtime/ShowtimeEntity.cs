@@ -8,11 +8,13 @@ public class ShowtimeEntity
     {
         if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
 
+        var showtimeId = Guid.NewGuid();
+
         return new ShowtimeEntity
         {
-            Id = Guid.NewGuid(),
-            MovieId = movie.Id,
-            Seats = seats.Select(ShowtimeSeatEntity.Create),
+            Id = showtimeId,
+            Movie = movie,
+            Seats = seats.Select(x => ShowtimeSeatEntity.Create(x, showtimeId)),
             AuditoriumId = auditorium.Id,
             SessionDate = sessionDate
         };
@@ -43,7 +45,9 @@ public class ShowtimeEntity
     public Guid Id { get; private set; }
     public Guid AuditoriumId { get; private set; }
     public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; } = Enumerable.Empty<ShowtimeSeatEntity>();
+
     public Guid MovieId { get; private set; }
+    public MovieEntity Movie { get; private set; }
     public DateTime SessionDate { get; private set; }
 
 }

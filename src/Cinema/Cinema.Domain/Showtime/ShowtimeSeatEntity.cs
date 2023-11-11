@@ -3,11 +3,12 @@ public class ShowtimeSeatEntity
 {
     const short DEFAULT_COOLDOWN = 10;
 
-    public static ShowtimeSeatEntity Create(Seat seat)
+    public static ShowtimeSeatEntity Create(Seat seat, Guid showtimeId)
     {
         return new ShowtimeSeatEntity
         {
             Id = Guid.NewGuid(),
+            ShowtimeId = showtimeId,
             ReservationCooldown = TimeSpan.FromMinutes(DEFAULT_COOLDOWN),
             Purchased = false,
             ReservationTime = null,
@@ -35,6 +36,7 @@ public class ShowtimeSeatEntity
     }
 
     public Guid Id { get; private set; }
+    public Guid ShowtimeId { get; private set; }
     public Seat Seat { get; private set; } = Seat.Create(0, 0);
     public TimeSpan ReservationCooldown { get; private set; }
     public DateTime? ReservationTime { get; private set; }
