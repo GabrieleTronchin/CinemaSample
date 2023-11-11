@@ -16,9 +16,9 @@ public class MovieEntity
     }
 
     public Guid Id { get; private set; }
-    public string Title { get; private set; }
-    public string ImdbId { get; private set; }
-    public string Stars { get; private set; }
+    public string Title { get; private set; } = string.Empty;
+    public string ImdbId { get; private set; } = string.Empty;
+    public string Stars { get; private set; } = string.Empty;
     public DateTime ReleaseDate { get; private set; }
 }
 

@@ -18,7 +18,7 @@ public class ShowtimeEntity
         };
     }
 
-    public void ReserveSeats(IEnumerable<ShowtimeSeatEntity> seats)
+    public static void ReserveSeats(IEnumerable<ShowtimeSeatEntity> seats)
     {
 
         //Contiguous for same row?
@@ -42,7 +42,7 @@ public class ShowtimeEntity
 
     public Guid Id { get; private set; }
     public Guid AuditoriumId { get; private set; }
-    public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; }
+    public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; } = Enumerable.Empty<ShowtimeSeatEntity>();
     public Guid MovieId { get; private set; }
     public DateTime SessionDate { get; private set; }
 
