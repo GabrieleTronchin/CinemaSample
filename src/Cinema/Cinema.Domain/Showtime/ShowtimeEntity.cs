@@ -22,8 +22,8 @@ public class ShowtimeEntity
     {
 
         //Contiguous for same row?
-        var seatsRow = seats.First().Seat.Row;
-        if (!seats.Select(x => x.Seat).All(x => x.Row == seatsRow))
+        var seatsRow = seats.First().Seat.RowNumber;
+        if (!seats.Select(x => x.Seat).All(x => x.RowNumber == seatsRow))
             throw new InvalidOperationException("Just select seats from a single row");
 
 

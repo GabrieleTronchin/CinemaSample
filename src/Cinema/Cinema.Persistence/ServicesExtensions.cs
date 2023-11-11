@@ -1,6 +1,7 @@
-﻿using Cinema.Persistence.Repositories;
-using Cinema.Persistence.Repositories.Abstractions;
-using Microsoft.EntityFrameworkCore;
+﻿using Cinema.Domain.AuditoriumDefinition.Repository;
+using Cinema.Domain.Showtime.Repository;
+using Cinema.Domain.Ticket.Repository;
+using Cinema.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,9 +14,8 @@ namespace Cinema.Persistence
             services.AddTransient<IShowtimesRepository, ShowtimesRepository>();
             services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<IAuditoriumRepository, AuditoriumsRepository>();
-            services.AddTransient<IMovieRepository, MovieRepository>();
 
-            services.AddDbContext<CinemaContext>(options =>
+            services.AddDbContext<CinemaDbContext>(options =>
             {
                 options.UseInMemoryDatabase("CinemaDb")
                     .EnableSensitiveDataLogging()

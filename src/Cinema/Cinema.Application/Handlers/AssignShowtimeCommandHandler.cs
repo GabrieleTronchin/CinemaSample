@@ -1,7 +1,7 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Application.Mapper;
 using Cinema.Domain.Showtime;
-using Cinema.Persistence.Repositories.Abstractions;
+using Cinema.Domain.Showtime.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

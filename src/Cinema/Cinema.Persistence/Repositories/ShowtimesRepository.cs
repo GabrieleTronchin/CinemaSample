@@ -1,15 +1,14 @@
 ﻿using Cinema.Domain.Showtime;
-using Cinema.Persistence.Repositories.Abstractions;
-using Microsoft.EntityFrameworkCore;
+using Cinema.Domain.Showtime.Repository;
 using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories
 {
     public class ShowtimesRepository : IShowtimesRepository
     {
-        private readonly CinemaContext _context;
+        private readonly CinemaDbContext _context;
 
-        public ShowtimesRepository(CinemaContext context)
+        public ShowtimesRepository(CinemaDbContext context)
         {
             _context = context;
         }

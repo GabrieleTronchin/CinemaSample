@@ -35,7 +35,7 @@ public class ShowtimeSeatEntity
     }
 
     public Guid Id { get; private set; }
-    public Seat Seat { get; private set; } = new Seat(0, 0);
+    public Seat Seat { get; private set; } = Seat.Create(0, 0);
     public TimeSpan ReservationCooldown { get; private set; }
     public DateTime? ReservationTime { get; private set; }
     public bool Purchased { get; private set; }

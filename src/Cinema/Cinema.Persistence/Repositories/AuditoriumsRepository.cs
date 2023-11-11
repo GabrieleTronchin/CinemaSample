@@ -1,15 +1,13 @@
-﻿using Cinema.Domain.AuditoriumDefinition;
-using Cinema.Persistence.Repositories.Abstractions;
-using Microsoft.EntityFrameworkCore;
+﻿using Cinema.Domain.AuditoriumDefinition.Repository;
 using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories
 {
     public class AuditoriumsRepository : IAuditoriumRepository
     {
-        private readonly CinemaContext _context;
+        private readonly CinemaDbContext _context;
 
-        public AuditoriumsRepository(CinemaContext context)
+        public AuditoriumsRepository(CinemaDbContext context)
         {
             _context = context;
         }

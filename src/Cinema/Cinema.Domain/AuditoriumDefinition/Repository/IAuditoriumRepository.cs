@@ -1,7 +1,6 @@
-﻿using Cinema.Domain.AuditoriumDefinition;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace Cinema.Persistence.Repositories.Abstractions
+namespace Cinema.Domain.AuditoriumDefinition.Repository
 {
     public interface IAuditoriumRepository
     {

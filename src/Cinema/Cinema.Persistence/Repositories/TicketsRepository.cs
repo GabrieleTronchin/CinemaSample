@@ -1,13 +1,13 @@
-﻿using Cinema.Persistence.Repositories.Abstractions;
-using Microsoft.EntityFrameworkCore;
+﻿using Cinema.Domain.Ticket;
+using Cinema.Domain.Ticket.Repository;
 
 namespace Cinema.Persistence.Repositories
 {
     public class TicketsRepository : ITicketsRepository
     {
-        private readonly CinemaContext _context;
+        private readonly CinemaDbContext _context;
 
-        public TicketsRepository(CinemaContext context)
+        public TicketsRepository(CinemaDbContext context)
         {
             _context = context;
         }
@@ -26,17 +26,11 @@ namespace Cinema.Persistence.Repositories
                 .ToListAsync(cancel);
         }
 
-        public async Task<TicketEntity> CreateAsync(ShowtimeEntity showtime, IEnumerable<SeatEntity> selectedSeats, CancellationToken cancel)
+        public async Task CreateAsync(TicketEntity entity, CancellationToken cancel)
         {
-            var ticket = _context.Tickets.Add(new TicketEntity
-            {
-                Showtime = showtime,
-                Seats = new List<SeatEntity>(selectedSeats)
-            });
+            _context.Tickets.Add(entity);
 
             await _context.SaveChangesAsync(cancel);
-
-            return ticket.Entity;
         }
 
         public async Task<TicketEntity> ConfirmPaymentAsync(TicketEntity ticket, CancellationToken cancel)

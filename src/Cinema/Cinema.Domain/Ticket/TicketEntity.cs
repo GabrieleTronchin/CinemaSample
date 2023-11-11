@@ -1,6 +1,4 @@
-﻿using Cinema.Domain.Showtime;
-
-namespace Cinema.Domain.Ticket
+﻿namespace Cinema.Domain.Ticket
 {
     public class TicketEntity
     {

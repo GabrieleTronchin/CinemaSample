@@ -1,6 +1,6 @@
 ﻿using Cinema.Application.Mapper;
 using Cinema.Application.Queries.Auditorium.Models;
-using Cinema.Persistence.Repositories.Abstractions;
+using Cinema.Domain.AuditoriumDefinition.Repository;
 
 namespace Cinema.Application.Queries.Auditorium
 {

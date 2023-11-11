@@ -1,5 +1,5 @@
 ﻿using Cinema.Application.Commands;
-using Cinema.Persistence.Repositories.Abstractions;
+using Cinema.Domain.Ticket.Repository;
 using MediatR;
 
 namespace Cinema.Application.Handlers
