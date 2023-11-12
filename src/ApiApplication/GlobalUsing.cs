@@ -1,6 +1,4 @@
-﻿global using AutoMapper;
-global using Cinema.Api.Mapper;
-global using Cinema.Application.Commands;
+﻿global using Cinema.Api.Mapper;
 global using MediatR;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;

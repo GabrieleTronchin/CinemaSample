@@ -1,5 +1,6 @@
 ﻿using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
+using Cinema.Application.Ticket.Commands;
 
 namespace Cinema.Api.Controllers;
 

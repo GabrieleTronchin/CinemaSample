@@ -1,25 +1,18 @@
-﻿using Cinema.Application.Mapper;
-using Cinema.Application.Queries.Auditorium;
-using Cinema.Application.Queries.Showtime;
+﻿using Cinema.Application.Auditorium.Queries;
 using Cinema.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cinema.Application
+namespace Cinema.Application;
+
+
+public static class ServicesExtensions
 {
-
-    public static class ServicesExtensions
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
-            services.AddSingleton<IApplicationMapperAccessor, ApplicationMapperAccessor>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
+        services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
 
-            services.AddTransient<IShowtimeQueries, ShowtimeQueries>();
-            services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
-
-            services.AddPersistence();
-            return services;
-        }
+        services.AddPersistence();
+        return services;
     }
-
 }

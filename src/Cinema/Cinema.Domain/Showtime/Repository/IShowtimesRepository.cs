@@ -1,6 +1,7 @@
 ﻿
 
 using Cinema.Domain.Primitives;
+using System.Linq.Expressions;
 
 namespace Cinema.Domain.Showtime.Repository;
 

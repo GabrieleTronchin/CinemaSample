@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Cinema.Application.Showtime.Commands;
+using Grpc.Core;
 using ShowTimeProto;
 
 namespace Cinema.Api

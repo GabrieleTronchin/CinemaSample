@@ -1,4 +1,4 @@
-﻿using Cinema.Application.Queries.Auditorium;
+﻿using Cinema.Application.Auditorium.Queries;
 
 namespace Cinema.Api.Controllers;
 

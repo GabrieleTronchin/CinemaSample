@@ -1,5 +1,4 @@
 ﻿using Cinema.Domain.AuditoriumDefinition.Repository;
-using Cinema.Domain.Primitives;
 using Cinema.Domain.Showtime.Repository;
 using Cinema.Domain.Ticket.Repository;
 using Cinema.Persistence.Repositories;

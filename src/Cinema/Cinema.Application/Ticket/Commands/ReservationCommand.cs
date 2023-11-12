@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Cinema.Application.Commands;
+namespace Cinema.Application.Ticket.Commands;
 
 public class ReservationCommand : IRequest<ReservationComplete>
 {

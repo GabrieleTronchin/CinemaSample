@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Cinema.Application.Commands;
+namespace Cinema.Application.Showtime.Commands;
 
 public class CreateShowtimeCommand : IRequest<CreateShowtimeCommandComplete>
 {
