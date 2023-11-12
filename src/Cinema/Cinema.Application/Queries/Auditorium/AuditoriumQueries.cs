@@ -37,7 +37,7 @@ namespace Cinema.Application.Queries.Auditorium
             foreach (var item in allAuditoriums)
             {
                 var seats = item.Seats.Select(s => new SeatReadModel() { Row = s.RowNumber, SeatNumber = s.SeatNumber });
-                readModelAuditorium.Add(new AuditoriumReadModel() { Id = item.Id, Seats= seats });
+                readModelAuditorium.Add(new AuditoriumReadModel() { Id = item.Id, Seats = seats });
             }
 
             return readModelAuditorium;

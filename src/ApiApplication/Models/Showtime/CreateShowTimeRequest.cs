@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Cinema.Api.Models.Showtime
+﻿namespace Cinema.Api.Models.Showtime
 {
     public class CreateShowTimeRequest
     {

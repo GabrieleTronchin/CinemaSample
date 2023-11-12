@@ -24,11 +24,11 @@
 
         public void ConfirmPayment()
         {
-            if (this.Paid) throw new InvalidOperationException("It's already paid.");
+            if (Paid) throw new InvalidOperationException("It's already paid.");
 
             //TODO Add domain notification
 
-            this.Paid = true;
+            Paid = true;
         }
 
         public Guid Id { get; private set; }

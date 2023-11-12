@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cinema.Api.Models.ConfirmReservation
+﻿namespace Cinema.Api.Models.ConfirmReservation
 {
     public class ConfirmReservationRequest
     {

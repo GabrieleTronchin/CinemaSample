@@ -1,37 +1,32 @@
 ﻿using Cinema.Application.Queries.Auditorium;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
-namespace Cinema.Api.Controllers
+namespace Cinema.Api.Controllers;
+
+[Route("v1/[controller]")]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+public class AuditoriumController : Controller
 {
-    [Route("v1/[controller]")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class AuditoriumController : Controller
+    private readonly IAuditoriumQueries _readModel;
+
+    public AuditoriumController(IAuditoriumQueries readModel)
+
     {
-        private readonly IAuditoriumQueries _readModel;
+        _readModel = readModel;
+    }
 
-        public AuditoriumController(IAuditoriumQueries readModel)
 
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get()
+    {
+        try
         {
-            _readModel = readModel;
+            return Ok(await _readModel.GetAllAsync());
         }
-
-
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        catch (Exception e)
         {
-            try
-            {
-                return Ok(await _readModel.GetAllAsync());
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
         }
     }
 }

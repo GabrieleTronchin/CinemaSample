@@ -1,4 +1,3 @@
-using Cinema.Api.Mapper;
 using Cinema.Application;
 using Cinema.Persistence;
 using Microsoft.AspNetCore.Builder;

@@ -1,5 +1,4 @@
 ﻿using Cinema.Application.Mapper;
-using Cinema.Application.Queries.Showtime.Models;
 using Cinema.Domain.Showtime.Repository;
 
 namespace Cinema.Application.Queries.Showtime

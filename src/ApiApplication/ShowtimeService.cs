@@ -1,11 +1,5 @@
-﻿using Cinema.Api.Mapper;
-using Cinema.Application.Commands;
-using Grpc.Core;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Grpc.Core;
 using ShowTimeProto;
-using System;
-using System.Threading.Tasks;
 
 namespace Cinema.Api
 {

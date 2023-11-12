@@ -1,6 +1,4 @@
-﻿using Cinema.Application.Queries.Showtime.Models;
-
-namespace Cinema.Application.Queries.Showtime
+﻿namespace Cinema.Application.Queries.Showtime
 {
     public interface IShowtimeQueries
     {

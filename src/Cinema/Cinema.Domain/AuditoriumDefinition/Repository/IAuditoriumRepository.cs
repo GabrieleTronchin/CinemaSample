@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Cinema.Domain.AuditoriumDefinition.Repository;
+﻿namespace Cinema.Domain.AuditoriumDefinition.Repository;
 
 public interface IAuditoriumRepository
 {

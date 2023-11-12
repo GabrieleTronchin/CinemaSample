@@ -21,15 +21,16 @@ namespace Cinema.Application.Handlers
             //-It should not be possible to reserve the same seats two times in 10 minutes.
             //- It shouldn't be possible to reserve an already sold seat.
             //- All the seats, when doing a reservation, need to be contiguous.
-           var showtime = await _showtimesRepository.GetAsync(request.ShowtimeId, cancellationToken);
+            var showtime = await _showtimesRepository.GetAsync(request.ShowtimeId, cancellationToken);
 
             var seatsToReserve = request.seats.Select(x => new Seat(x.Row, x.SeatsNumber));
             showtime.ReserveSeats(seatsToReserve);
 
-            return new ReservationComplete { 
-                                    AuditoriumId = showtime.AuditoriumId, 
-                                    MovieTitle = showtime.Movie.Title, 
-                                    SeatsNumber = request.seats 
+            return new ReservationComplete
+            {
+                AuditoriumId = showtime.AuditoriumId,
+                MovieTitle = showtime.Movie.Title,
+                SeatsNumber = request.seats
             };
         }
     }

@@ -1,102 +1,92 @@
-﻿using Cinema.Api.Mapper;
-using Cinema.Api.Models.ConfirmReservation;
+﻿using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
-using Cinema.Application.Commands;
 
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
+namespace Cinema.Api.Controllers;
 
-namespace Cinema.Api.Controllers
+[Route("v1/[controller]")]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+public class TicketController : Controller
 {
-    [Route("v1/[controller]")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class TicketController : Controller
+    private readonly ILogger<TicketController> _logger;
+    private readonly IMediator _mediator;
+    private readonly IApiMapperAccessor _mapper;
+
+    public TicketController(ILogger<TicketController> logger,
+                              IMediator mediator,
+                              IApiMapperAccessor apiMapperAccessor)
     {
-        private readonly ILogger<TicketController> _logger;
-        private readonly IMediator _mediator;
-        private readonly IApiMapperAccessor _mapper;
+        _logger = logger;
+        _mediator = mediator;
+        _mapper = apiMapperAccessor;
+    }
 
-        public TicketController(ILogger<TicketController> logger,
-                                  IMediator mediator,
-                                  IApiMapperAccessor apiMapperAccessor)
+
+
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<ActionResult<SeatReservationResponse>> Post([FromBody] SeatReservationRequest payload)
+    {
+        try
         {
-            _logger = logger;
-            _mediator = mediator;
-            _mapper = apiMapperAccessor;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
+
+            return StatusCode(StatusCodes.Status201Created, result);
+
         }
-
-
-
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<SeatReservationResponse>> Post([FromBody] SeatReservationRequest payload)
+        catch (ArgumentNullException e)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+            _logger.LogError($"{nameof(Post)}", e);
 
-                var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
-
-                return StatusCode(StatusCodes.Status201Created, result);
-
-            }
-            catch (ArgumentNullException e)
-            {
-                _logger.LogError($"{nameof(Post)}", e);
-
-                return StatusCode(StatusCodes.Status400BadRequest, e);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(Post)}", e);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
+            return StatusCode(StatusCodes.Status400BadRequest, e);
         }
-
-
-
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<SeatReservationResponse>> Put([FromBody] ConfirmReservationRequest payload)
+        catch (Exception e)
         {
-            try
+            _logger.LogError($"{nameof(Post)}", e);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
+        }
+    }
+
+
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<ActionResult<SeatReservationResponse>> Put([FromBody] ConfirmReservationRequest payload)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
-
-                if (!result.Success)
-                    throw new InvalidOperationException("An error occurred completing your payment.");
-                
-
-                return StatusCode(StatusCodes.Status202Accepted);
-
+                return BadRequest(ModelState);
             }
-            catch (ArgumentNullException e)
-            {
-                _logger.LogError($"{nameof(Put)}", e);
 
-                return StatusCode(StatusCodes.Status400BadRequest, e);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(Put)}", e);
+            var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
 
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
+            if (!result.Success)
+                throw new InvalidOperationException("An error occurred completing your payment.");
+
+
+            return StatusCode(StatusCodes.Status202Accepted);
+
+        }
+        catch (ArgumentNullException e)
+        {
+            _logger.LogError($"{nameof(Put)}", e);
+
+            return StatusCode(StatusCodes.Status400BadRequest, e);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"{nameof(Put)}", e);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
         }
     }
 }

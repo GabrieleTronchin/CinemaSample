@@ -1,5 +1,4 @@
 ﻿using Cinema.Application.Commands;
-using Cinema.Application.Mapper;
 using Cinema.Domain.AuditoriumDefinition.Repository;
 using Cinema.Domain.Showtime;
 using MediatR;

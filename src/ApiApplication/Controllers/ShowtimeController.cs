@@ -1,62 +1,53 @@
-﻿using Cinema.Api.Mapper;
+﻿
 using Cinema.Api.Models.Showtime;
-using Cinema.Application.Commands;
-using Cinema.Application.Queries.Showtime;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
-namespace Cinema.Api.Controllers
+namespace Cinema.Api.Controllers;
+
+[Route("v1/[controller]")]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+public class ShowtimeController : Controller
 {
-    [Route("v1/[controller]")]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class ShowtimeController : Controller
+    private readonly ILogger<ShowtimeController> _logger;
+    private readonly IMediator _mediator;
+    private readonly IApiMapperAccessor _mapper;
+
+    public ShowtimeController(ILogger<ShowtimeController> logger,
+                              IMediator mediator,
+                              IApiMapperAccessor apiMapperAccessor)
     {
-        private readonly ILogger<ShowtimeController> _logger;
-        private readonly IMediator _mediator;
-        private readonly IApiMapperAccessor _mapper;
+        _logger = logger;
+        _mediator = mediator;
+        _mapper = apiMapperAccessor;
+    }
 
-        public ShowtimeController(ILogger<ShowtimeController> logger,
-                                  IMediator mediator,
-                                  IApiMapperAccessor apiMapperAccessor)
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<IActionResult> Post([FromBody] CreateShowTimeRequest payload)
+    {
+        try
         {
-            _logger = logger;
-            _mediator = mediator;
-            _mapper = apiMapperAccessor;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _mediator.Send(_mapper.ApiMapper.Map<CreateShowtimeCommand>(payload));
+
+            return StatusCode(StatusCodes.Status201Created, response);
         }
-
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] CreateShowTimeRequest payload)
+        catch (ArgumentNullException e)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+            _logger.LogError($"{nameof(Post)}", e);
 
-                var response = await _mediator.Send(_mapper.ApiMapper.Map<CreateShowtimeCommand>(payload));
+            return StatusCode(StatusCodes.Status400BadRequest, e);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"{nameof(Post)}", e);
 
-                return StatusCode(StatusCodes.Status201Created, response);
-            }
-            catch (ArgumentNullException e)
-            {
-                _logger.LogError($"{nameof(Post)}", e);
-
-                return StatusCode(StatusCodes.Status400BadRequest, e);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(Post)}", e);
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
-            }
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
         }
     }
 }

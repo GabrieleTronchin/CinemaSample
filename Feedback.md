@@ -48,3 +48,5 @@ in questo modo possiamo già inserire alcune delle validazioni richieste.
 -------
 
 Rifatorizzato il layer persistence: IConfigurationBuildinder per maggior disaccoppiamento.
+
+Disaccoppiati i seats degli auditorium ( may change?! ) da quelli degli showtime
