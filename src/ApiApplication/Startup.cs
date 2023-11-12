@@ -7,67 +7,66 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace Cinema.Api
+namespace Cinema.Api;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton<IApiMapperAccessor, ApiMapperAccessor>();
+
+        services.AddApplication();
+
+        services.AddGrpc();
+
+        services.AddSwaggerGen(options =>
         {
-            Configuration = configuration;
+            options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Cinema", Version = "v1" });
+        });
+
+        services.AddControllers();
+
+        services.AddHttpClient();
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        if (env.IsDevelopment())
         {
-            services.AddSingleton<IApiMapperAccessor, ApiMapperAccessor>();
-
-            services.AddApplication();
-
-            services.AddGrpc();
-
-            services.AddSwaggerGen(options =>
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Cinema", Version = "v1" });
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
             });
-
-            services.AddControllers();
-
-            services.AddHttpClient();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseHttpsRedirection();
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            endpoints.MapControllers();
+            endpoints.MapGrpcService<ShowtimeService>();
 
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
-                });
-            }
+        });
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapGrpcService<ShowtimeService>();
-
-            });
-
-            SampleData.Initialize(app);
-        }
+        SeedDb.Initialize(app);
     }
 }

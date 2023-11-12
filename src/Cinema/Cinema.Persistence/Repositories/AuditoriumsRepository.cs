@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories
 {
-    public class AuditoriumsRepository : IAuditoriumRepository
+    internal class AuditoriumsRepository : IAuditoriumRepository
     {
         private readonly CinemaDbContext _context;
 

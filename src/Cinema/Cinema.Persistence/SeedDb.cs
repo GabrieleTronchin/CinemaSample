@@ -2,7 +2,7 @@
 
 namespace Cinema.Persistence;
 
-public class SampleData
+public static class SeedDb
 {
     public static void Initialize(IApplicationBuilder app)
     {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Cinema.Persistence.Repositories;
 
-public class ShowtimesRepository : IShowtimesRepository
+internal class ShowtimesRepository : IShowtimesRepository
 {
     private readonly CinemaDbContext _context;
 

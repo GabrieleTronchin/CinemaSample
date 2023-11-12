@@ -3,7 +3,7 @@ using Cinema.Domain.Ticket.Repository;
 
 namespace Cinema.Persistence.Repositories
 {
-    public class TicketsRepository : ITicketsRepository
+    internal class TicketsRepository : ITicketsRepository
     {
         private readonly CinemaDbContext _context;
 

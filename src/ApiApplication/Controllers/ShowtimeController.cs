@@ -1,5 +1,4 @@
-﻿
-using Cinema.Api.Models.Showtime;
+﻿using Cinema.Api.Models.Showtime;
 
 namespace Cinema.Api.Controllers;
 
