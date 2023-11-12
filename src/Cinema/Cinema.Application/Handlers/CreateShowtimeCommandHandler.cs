@@ -43,7 +43,6 @@ namespace Cinema.Application.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred at {CommandHandler}", nameof(CreateShowtimeCommandHandler));
-                _unitOfWork.Rollback();
                 throw;
             }
         }

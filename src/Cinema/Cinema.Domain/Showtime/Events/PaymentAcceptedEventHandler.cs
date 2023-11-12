@@ -1,4 +1,5 @@
 ﻿using Cinema.Domain.Showtime.Repository;
+using Cinema.Domain.Ticket.Events;
 
 namespace Cinema.Domain.Showtime.Events;
 

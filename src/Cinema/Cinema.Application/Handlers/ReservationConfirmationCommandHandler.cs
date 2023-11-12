@@ -1,6 +1,6 @@
 ﻿using Cinema.Application.Commands;
+using Cinema.Domain.Primitives;
 using Cinema.Domain.Ticket.Repository;
-using Cinema.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -38,7 +38,6 @@ namespace Cinema.Application.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred completing payment.");
-                _unitOfWork.Rollback();
                 return new ReservationConfirmationComplete() { Success = false };
             }
 

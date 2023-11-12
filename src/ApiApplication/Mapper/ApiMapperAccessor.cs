@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Cinema.Api.Models.ConfirmReservation;
+﻿using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
 using Cinema.Api.Models.Showtime;
 

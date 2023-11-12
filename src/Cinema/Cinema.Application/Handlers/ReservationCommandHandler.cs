@@ -1,7 +1,6 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Domain;
 using Cinema.Domain.Showtime.Repository;
-using Cinema.Domain.Ticket.Repository;
 using Cinema.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.Logging;

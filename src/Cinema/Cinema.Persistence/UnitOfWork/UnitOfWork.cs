@@ -1,6 +1,8 @@
 ﻿namespace Cinema.Persistence.UnitOfWork;
 
-internal class UnitOfWork : IUnitOfWork
+
+
+internal class UnitOfWork : IUnitOfWork //draft implementation
 {
     private readonly DbContext _context;
 
@@ -9,15 +11,12 @@ internal class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
+
     public void Commit()
     {
         _context.SaveChanges();
     }
 
-    public void Rollback()
-    {
-        // Rollback changes if needed
-    }
 
     public void Dispose()
     {
