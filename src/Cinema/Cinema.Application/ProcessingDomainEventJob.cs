@@ -6,17 +6,17 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace Cinema.Application.Ticket;
+namespace Cinema.Application;
 
 [DisallowConcurrentExecution]
-public class ProcessingTicketDomainEventJob : IJob
+public class ProcessingDomainEventJob : IJob
 {
     private const int DEFAULT_TAKE_DOMAINS = 10;
     private readonly CinemaDbContext _context;
     private readonly IPublisher _publisher;
-    private readonly ILogger<ProcessingTicketDomainEventJob> _logger;
+    private readonly ILogger<ProcessingDomainEventJob> _logger;
 
-    public ProcessingTicketDomainEventJob(ILogger<ProcessingTicketDomainEventJob> logger,
+    public ProcessingDomainEventJob(ILogger<ProcessingDomainEventJob> logger,
                                          CinemaDbContext context,
                                           IPublisher publisher)
     {
@@ -31,6 +31,8 @@ public class ProcessingTicketDomainEventJob : IJob
                  .Where(de => de.CompleteTime == null)
                  .Take(DEFAULT_TAKE_DOMAINS).ToListAsync(context.CancellationToken);
 
+
+        if (!domainEvents.Any()) return;
 
         foreach (var dEvent in domainEvents)
         {
