@@ -1,7 +1,6 @@
-﻿namespace Cinema.Domain.Ticket.Repository
+﻿namespace Cinema.Domain.Ticket.Repository;
+
+public interface ITicketsRepository
 {
-    public interface ITicketsRepository
-    {
-        Task<TicketEntity> GetAsync(Guid id, CancellationToken cancel);
-    }
+    Task<TicketEntity> GetAsync(Guid id, CancellationToken cancel);
 }

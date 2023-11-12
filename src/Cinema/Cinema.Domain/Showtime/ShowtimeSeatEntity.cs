@@ -31,7 +31,7 @@ public class ShowtimeSeatEntity
 
     public void SetPurchased()
     {
-        if (Purchased) throw new InvalidOperationException(" It is not possible to buy two times the same seat.");
+        if (Purchased) throw new InvalidOperationException("It is not possible to buy two times the same seat.");
         Purchased = true;
     }
 

@@ -41,9 +41,19 @@ public class ShowtimeEntity
                           && x.Seat.SeatNumber == seat.SeatNumber).SetReserved();
 
         }
-
-
     }
+
+    public void HasBeenPurchased(IEnumerable<Seat> seats)
+    {
+
+        foreach (var seat in seats)
+        {
+            Seats.Single(x => x.Seat.RowNumber == seat.RowNumber
+                          && x.Seat.SeatNumber == seat.SeatNumber).SetPurchased();
+
+        }
+    }
+
 
     public Guid Id { get; private set; }
     public int AuditoriumId { get; private set; }

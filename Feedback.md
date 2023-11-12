@@ -27,16 +27,24 @@ Opzini di comunicazione:
 
 ### Solution - **Reserve seats**
 
+Domain:
+
 Una volta deciso come disacoppiare il servizio che fornisce l'elenco degli showtime, è necessario individuare e dividere i bouded context.
 
 Divisione di BC in questo modo:
-- Auditorium + sead sono la definizione
+- Seat diventa un value tipe
+- Auditorium è la definizione
 - Showtime + Movie + Showtime seats (new): Quando si crea uno showtime, viene recuperata la def degli auditorium di riferimento e creati i seat per showtime.
 - TicketEntity non deve aver riferimento ad altre entità.
 
+Factory pattern statc create (Always Valid pattern)
 
 A questo punto creiamo costruttori e validazioni per i modelli.
 
- private set; => si modificano solo tramite metodi di dominio
+ private set; => si modificano solo tramite metodi di dominio.
 
-Create domain costructors
+in questo modo possiamo già inserire alcune delle validazioni richieste.
+
+-------
+
+Rifatorizzato il layer persistence: IConfigurationBuildinder per maggior disaccoppiamento.
