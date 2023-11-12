@@ -3,6 +3,7 @@ using Cinema.Domain.Showtime.Repository;
 using Cinema.Domain.Ticket.Repository;
 using Cinema.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.Persistence
 {
@@ -14,9 +15,15 @@ namespace Cinema.Persistence
             services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<IAuditoriumRepository, AuditoriumsRepository>();
 
+            services.AddSingleton<TicketDomainEventInterceptor>();
+
+            var tcInterceptor = services.BuildServiceProvider().GetRequiredService<TicketDomainEventInterceptor>();
+
+
             services.AddDbContext<CinemaDbContext>(options =>
             {
                 options.UseInMemoryDatabase("CinemaDb")
+                    .AddInterceptors(tcInterceptor)
                     .EnableSensitiveDataLogging()
                     .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             });

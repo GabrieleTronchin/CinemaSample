@@ -2,6 +2,6 @@
 
 namespace Cinema.Domain.Ticket.Events;
 
-public sealed record class PaymentAccepted(Guid ShowtimeId, IEnumerable<Seat> Seats) : IDomainEvent
+internal sealed record class PaymentAccepted(Guid ShowtimeId, IEnumerable<Seat> Seats) : IDomainEvent
 {
 }

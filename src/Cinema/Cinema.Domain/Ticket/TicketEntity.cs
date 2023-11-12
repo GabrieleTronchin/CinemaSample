@@ -1,8 +1,11 @@
-﻿namespace Cinema.Domain.Ticket
+﻿using Cinema.Domain.Primitives;
+using Cinema.Domain.Ticket.Events;
+using System.Net.Sockets;
+
+namespace Cinema.Domain.Ticket
 {
     public class TicketEntity
     {
-
         //Use Seat record or SeatEntity?
         public static TicketEntity Create(IEnumerable<Seat> seats, Guid showtimeId, string movieTile)
         {
@@ -23,11 +26,13 @@
             return ticket;
         }
 
+        public IList<IDomainEvent> DomainEventsList { get; private set; } = new List<IDomainEvent>();
+
         public void ConfirmPayment()
         {
             if (Paid) throw new InvalidOperationException("It's already paid.");
 
-            //TODO Add domain notification
+            DomainEventsList.Add(new PaymentAccepted(ShowtimeId, Seats));
 
             Paid = true;
         }

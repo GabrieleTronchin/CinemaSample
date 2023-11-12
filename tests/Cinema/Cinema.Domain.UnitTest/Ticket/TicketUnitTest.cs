@@ -17,9 +17,7 @@ namespace Cinema.Domain.UnitTest.Ticket
         [Fact]
         public void CreateTicketTest_NotAllowed()
         {
-
            Assert.Throws<ArgumentException>(() => TicketEntity.Create(new List<Seat>(), Guid.NewGuid(), "My Test Movie"));
-
         }
 
     }
