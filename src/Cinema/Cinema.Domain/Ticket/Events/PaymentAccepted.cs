@@ -1,6 +1,6 @@
-﻿using Cinema.Domain.DomainEvents.Abstractions;
+﻿using Cinema.Domain.Primitives;
 
-namespace Cinema.Domain.DomainEvents;
+namespace Cinema.Domain.Ticket.Events;
 
 public sealed record class PaymentAccepted(Guid ShowtimeId, IEnumerable<Seat> Seats) : IDomainEvent
 {

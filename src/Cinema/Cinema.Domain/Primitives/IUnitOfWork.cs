@@ -1,4 +1,4 @@
-﻿namespace Cinema.Persistence.UnitOfWork;
+﻿namespace Cinema.Domain.Primitives;
 
 public interface IUnitOfWork : IDisposable
 {

@@ -1,6 +1,4 @@
-﻿
-
-namespace Cinema.Domain.DomainEvents.Abstractions;
+﻿namespace Cinema.Domain.Primitives;
 
 public interface IDomainEvent : INotification
 {

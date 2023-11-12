@@ -1,7 +1,7 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Domain.AuditoriumDefinition.Repository;
+using Cinema.Domain.Primitives;
 using Cinema.Domain.Showtime;
-using Cinema.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

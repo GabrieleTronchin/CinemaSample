@@ -1,7 +1,7 @@
 ﻿using Cinema.Application.Commands;
 using Cinema.Domain;
+using Cinema.Domain.Primitives;
 using Cinema.Domain.Showtime.Repository;
-using Cinema.Persistence.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -46,7 +46,6 @@ namespace Cinema.Application.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred at {CommandHandler}", nameof(ReservationCommandHandler));
-                _unitOfWork.Rollback();
                 throw;
             }
 

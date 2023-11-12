@@ -1,4 +1,6 @@
-﻿namespace Cinema.Persistence.UnitOfWork;
+﻿using Cinema.Domain.Primitives;
+
+namespace Cinema.Persistence;
 
 
 
