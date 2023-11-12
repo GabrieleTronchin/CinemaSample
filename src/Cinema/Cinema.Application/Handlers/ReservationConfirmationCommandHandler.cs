@@ -10,16 +10,14 @@ namespace Cinema.Application.Handlers
     {
         private readonly ITicketsRepository _ticketsRepository;
         private readonly ILogger<ReservationConfirmationCommandHandler> _logger;
-        private readonly IUnitOfWork _unitOfWork;
+
 
         public ReservationConfirmationCommandHandler(
             ILogger<ReservationConfirmationCommandHandler> logger,
-            ITicketsRepository ticketsRepository,
-            IUnitOfWork unitOfWork)
+            ITicketsRepository ticketsRepository)
         {
             _ticketsRepository = ticketsRepository;
             _logger = logger;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<ReservationConfirmationComplete> Handle(ReservationConfirmationCommand request, CancellationToken cancellationToken)
@@ -32,7 +30,8 @@ namespace Cinema.Application.Handlers
 
                 ticket.ConfirmPayment();
 
-                _unitOfWork.Commit();
+                await _ticketsRepository.SaveChangesAsync();
+
                 return new ReservationConfirmationComplete() { Success = true };
             }
             catch (Exception ex)

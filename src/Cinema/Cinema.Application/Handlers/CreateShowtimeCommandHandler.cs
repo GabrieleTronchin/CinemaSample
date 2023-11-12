@@ -2,6 +2,7 @@
 using Cinema.Domain.AuditoriumDefinition.Repository;
 using Cinema.Domain.Primitives;
 using Cinema.Domain.Showtime;
+using Cinema.Domain.Showtime.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -11,15 +12,12 @@ namespace Cinema.Application.Handlers
     {
         private readonly ILogger<CreateShowtimeCommandHandler> _logger;
         private readonly IAuditoriumRepository _auditoriumRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
         public CreateShowtimeCommandHandler(ILogger<CreateShowtimeCommandHandler> logger,
-                                            IAuditoriumRepository auditoriumRepository,
-                                            IUnitOfWork unitOfWork)
+                                            IAuditoriumRepository auditoriumRepository)
         {
             _logger = logger;
             _auditoriumRepository = auditoriumRepository;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<CreateShowtimeCommandComplete> Handle(CreateShowtimeCommand request, CancellationToken cancellationToken)
@@ -37,7 +35,8 @@ namespace Cinema.Application.Handlers
 
                 var showtime = ShowtimeEntity.Create(auditoriumDefinition, movie, request.SessionDate);
 
-                _unitOfWork.Commit();
+                await _auditoriumRepository.SaveChangesAsync();
+
                 return new CreateShowtimeCommandComplete() { Id = showtime.Id };
             }
             catch (Exception ex)

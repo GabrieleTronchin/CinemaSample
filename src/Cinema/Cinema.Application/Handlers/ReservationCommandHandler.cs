@@ -2,6 +2,7 @@
 using Cinema.Domain;
 using Cinema.Domain.Primitives;
 using Cinema.Domain.Showtime.Repository;
+using Cinema.Domain.Ticket.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -11,15 +12,12 @@ namespace Cinema.Application.Handlers
     {
         private readonly ILogger<ReservationCommandHandler> _logger;
         private readonly IShowtimesRepository _showtimesRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
         public ReservationCommandHandler(ILogger<ReservationCommandHandler> logger,
-            IUnitOfWork unitOfWork,
                                              IShowtimesRepository showtimesRepository)
         {
             _logger = logger;
             _showtimesRepository = showtimesRepository;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<ReservationComplete> Handle(ReservationCommand request, CancellationToken cancellationToken)
@@ -34,7 +32,7 @@ namespace Cinema.Application.Handlers
                 var seatsToReserve = request.seats.Select(x => new Seat(x.Row, x.SeatsNumber));
                 showtime.ReserveSeats(seatsToReserve);
 
-                _unitOfWork.Commit();
+                await _showtimesRepository.SaveChangesAsync();
 
                 return new ReservationComplete
                 {
