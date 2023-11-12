@@ -13,8 +13,10 @@ public class ApiMapperAccessor : IApiMapperAccessor
             m.CreateMap<CreateShowTimeRequest, CreateShowtimeCommand>();
             m.CreateMap<MovieApiModel, Movie>();
 
-            m.CreateMap<SeatReservationRequest, ReservationCommand>()
-             .ForMember(x => x.Id, op => op.MapFrom(s => Guid.NewGuid()));
+            m.CreateMap<SeatReservationRequest, ReservationCommand>();
+            m.CreateMap<Seat, ReservationSeat>();
+            m.CreateMap<ReservationComplete, SeatReservationResponse>();
+
 
             m.CreateMap<ConfirmReservationRequest, ReservationConfirmationCommand>();
 

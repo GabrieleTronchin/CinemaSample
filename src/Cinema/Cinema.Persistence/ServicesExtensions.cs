@@ -14,8 +14,6 @@ namespace Cinema.Persistence
             services.AddTransient<IShowtimesRepository, ShowtimesRepository>();
             services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<IAuditoriumRepository, AuditoriumsRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
             services.AddDbContext<CinemaDbContext>(options =>
             {

@@ -18,7 +18,7 @@ internal class ShowtimesRepository : IShowtimesRepository
         return await _context.Showtimes
             .Include(x => x.Movie)
              .Include(x => x.Seats)
-            .SingleOrDefaultAsync(x => x.Id == id, cancel);
+            .SingleOrDefaultAsync(x => x.Id == id, cancel) ?? throw new InvalidOperationException($"{nameof(ShowtimeEntity)} not found for id:{id}");
     }
 
 
@@ -41,5 +41,10 @@ internal class ShowtimesRepository : IShowtimesRepository
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
+    }
+
+    public async Task AddAsync(ShowtimeEntity entity)
+    {
+        await _context.AddAsync(entity);
     }
 }

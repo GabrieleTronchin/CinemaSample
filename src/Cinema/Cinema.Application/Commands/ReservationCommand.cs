@@ -6,7 +6,7 @@ public class ReservationCommand : IRequest<ReservationComplete>
 {
     public Guid Id { get; set; }
     public Guid ShowtimeId { get; set; }
-    public IEnumerable<ReservationSeat> seats { get; set; }
+    public IEnumerable<ReservationSeat> Seats { get; set; }
     public int AuditoriumId { get; set; }
 }
 

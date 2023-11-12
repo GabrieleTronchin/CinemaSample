@@ -34,6 +34,11 @@ namespace Cinema.Persistence.Repositories
                 .SingleAsync(x => x.Id == auditoriumId, cancel);
         }
 
+        public async Task AddAsync(AuditoriumEntity entity)
+        {
+            await _context.AddAsync(entity);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

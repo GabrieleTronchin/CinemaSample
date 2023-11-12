@@ -12,12 +12,15 @@ namespace Cinema.Application.Handlers
     {
         private readonly ILogger<CreateShowtimeCommandHandler> _logger;
         private readonly IAuditoriumRepository _auditoriumRepository;
+        private readonly IShowtimesRepository _showtimesRepository;
 
         public CreateShowtimeCommandHandler(ILogger<CreateShowtimeCommandHandler> logger,
-                                            IAuditoriumRepository auditoriumRepository)
+                                            IAuditoriumRepository auditoriumRepository,
+                                            IShowtimesRepository showtimesRepository)
         {
             _logger = logger;
             _auditoriumRepository = auditoriumRepository;
+            _showtimesRepository = showtimesRepository;
         }
 
         public async Task<CreateShowtimeCommandComplete> Handle(CreateShowtimeCommand request, CancellationToken cancellationToken)
@@ -29,13 +32,14 @@ namespace Cinema.Application.Handlers
                 //Create Movie
                 var movie = MovieEntity.Create(request.Movie.Title, request.Movie.Stars, request.Movie.ImdbId, request.Movie.ReleaseDate);
 
-
                 var auditoriumDefinition = await _auditoriumRepository.GetAsync(request.AuditoriumId, cancellationToken)
                                            ?? throw new InvalidOperationException("Auditorium not exit");
 
                 var showtime = ShowtimeEntity.Create(auditoriumDefinition, movie, request.SessionDate);
 
-                await _auditoriumRepository.SaveChangesAsync();
+                await _showtimesRepository.AddAsync(showtime);
+
+                await _showtimesRepository.SaveChangesAsync();
 
                 return new CreateShowtimeCommandComplete() { Id = showtime.Id };
             }

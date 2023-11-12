@@ -21,9 +21,6 @@ public class TicketController : Controller
         _mapper = apiMapperAccessor;
     }
 
-
-
-
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<SeatReservationResponse>> Post([FromBody] SeatReservationRequest payload)
@@ -37,7 +34,9 @@ public class TicketController : Controller
 
             var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
 
-            return StatusCode(StatusCodes.Status201Created, result);
+
+            var apiResult = _mapper.ApiMapper.Map<SeatReservationResponse>(result);
+            return StatusCode(StatusCodes.Status201Created, apiResult);
 
         }
         catch (ArgumentNullException e)

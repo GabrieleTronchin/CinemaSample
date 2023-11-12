@@ -4,7 +4,7 @@
     {
 
         //Use Seat record or SeatEntity?
-        public static TicketEntity Create(ICollection<Seat> seats, Guid showtimeId, string movieTile)
+        public static TicketEntity Create(IEnumerable<Seat> seats, Guid showtimeId, string movieTile)
         {
             if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
 
@@ -15,7 +15,7 @@
                 Id = Guid.NewGuid(),
                 CreatedTime = DateTime.Now,
                 Paid = false,
-                Seats = seats,
+                Seats = seats.ToList(),
                 MovieTitle = movieTile,
                 ShowtimeId = showtimeId,
             };
