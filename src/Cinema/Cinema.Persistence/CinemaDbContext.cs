@@ -15,7 +15,7 @@ namespace Cinema.Persistence
         public DbSet<ShowtimeEntity> Showtimes { get; set; }
         public DbSet<ShowtimeSeatEntity> ShowtimesSeats { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
-        public DbSet<DomainEvent> DomainEvents { get; set; }
+        public DbSet<OutboxMessageEntity> DomainEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

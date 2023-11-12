@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Cinema.Persistence.Interceptors
 {
-    public sealed class TicketDomainEventInterceptor
+    public sealed class TicketEntityDomainEventInterceptor
     : SaveChangesInterceptor
     {
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
@@ -22,26 +22,26 @@ namespace Cinema.Persistence.Interceptors
                  .Select(x => x.Entity)
                  .SelectMany(x =>
                  {
-                     var ticketDE = x.Events;
+                     var @event = x.GetEvents();
 
-                     x.Events.Clear();
+                     x.ClearEvents();
 
-                     return ticketDE;
+                     return @event;
 
                  })
-                 .Select(x => new DomainEvent()
+                 .Select(x => new OutboxMessageEntity()
                  {
                      Id = Guid.NewGuid(),
                      CreationTime = DateTime.UtcNow,
                      Type = x.GetType().Name,
                      Content = JsonConvert.SerializeObject(x, new JsonSerializerSettings
                      {
-                         TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full
+                         TypeNameHandling = TypeNameHandling.All
                      })
                  })
                  .ToList();
 
-            dbContext.Set<DomainEvent>().AddRange(domainEvents);
+            dbContext.Set<OutboxMessageEntity>().AddRange(domainEvents);
             return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
     }

@@ -12,8 +12,6 @@ internal class TicketConfiguration : IEntityTypeConfiguration<TicketEntity>
             seatBuilder.Property(s => s.RowNumber);
             seatBuilder.Property(s => s.SeatNumber);
         });
-
-        builder.Ignore(x => x.Events);
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain
 {
-    public sealed class DomainEvent
+    public sealed class OutboxMessageEntity
     {
         public Guid Id { get; set; }
 

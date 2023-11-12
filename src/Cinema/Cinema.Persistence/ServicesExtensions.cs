@@ -15,9 +15,9 @@ namespace Cinema.Persistence
             services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<IAuditoriumRepository, AuditoriumsRepository>();
 
-            services.AddSingleton<TicketDomainEventInterceptor>();
+            services.AddSingleton<TicketEntityDomainEventInterceptor>();
 
-            var tcInterceptor = services.BuildServiceProvider().GetRequiredService<TicketDomainEventInterceptor>();
+            var tcInterceptor = services.BuildServiceProvider().GetRequiredService<TicketEntityDomainEventInterceptor>();
 
             services.AddDbContext<CinemaDbContext>(options =>
             {

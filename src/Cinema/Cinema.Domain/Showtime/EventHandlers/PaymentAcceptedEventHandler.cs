@@ -17,5 +17,6 @@ internal sealed class PaymentAcceptedEventHandler : INotificationHandler<Payment
         var showtime = await _showtimesRepository.GetAsync(notification.ShowtimeId, cancellationToken);
 
         showtime.HasBeenPurchased(notification.Seats);
+        await _showtimesRepository.SaveChangesAsync();
     }
 }

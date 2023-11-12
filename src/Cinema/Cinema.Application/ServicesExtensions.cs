@@ -1,6 +1,8 @@
 ﻿using Cinema.Application.Auditorium.Queries;
+using Cinema.Domain;
 using Cinema.Persistence;
 using MassTransit;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
@@ -12,6 +14,7 @@ public static class ServicesExtensions
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
+        services.AddDomainNotification();
         services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
         services.AddMassTransit(x =>
         {
@@ -23,9 +26,9 @@ public static class ServicesExtensions
 
 
         services.AddQuartz(cfg => {
-            var jobKey = new JobKey(nameof(ProcessingDomainEventJob));
+            var jobKey = new JobKey(nameof(OutboxMessageProcessorJob));
 
-            cfg.AddJob<ProcessingDomainEventJob>(jobKey)
+            cfg.AddJob<OutboxMessageProcessorJob>(jobKey)
                .AddTrigger(t => t.ForJob(jobKey)
                                 .WithSimpleSchedule(s => s.WithIntervalInSeconds(10).RepeatForever()));
         });
