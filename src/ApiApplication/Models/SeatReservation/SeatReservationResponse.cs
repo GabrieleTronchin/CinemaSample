@@ -6,7 +6,7 @@ namespace Cinema.Api.Models.SeatReservation
     {
         public Guid Id { get; set; }
 
-        public IEnumerable<Seat> SeatsNumber { get; set; }
+        public IEnumerable<Seat> Seats { get; set; }
 
         public int AuditoriumId { get; set; }
 

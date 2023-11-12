@@ -17,7 +17,9 @@ public class ApiMapperAccessor : IApiMapperAccessor
             m.CreateMap<MovieApiModel, Movie>();
 
             m.CreateMap<SeatReservationRequest, ReservationCommand>();
-            m.CreateMap<Seat, ReservationSeat>();
+            m.CreateMap<Seat, ReservationSeat>().ReverseMap();
+
+
             m.CreateMap<ReservationComplete, SeatReservationResponse>();
 
             m.CreateMap<ConfirmReservationRequest, ReservationConfirmationCommand>();

@@ -42,7 +42,7 @@ public class ReservationCommandHandler : IRequestHandler<ReservationCommand, Res
                 Id = newTicket.Id,
                 AuditoriumId = showtime.AuditoriumId,
                 MovieTitle = showtime.Movie.Title,
-                SeatsNumber = request.Seats
+                Seats = request.Seats
             };
         }
         catch (Exception ex)

@@ -20,7 +20,7 @@ public record ReservationComplete
 {
     public Guid Id { get; set; }
 
-    public IEnumerable<ReservationSeat> SeatsNumber { get; set; }
+    public IEnumerable<ReservationSeat> Seats { get; set; }
 
     public int AuditoriumId { get; set; }
 

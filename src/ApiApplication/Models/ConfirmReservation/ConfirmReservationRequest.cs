@@ -2,6 +2,7 @@
 {
     public class ConfirmReservationRequest
     {
-        public Guid ReservationId { get; set; }
+        [Required]
+        public string ReservationId { get; set; }
     }
 }
