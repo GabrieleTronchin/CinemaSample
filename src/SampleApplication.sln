@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Application", "Cinem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain", "Cinema\Cinema.Domain\Cinema.Domain.csproj", "{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2FC99945-FA52-4DB8-BA38-5CE0C6FC5F55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Domain.UnitTest", "..\tests\Cinema\Cinema.Domain.UnitTest\Cinema.Domain.UnitTest.csproj", "{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,10 @@ Global
 		{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +92,8 @@ Global
 		{0C571608-EDA2-470E-A75B-8A52761CC719} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
 		{8FE6AC1A-D94A-4D29-A47C-26AE1315AC76} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
 		{3ABEC370-CE03-4A7D-A95D-9E94BB8F52CB} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
+		{2FC99945-FA52-4DB8-BA38-5CE0C6FC5F55} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
+		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D} = {2FC99945-FA52-4DB8-BA38-5CE0C6FC5F55}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C52A7E7E-4F02-4B44-B7D4-995DE72CF0B3}
