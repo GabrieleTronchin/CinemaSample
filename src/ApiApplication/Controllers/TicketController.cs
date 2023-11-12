@@ -1,7 +1,6 @@
 ﻿using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
 using Cinema.Application.Ticket.Commands;
-using MassTransit;
 
 namespace Cinema.Api.Controllers;
 

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cinema.Domain.Primitives
+﻿namespace Cinema.Domain.Primitives
 {
     public abstract class AggregateRoot
     {
 
         private readonly IList<IDomainEvent> _events;
 
-        protected AggregateRoot() {
+        protected AggregateRoot()
+        {
             _events = new List<IDomainEvent>();
         }
 

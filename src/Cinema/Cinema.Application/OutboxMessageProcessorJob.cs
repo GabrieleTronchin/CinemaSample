@@ -56,7 +56,8 @@ public class OutboxMessageProcessorJob : IJob
                 _logger.LogError(ex, $"An error occurred processing domain event messages.");
                 message.Exception = ex.Message;
             }
-            finally {
+            finally
+            {
                 message.CompleteTime = DateTime.UtcNow;
             }
         }

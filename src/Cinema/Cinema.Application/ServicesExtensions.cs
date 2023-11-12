@@ -2,7 +2,6 @@
 using Cinema.Domain;
 using Cinema.Persistence;
 using MassTransit;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
@@ -25,7 +24,8 @@ public static class ServicesExtensions
         });
 
 
-        services.AddQuartz(cfg => {
+        services.AddQuartz(cfg =>
+        {
             var jobKey = new JobKey(nameof(OutboxMessageProcessorJob));
 
             cfg.AddJob<OutboxMessageProcessorJob>(jobKey)
