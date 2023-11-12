@@ -38,8 +38,8 @@ internal class ShowtimesRepository : IShowtimesRepository
             .ToListAsync(cancel);
     }
 
-    public async Task<ShowtimeEntity> CreateShowtime(ShowtimeEntity showtimeEntity, CancellationToken cancel)
+    public async Task SaveChangesAsync()
     {
-        throw new NotImplementedException();
+        await _context.SaveChangesAsync();
     }
 }

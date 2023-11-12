@@ -17,5 +17,9 @@ namespace Cinema.Persistence.Repositories
             return await _context.Tickets.SingleAsync(x => x.Id == id, cancel);
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

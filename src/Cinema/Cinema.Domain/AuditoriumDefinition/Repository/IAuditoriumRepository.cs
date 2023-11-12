@@ -1,7 +1,11 @@
-﻿namespace Cinema.Domain.AuditoriumDefinition.Repository;
+﻿using Cinema.Domain.Primitives;
 
-public interface IAuditoriumRepository
+namespace Cinema.Domain.AuditoriumDefinition.Repository;
+
+public interface IAuditoriumRepository: IRepository
 {
     Task<AuditoriumEntity> GetAsync(int auditoriumId, CancellationToken cancel);
     Task<IEnumerable<AuditoriumEntity>> GetAllAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel);
+
+
 }
