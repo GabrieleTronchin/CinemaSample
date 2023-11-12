@@ -22,7 +22,7 @@ public class ShowtimeSeatEntity
         if (Purchased)
             throw new InvalidOperationException("It shouldn't be possible to reserve an already sold seat.");
 
-        if (DateTime.UtcNow >= DateTime.UtcNow.Add(ReservationCooldown))
+        if (ReservationTime.HasValue && DateTime.UtcNow <= ReservationTime.Value.Add(ReservationCooldown))
             throw new InvalidOperationException($"It should not be possible to reserve the same seats two times in {DEFAULT_COOLDOWN} minutes");
 
 

@@ -41,13 +41,13 @@ public class ShowtimeController : Controller
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e);
+            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e);
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
 }

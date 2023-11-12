@@ -1,6 +1,7 @@
 ﻿using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
 using Cinema.Application.Ticket.Commands;
+using MassTransit;
 
 namespace Cinema.Api.Controllers;
 
@@ -33,10 +34,9 @@ public class TicketController : Controller
                 return BadRequest(ModelState);
             }
 
-            var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
+            var response = await _mediator.Send(_mapper.ApiMapper.Map<ReservationCommand>(payload));
 
-
-            var apiResult = _mapper.ApiMapper.Map<SeatReservationResponse>(result);
+            var apiResult = _mapper.ApiMapper.Map<SeatReservationResponse>(response);
             return StatusCode(StatusCodes.Status201Created, apiResult);
 
         }
@@ -44,13 +44,13 @@ public class TicketController : Controller
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e);
+            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e);
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
 
@@ -67,11 +67,7 @@ public class TicketController : Controller
                 return BadRequest(ModelState);
             }
 
-            var result = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
-
-            if (!result.Success)
-                throw new InvalidOperationException("An error occurred completing your payment.");
-
+            var response = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
 
             return StatusCode(StatusCodes.Status202Accepted);
 
@@ -80,13 +76,13 @@ public class TicketController : Controller
         {
             _logger.LogError($"{nameof(Put)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e);
+            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Put)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e);
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
 }
