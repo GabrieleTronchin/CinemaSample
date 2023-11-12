@@ -20,7 +20,6 @@ public class ApiMapperAccessor : IApiMapperAccessor
             m.CreateMap<Seat, ReservationSeat>();
             m.CreateMap<ReservationComplete, SeatReservationResponse>();
 
-
             m.CreateMap<ConfirmReservationRequest, ReservationConfirmationCommand>();
 
         }).CreateMapper();

@@ -19,6 +19,7 @@
                 MovieTitle = movieTile,
                 ShowtimeId = showtimeId,
             };
+
             return ticket;
         }
 
@@ -34,7 +35,7 @@
         public Guid Id { get; private set; }
         public Guid ShowtimeId { get; private set; }
         public string MovieTitle { get; private set; } = string.Empty;
-        public ICollection<Seat> Seats { get; private set; }
+        public ICollection<Seat> Seats { get; private set; } = new List<Seat>();
         public DateTime CreatedTime { get; private set; }
         public bool Paid { get; private set; }
     }

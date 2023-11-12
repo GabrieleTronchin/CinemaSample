@@ -12,7 +12,7 @@ public class ShowtimeEntity
         {
             Id = showtimeId,
             Movie = movie,
-            Seats = auditorium.Seats.Select(x => ShowtimeSeatEntity.Create(x, showtimeId)),
+            Seats = auditorium.Seats.Select(x => ShowtimeSeatEntity.Create(x, showtimeId)).ToList(),
             AuditoriumId = auditorium.Id,
             SessionDate = sessionDate
         };
@@ -57,7 +57,7 @@ public class ShowtimeEntity
 
     public Guid Id { get; private set; }
     public int AuditoriumId { get; private set; }
-    public IEnumerable<ShowtimeSeatEntity> Seats { get; private set; }
+    public ICollection<ShowtimeSeatEntity> Seats { get; private set; }
 
     public Guid MovieId { get; private set; }
     public MovieEntity Movie { get; private set; }
