@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Cinema.Application.Payment.Events;
 
-internal class PaymentCancelled : IntegrationEvent
+public class PaymentCancelled : IntegrationEvent
 {
 }

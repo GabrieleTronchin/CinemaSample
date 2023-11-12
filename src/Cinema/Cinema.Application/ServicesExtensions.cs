@@ -14,11 +14,12 @@ public static class ServicesExtensions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
         services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
-
-
         services.AddMassTransit(x =>
         {
-            x.AddSagaStateMachine<PaymentStateMachine, PaymentState>().InMemoryRepository();
+            x.UsingInMemory((context, cfg) =>
+            {
+                cfg.ConfigureEndpoints(context);
+            });
         });
 
         services.AddPersistence();

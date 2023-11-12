@@ -1,11 +1,12 @@
-﻿using Cinema.Domain;
+﻿using Cinema.Application.Ticket.Commands;
+using Cinema.Domain;
 using Cinema.Domain.Showtime.Repository;
 using Cinema.Domain.Ticket;
 using Cinema.Domain.Ticket.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Cinema.Application.Ticket.Commands;
+namespace Cinema.Application.Ticket;
 
 public class ReservationCommandHandler : IRequestHandler<ReservationCommand, ReservationComplete>
 {
