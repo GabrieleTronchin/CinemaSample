@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cinema.Application.Events;
+namespace Cinema.Application.Primitives;
 
 [ExcludeFromCodeCoverage]
 public abstract class IntegrationEvent

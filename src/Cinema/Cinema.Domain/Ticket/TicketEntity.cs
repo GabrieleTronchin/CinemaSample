@@ -1,6 +1,5 @@
 ﻿using Cinema.Domain.Primitives;
 using Cinema.Domain.Ticket.Events;
-using System.Net.Sockets;
 
 namespace Cinema.Domain.Ticket
 {
@@ -26,13 +25,13 @@ namespace Cinema.Domain.Ticket
             return ticket;
         }
 
-        public IList<IDomainEvent> DomainEventsList { get; private set; } = new List<IDomainEvent>();
+        public IList<IDomainEvent> Events { get; private set; } = new List<IDomainEvent>();
 
         public void ConfirmPayment()
         {
             if (Paid) throw new InvalidOperationException("It's already paid.");
 
-            DomainEventsList.Add(new PaymentAccepted(ShowtimeId, Seats));
+            Events.Add(new PaymentAccepted(ShowtimeId, Seats));
 
             Paid = true;
         }

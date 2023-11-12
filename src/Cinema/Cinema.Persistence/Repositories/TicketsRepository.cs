@@ -1,6 +1,5 @@
 ﻿using Cinema.Domain.Ticket;
 using Cinema.Domain.Ticket.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Persistence.Repositories
 {

@@ -1,10 +1,7 @@
-﻿using Cinema.Application.Payment;
-using Cinema.Application.Payment.Events;
+﻿using Cinema.Application.Payment.Events;
 using Cinema.Application.Ticket.Commands;
-using Cinema.Domain.Ticket.Events;
 using Cinema.Domain.Ticket.Repository;
 using MassTransit;
-using MassTransit.Transports;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -36,7 +33,7 @@ public class ReservationConfirmationCommandHandler : IRequestHandler<Reservation
             // Requirement asking for a direct call to payment service, but in order to have more decupled code is better a MassTransit event.
             // A draft of Payment saga has been added to the solution just as a sample idea, payment code in the future may be in a separate service.
             // For this demo, i just publish staring event and set payment as completed.
-            await _publishEndpoint.Publish(new PaymentRequest());  
+            await _publishEndpoint.Publish(new PaymentRequest());
             ticket.ConfirmPayment();
 
             await _ticketsRepository.SaveChangesAsync();

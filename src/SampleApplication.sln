@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain", "Cinema\Cin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2FC99945-FA52-4DB8-BA38-5CE0C6FC5F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Domain.UnitTest", "..\tests\Cinema\Cinema.Domain.UnitTest\Cinema.Domain.UnitTest.csproj", "{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain.UnitTest", "..\tests\Cinema\Cinema.Domain.UnitTest\Cinema.Domain.UnitTest.csproj", "{ED1ECFFE-F81D-4708-AAD5-D6B15544737D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

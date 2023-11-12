@@ -1,6 +1,4 @@
 ﻿using Cinema.Application.Auditorium.Queries;
-using Cinema.Application.Payment;
-using Cinema.Application.Payment.Events;
 using Cinema.Persistence;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
