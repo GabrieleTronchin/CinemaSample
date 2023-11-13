@@ -5,103 +5,96 @@
 The repository's folder structure consists of:
 
 - **doc**: contains project documentation files.
-- **docker**: folder used to store docker compose file, configuration, and some script powershell.
-- **src**: holds the application's source code. Solution file is located within this folder, and for each service, a separate folder has been created.
+- **docker**: folder used to store Docker Compose files, configurations, and some PowerShell scripts.
+- **src**: holds the application's source code. The solution file is located within this folder, and for each service, a separate folder has been created.
 - **test**: contains tests for each service.
 
-## Prerequirements steps to solve the challange
+## Prerequisite Steps to Solve the Challenge
 
-1. Update NET version from 3.1 to 7. ( NET Core 3.1 is out of support.)
-2. Adjust docker compose file, and separate core app service from accessor service.
-3. Solve issue on Movie service: just run docker log to locate the env to modify.
-4. Solve GRPC implementation, just add API KEY founded in swagger.
+1. Update the .NET version from 3.1 to 7 (since .NET Core 3.1 is out of support).
+2. Adjust the Docker Compose file and separate the core app service from the accessor service.
+3. Resolve the issue on the Movie service: run `docker log` to locate the environment variable that needs modification.
+4. Solve the GRPC implementation; simply add the API KEY found in Swagger.
 
 ## Challenge Analysis 
 
-**[Provided API](http://localhost:7172/swagger/index.html).** should be consider as an external service.
-Purpose of challage is see how to handle with external service.
+**[Provided API](http://localhost:7172/swagger/index.html).** should be considered an external service. The purpose of the challenge is to see how to handle an external service.
 
-From my point of view we have 3 options:
-1. Synchronous approach
-2. Asynchronous approach
-3. Use a Sidecar container
-
+From my point of view, we have three options:
 
 ### 1 - Synchronous approach
 
-Creating another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Everything is handled synchronously using GRPC calls.
+Create another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Everything is handled synchronously using GRPC calls.
 
-Advantages: Simplicity
-Disadvantages: high coupling with target services.
+- Advantages: Simplicity
+- Disadvantages: High coupling with target services.
 
-( For this demo, even if i choose this soltution, I will not suggest it in a real world shenario.)
+*(For this demo, even if I choose this solution, I will not suggest it in a real-world scenario.)*
 
 ### 2 - Asynchronous approach
 
-Creating another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Comunication with Provided API is handle in GRPC synchronously but comunication with target service will be made using Service Bus messages.
+Create another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Communication with the Provided API is handled in GRPC synchronously, but communication with the target service will be made using Service Bus messages.
 
-Advantages: Decopled from reciver/s.
-Disadvantages: More complex than Synchronous approach.
+- Advantages: Decoupled from receivers.
+- Disadvantages: More complex than the Synchronous approach.
 
-( Not choosen for time reason )
-
+*(Not chosen for time reasons.)*
 
 ### 3 - Sidecar Container
 
-Ref.:(https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-non-dapr-endpoints/)
+Ref.: [Dapr Documentation](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-non-dapr-endpoints/)
 
-In this shenario is not necessary to develop a new aggregator project. The call has been done direcly on the target service throw sidecar container. This shenario could be reached using projects like Dapr.
+In this scenario, it is not necessary to develop a new aggregator project. The call is made directly on the target service through a sidecar container, which could be achieved using projects like Dapr.
 
-Advantages: Once Dapr is configured, it simplifies the architecture. Many features pre-made. Cloud agnostic.
-Disadvantages: Strong coupling with Dapr of our solution. A sidecar is needed for each container developed, this may increase hosting costs.
+- Advantages: Once Dapr is configured, it simplifies the architecture. Many features are pre-made. Cloud agnostic.
+- Disadvantages: Strong coupling with Dapr in our solution. A sidecar is needed for each container developed, potentially increasing hosting costs.
 
-( Not choosen for time reason / for this demo Dapr is overkill )
+*(Not chosen for time reasons; for this demo, Dapr is considered overkill.)*
 
-## Archtecture overview
+## Architecture Overview
 
-L'approccio utilizzato è tipo DDD, quindi la prima cosa da fare è stato creare il progetto DomainModel e rimodellare le entità disaccoppiandole il più possibile.
+The approach used is Domain-Driven Design (DDD). The first step was to create the DomainModel project and remodel the entities, decoupling them as much as possible.
 
-Sono state fatte le seguenti modifiche:
+The following modifications were made:
 
-- Seat è diventata un record e quindi un value type
-- L'entità auditorium è diventata un entità a se stante. Viene invocata nella creazione degli showtime per avere la definzione delle sale.
-- Showtime + Movie + Showtime seats (new): Quando si crea uno showtime, viene recuperata la def degli auditorium di riferimento e creati i seat per showtime.
-- TicketEntity non deve aver riferimento ad altre entità.
+- `Seat` has become a record and, therefore, a value type.
+- The `Auditorium` entity has become a separate entity invoked in the creation of showtimes to obtain the definition of the halls.
+- `Showtime + Movie + Showtime seats` (new): When creating a showtime, the auditorium definitions are retrieved, and seats for the showtime are created.
+- `TicketEntity` should not have references to other entities.
 
-Alcuni pattern usati nel Domain:
-- Factory pattern statc create (Always Valid pattern)
-- outbox pattern utilizzato nell entità Ticket per gestire gli eventi di dominio.
+Some patterns used in the Domain:
 
+- Factory pattern static create (Always Valid pattern)
+- Outbox pattern used in the `Ticket` entity to manage domain events.
 
-La struttura dell applicativo si presenta quindi cosi:
+The application's structure is as follows:
 
-- API: contiene i modelli, controller e cfg di startup.
-- Application: contiene command e query handler.
-- Domain: contiene le entità di dominio.
-- Presistence: gestisce la persistenza con ef core.
+- **API**: contains models, controllers, and startup configurations.
+- **Application**: contains command and query handlers.
+- **Domain**: contains domain entities.
+- **Persistence**: manages persistence with EF Core.
 
 ### API
- - model versioned, using a package called automapper to decople API Models from Read and Write Application Models.
+
+- Model versioned, using a package called AutoMapper to decouple API Models from Read and Write Application Models.
 
 ### Application
 
-Approccio a CQRS per le CRUD: due modelli separati per read e write. Ad oggi viene utilizzato lo stesso repository. Ma in futuro questo potrebbe cambiare.
+CQRS approach for CRUD: two separate models for read and write. Currently, the same repository is used, but this could change in the future.
 
-Gestisce il publish degli eventi di dominio.
-
-Gestisce eventuali Integration Events con altri servizi ( es.: Payment ).
+- Manages the publication of domain events.
+- Handles any Integration Events with other services (e.g., Payment).
 
 ### Persistence
 
-Gestice la persistenza su InMemoryDB con EF core.
-- Rifatorizzato il layer persistence: IConfigurationBuildinder per maggior ordine.
-- Implementato il salvataggio dei domain event con un interceptor
-
+- Manages persistence on InMemoryDB with EF Core.
+- Refactored the persistence layer: IConfigurationBuilder for greater order.
+- Implemented saving domain events with an interceptor.
 
 ### Test
 
-Nella folder test è presente un file .jmx che consente di provare gli endpoint con Jmer.
+In the test folder, there is a .jmx file that allows testing endpoints with JMeter.
 
-A titolo di esempio è stato inserito un progetto di unit test per alcuni domini.
+As an example, a unit test project for some domains has been included in the solution.
 
-Nella solition src è presente un file RunStryker.ps1 consente di eseguire dei mutator test, la sola code coverage non è a mio avviso sufficente come parametro.
+In the src solution, there is a RunStryker.ps1 file that allows running mutant tests. In my opinion, code coverage alone is not sufficient as a parameter.
