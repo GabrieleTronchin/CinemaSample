@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Cache\ServiceCache.csproj" />
     <ProjectReference Include="..\..\Shared\Cinema.Client\Cinema.Client.csproj" />
-    <ProjectReference Include="..\Movies.Client\Movies.Client.csproj" />
+    <ProjectReference Include="..\..\Shared\Movies.Client\Movies.Client.csproj" />
   </ItemGroup>
 
 </Project>
