@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.Aggregator.Domain;
 using MoviesAggregator.Models;
 using Domain = Movies.Aggregator.Domain.Models;
 
@@ -31,7 +32,7 @@ public class ShowtimeController : Controller
                 return BadRequest(ModelState);
             }
 
-            await _showtimeService.Create(new Domain.CreateShowTime()
+            var response = await _showtimeService.Create(new Domain.CreateShowTime()
             {
                 ImdbId = payload.ImdbId,
                 AuditoriumId = payload.AuditoriumId,

@@ -1,107 +1,107 @@
-### Feedback
+# Feedback
 
+## Git Folder Structure
 
-Introduzione:
+The repository's folder structure consists of:
 
-due righe
+- **doc**: contains project documentation files.
+- **docker**: folder used to store docker compose file, configuration, and some script powershell.
+- **src**: holds the application's source code. Solution file is located within this folder, and for each service, a separate folder has been created.
+- **test**: contains tests for each service.
 
-Analisi as is e primi passi:
+## Prerequirements steps to solve the challange
 
 1. Update NET version from 3.1 to 7. ( NET Core 3.1 is out of support.)
+2. Adjust docker compose file, and separate core app service from accessor service.
+3. Solve issue on Movie service: just run docker log to locate the env to modify.
+4. Solve GRPC implementation, just add API KEY founded in swagger.
 
-# Steps to solve task
+## Challenge Analysis 
 
-### Solution Folders
+**[Provided API](http://localhost:7172/swagger/index.html).** should be consider as an external service.
+Purpose of challage is see how to handle with external service.
 
-1. Modificata la struttura in src/test/doc/docker
-2. Sistemati gli script docker ( ho altri container e contesti creati .ps1 )
-
-### Fixing Minors
-
-1. Servizio Movies, con variabile di Fails %
-2. GRPC mancava l'API KEY
-
-
-### Solution **Create showtime**
-
-L'api fornita viene vista come un servizio esterno.
-Opzini di comunicazione:
-1. La ui recupera i dati e li manda via rest al servizio ( accoppiamento UI )
-2. Aggregator prj sincrono (x)
-3. Aggregator prj async => invece di grpc si utilizza un BUS
-4. Accoppiamento con servizio e sidecar container (https://docs.dapr.io/concepts/dapr-services/sidecar/)
-
-++ REBUS Implementation con IDistributedCache +++
-
-### Archtecture overview
-
-## main pakage used
-
--------
-
-API:
-Modelli versionati + Automapper per disaccoppiare comandi da API Models
-
-ReadModel per semplicità torna cosi com'è ma si potrebbe aggiungere.
-
--------
-
-Application:
-https://medium.com/@dbottiau/a-naive-introduction-to-cqrs-in-c-9d0d99cd2d54
-
-Queries: Usa il repo ma si potrebbe fare con altri Orm es. Dapper
-Commands: Put/post/ Delete  => Inegration Events
-
-https://learn.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/integration-event-based-microservice-communications
+From my point of view we have 3 options:
+1. Synchronous approach
+2. Asynchronous approach
+3. Use a Sidecar container
 
 
--------
-Domain:
+### 1 - Synchronous approach
 
-Una volta deciso come disacoppiare il servizio che fornisce l'elenco degli showtime, è necessario individuare e dividere i bouded context.
+Creating another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Everything is handled synchronously using GRPC calls.
 
-Divisione di BC in questo modo:
-- Seat diventa un value tipe
-- Auditorium è la definizione
+Advantages: Simplicity
+Disadvantages: high coupling with target services.
+
+( For this demo, even if i choose this soltution, I will not suggest it in a real world shenario.)
+
+### 2 - Asynchronous approach
+
+Creating another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Comunication with Provided API is handle in GRPC synchronously but comunication with target service will be made using Service Bus messages.
+
+Advantages: Decopled from reciver/s.
+Disadvantages: More complex than Synchronous approach.
+
+( Not choosen for time reason )
+
+
+### 3 - Sidecar Container
+
+Ref.:(https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-non-dapr-endpoints/)
+
+In this shenario is not necessary to develop a new aggregator project. The call has been done direcly on the target service throw sidecar container. This shenario could be reached using projects like Dapr.
+
+Advantages: Once Dapr is configured, it simplifies the architecture. Many features pre-made. Cloud agnostic.
+Disadvantages: Strong coupling with Dapr of our solution. A sidecar is needed for each container developed, this may increase hosting costs.
+
+( Not choosen for time reason / for this demo Dapr is overkill )
+
+## Archtecture overview
+
+L'approccio utilizzato è tipo DDD, quindi la prima cosa da fare è stato creare il progetto DomainModel e rimodellare le entità disaccoppiandole il più possibile.
+
+Sono state fatte le seguenti modifiche:
+
+- Seat è diventata un record e quindi un value type
+- L'entità auditorium è diventata un entità a se stante. Viene invocata nella creazione degli showtime per avere la definzione delle sale.
 - Showtime + Movie + Showtime seats (new): Quando si crea uno showtime, viene recuperata la def degli auditorium di riferimento e creati i seat per showtime.
 - TicketEntity non deve aver riferimento ad altre entità.
 
-Factory pattern statc create (Always Valid pattern)
+Alcuni pattern usati nel Domain:
+- Factory pattern statc create (Always Valid pattern)
+- outbox pattern utilizzato nell entità Ticket per gestire gli eventi di dominio.
 
-A questo punto creiamo costruttori e validazioni per i modelli.
 
- private set; => si modificano solo tramite metodi di dominio.
+La struttura dell applicativo si presenta quindi cosi:
 
-in questo modo possiamo già inserire alcune delle validazioni richieste.
-Disaccoppiati i seats degli auditorium ( may change?! ) da quelli degli showtime.
+- API: contiene i modelli, controller e cfg di startup.
+- Application: contiene command e query handler.
+- Domain: contiene le entità di dominio.
+- Presistence: gestisce la persistenza con ef core.
 
-Repositori disacoppiati volutamente...
+### API
+ - model versioned, using a package called automapper to decople API Models from Read and Write Application Models.
 
-(La logica dei domain è tenetura seprata ma si potrebbe accorpare sotto un unica entiti avendo un base type per le entità)
-Domain Event:
-https://medium.com/design-microservices-architecture-with-patterns/outbox-pattern-for-microservices-architectures-1b8648dfaa27
-+
-Quarz for parsing and publish domain events
-https://www.quartz-scheduler.net/
+### Application
 
--------
-Persistence Layer
+Approccio a CQRS per le CRUD: due modelli separati per read e write. Ad oggi viene utilizzato lo stesso repository. Ma in futuro questo potrebbe cambiare.
 
+Gestisce il publish degli eventi di dominio.
+
+Gestisce eventuali Integration Events con altri servizi ( es.: Payment ).
+
+### Persistence
+
+Gestice la persistenza su InMemoryDB con EF core.
 - Rifatorizzato il layer persistence: IConfigurationBuildinder per maggior ordine.
 - Implementato il salvataggio dei domain event con un interceptor
 
 
---- Tests
+### Test
 
-Jmeter per loading e automatismi
-+
-Esempio Unit
-+
-Esempio Mutator con stryker
+Nella folder test è presente un file .jmx che consente di provare gli endpoint con Jmer.
 
-Due righe su code coverage
+A titolo di esempio è stato inserito un progetto di unit test per alcuni domini.
 
------
-
-Bonus progressive GUID vs identity:
-
+Nella solition src è presente un file RunStryker.ps1 consente di eseguire dei mutator test, la sola code coverage non è a mio avviso sufficente come parametro.

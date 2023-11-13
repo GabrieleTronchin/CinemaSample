@@ -15,18 +15,6 @@ services:
     networks:
       - default
 
-  # cinema-api:
-  #   ports:
-  #     - "8174:80"
-  #     - "8443:443"
-  #   environment:      
-  #     - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENV}
-  #     - ASPNETCORE_URLS=https://+:443;http://+:80
-  #     - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
-  #     - ASPNETCORE_Kestrel__Certificates__Default__Path=${CERT_PATH}
-  #   networks:
-  #     - default
-
 networks:
   default:
     driver: bridge
