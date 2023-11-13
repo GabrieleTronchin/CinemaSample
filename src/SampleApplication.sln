@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Client", "Shared\Mov
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceCache", "Shared\Cache\ServiceCache.csproj", "{C7EF1521-B262-4BF2-9B34-5A2109CD9598}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Polly.Wrapper", "Shared\Polly.Wrapper\Polly.Wrapper.csproj", "{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{C7EF1521-B262-4BF2-9B34-5A2109CD9598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7EF1521-B262-4BF2-9B34-5A2109CD9598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7EF1521-B262-4BF2-9B34-5A2109CD9598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{ED1ECFFE-F81D-4708-AAD5-D6B15544737D} = {2FC99945-FA52-4DB8-BA38-5CE0C6FC5F55}
 		{7F1EE293-9849-45D1-8233-8F083C1E50DF} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 		{C7EF1521-B262-4BF2-9B34-5A2109CD9598} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
+		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C52A7E7E-4F02-4B44-B7D4-995DE72CF0B3}

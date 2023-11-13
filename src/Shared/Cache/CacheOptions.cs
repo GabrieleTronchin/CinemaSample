@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ServiceCache
+namespace ServiceCache;
+
+public class CacheOptions
 {
-    public class CacheOptions
-    {
-        [Required]
-        public int SlidingExpirationToNowInMinutes { get; set; }
-    }
+    [Required]
+    public int SlidingExpirationToNowInMinutes { get; set; }
 }

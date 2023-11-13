@@ -32,6 +32,7 @@ message moviesApiException {
 // Response model
 message responseModel {
   bool success = 1;
-  google.protobuf.Any data  = 2;
-  repeated moviesApiException exceptions = 3;
+  string shotimeId= 2;
+  google.protobuf.Any data  = 3;
+  repeated moviesApiException exceptions = 4;
 }

@@ -1,9 +1,8 @@
 ﻿using ProtoDefinitions;
 
-namespace Movies.Client
+namespace Movies.Client;
+
+public interface IMoviesClientGrpc
 {
-    public interface IMoviesClientGrpc
-    {
-        Task<showResponse> GetById(string id);
-    }
+    Task<showResponse> GetById(string id);
 }

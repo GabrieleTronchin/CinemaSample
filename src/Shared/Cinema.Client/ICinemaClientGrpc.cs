@@ -1,9 +1,8 @@
 ﻿using ShowTimeProto;
 
-namespace Cinema.Client
+namespace Cinema.Client;
+
+public interface ICinemaClientGrpc
 {
-    public interface ICinemaClientGrpc
-    {
-        Task<responseModel> CreateShowTime(ShowtimeCreationRequest request);
-    }
+    Task<responseModel> CreateShowTime(ShowtimeCreationRequest request);
 }

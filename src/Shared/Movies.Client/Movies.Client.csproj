@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,8 @@
 
   <ItemGroup>
 	  <PackageReference Include="Grpc.AspNetCore" Version="2.59.0" />
+	  <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.13" />
+	  <ProjectReference Include="..\Polly.Wrapper\Polly.Wrapper.csproj" />
 	  <Protobuf Include="movies.proto" GrpcServices="Client" />
   </ItemGroup>
 

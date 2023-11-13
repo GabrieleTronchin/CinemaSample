@@ -2,8 +2,8 @@
 
 namespace Movies.Aggregator.Domain
 {
-    public interface IShowtimeService
+    internal interface IShowtimeService
     {
-        Task Create(CreateShowTime createRequest);
+        Task<CreateShowTimeResponse> Create(CreateShowTime createRequest);
     }
 }

@@ -1,17 +1,19 @@
 ﻿using Cinema.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Movies.Client;
+using ServiceCache;
 
-namespace Movies.Aggregator.Domain
+namespace Movies.Aggregator.Domain;
+
+public static partial class ServicesExtensions
 {
-    public static partial class ServicesExtensions
+    public static IServiceCollection AddDomainLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddDomainLayer(this IServiceCollection services)
-        {
-            services.AddMoviesClient();
-            services.AddCinemaClient();
-            services.AddTransient<IShowtimeService, ShowtimeService>();
-            return services;
-        }
+        services.AddMoviesClient();
+        services.AddCinemaClient();
+        services.AddServiceCache(configuration);
+        services.AddTransient<IShowtimeService, ShowtimeService>();
+        return services;
     }
 }

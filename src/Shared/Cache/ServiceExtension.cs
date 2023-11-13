@@ -1,31 +1,30 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ServiceCache
+namespace ServiceCache;
+
+public static partial class ServicesExtensions
 {
-    public static partial class ServicesExtensions
+    public static IServiceCollection AddServiceCache(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddServiceCache(this IServiceCollection services, IConfiguration configuration)
+
+        services.AddOptions<CacheOptions>().Bind(configuration.GetSection("Cache")).ValidateDataAnnotations();
+
+        if (!string.IsNullOrEmpty(configuration.GetSection("RedisCache:Configuration").Value))
         {
-
-            services.AddOptions<CacheOptions>().Bind(configuration.GetSection("Cache")).ValidateDataAnnotations();
-
-            if (!string.IsNullOrEmpty(configuration.GetSection("RedisCache:Configuration").Value))
+            services.AddStackExchangeRedisCache(options =>
             {
-                services.AddStackExchangeRedisCache(options =>
-                {
-                    configuration.Bind("RedisCache", options);
-                });
-            }
-            else
-            {
-                services.AddDistributedMemoryCache();
-            }
-
-            services.AddTransient<ICacheService, CacheService>();
-            return services;
-
+                configuration.Bind("RedisCache", options);
+            });
+        }
+        else
+        {
+            services.AddDistributedMemoryCache();
         }
 
+        services.AddTransient<ICacheService, CacheService>();
+        return services;
+
     }
+
 }
