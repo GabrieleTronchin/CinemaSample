@@ -1,10 +1,11 @@
-﻿using Cinema.Domain.AuditoriumDefinition.Repository;
+﻿using Cinema.Application.Showtime.Commands;
+using Cinema.Domain.AuditoriumDefinition.Repository;
 using Cinema.Domain.Showtime;
 using Cinema.Domain.Showtime.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Cinema.Application.Showtime.Commands;
+namespace Cinema.Application.Showtime;
 
 public class CreateShowtimeCommandHandler : IRequestHandler<CreateShowtimeCommand, CreateShowtimeCommandComplete>
 {

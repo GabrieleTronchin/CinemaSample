@@ -19,7 +19,8 @@ namespace Cinema.Persistence.Repositories
 
         public async Task<TicketEntity> GetAsync(Guid id, CancellationToken cancel)
         {
-            return await _context.Tickets.SingleAsync(x => x.Id == id, cancel);
+            return await _context.Tickets.SingleOrDefaultAsync(x => x.Id == id, cancel) ??
+             throw new InvalidOperationException($"System could not find any {nameof(TicketEntity.Id)} with value {id}");
         }
 
         public async Task SaveChangesAsync()

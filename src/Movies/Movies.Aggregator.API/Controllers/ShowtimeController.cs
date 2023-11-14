@@ -41,12 +41,6 @@ public class ShowtimeController : Controller
 
             return StatusCode(StatusCodes.Status201Created, response);
         }
-        catch (ArgumentNullException e)
-        {
-            _logger.LogError($"{nameof(Post)}", e);
-
-            return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse(e));
-        }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);

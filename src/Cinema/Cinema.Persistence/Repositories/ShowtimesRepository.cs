@@ -13,12 +13,13 @@ internal class ShowtimesRepository : IShowtimesRepository
         _context = context;
     }
 
-    public async Task<ShowtimeEntity> GetAsync(Guid id, CancellationToken cancel)
+    public async Task<ShowtimeEntity?> GetAsync(Guid id, CancellationToken cancel)
     {
         return await _context.Showtimes
             .Include(x => x.Movie)
-             .Include(x => x.Seats)
-            .SingleOrDefaultAsync(x => x.Id == id, cancel) ?? throw new InvalidOperationException($"{nameof(ShowtimeEntity)} not found for id:{id}");
+            .Include(x => x.Seats)
+            .SingleOrDefaultAsync(x => x.Id == id, cancel) ??
+             throw new InvalidOperationException($"System could not find any {nameof(ShowtimeEntity.Id)} with value {id}");
     }
 
 

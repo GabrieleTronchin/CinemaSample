@@ -31,7 +31,8 @@ namespace Cinema.Persistence.Repositories
         {
             return await _context.Auditoriums
                 .Include(x => x.Seats)
-                .SingleAsync(x => x.Id == auditoriumId, cancel);
+                .SingleOrDefaultAsync(x => x.Id == auditoriumId, cancel) ??
+                    throw new InvalidOperationException($"System could not find any {nameof(auditoriumId)} with value {auditoriumId}");
         }
 
         public async Task AddAsync(AuditoriumEntity entity)

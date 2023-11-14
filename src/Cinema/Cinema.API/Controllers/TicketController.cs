@@ -40,17 +40,11 @@ public class TicketController : Controller
             return StatusCode(StatusCodes.Status201Created, apiResult);
 
         }
-        catch (ArgumentNullException e)
-        {
-            _logger.LogError($"{nameof(Post)}", e);
-
-            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-        }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e));
         }
     }
 

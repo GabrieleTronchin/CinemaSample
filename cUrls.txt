@@ -10,5 +10,30 @@ curl -X 'POST' \
   "auditoriumId": 1
 }'
 
+---- showtimeId may change
+
+curl -X 'POST' \
+  'https://localhost:7629/v1/Ticket' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "showtimeId": "f0b8405f-f9a4-4c9b-b8cc-8e762b2cdfe0",
+  "seats": [
+    {
+      "seatsNumber": 1,
+      "row": 1
+    }
+  ],
+  "auditoriumId": 1
+}'
 
 
+---- reservationId may change
+
+curl -X 'PUT' \
+  'https://localhost:7629/v1/Ticket' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "reservationId": "9bc2c229-2b1f-4308-829c-26998d9508e9"
+}'

@@ -43,6 +43,9 @@ internal class ShowtimeService : IShowtimeService
 
         var cinemaResponse = await _cinemaClientGrpc.CreateShowTime(showReq);
 
+        if (!cinemaResponse.Success)
+            throw new InvalidOperationException(string.Join(',', cinemaResponse.Exceptions.Select(x => x.Message)));
+
 
         if (!Guid.TryParse(cinemaResponse.ShotimeId, out var shotimeId))
             throw new InvalidCastException($"{nameof(cinemaResponse.ShotimeId)} is not a valid guid");
