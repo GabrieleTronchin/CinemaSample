@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Api.Common\Api.Common.csproj" />
     <ProjectReference Include="..\Movies.Aggregator.Domain\Movies.Aggregator.Domain.csproj" />
   </ItemGroup>
 

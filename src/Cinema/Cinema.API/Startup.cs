@@ -1,3 +1,4 @@
+using Api.Common;
 using Cinema.Application;
 using Cinema.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +48,7 @@ public class Startup
 
         if (env.IsDevelopment())
         {
+            app.UseMiddleware<DiagnosticsMiddleware>();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

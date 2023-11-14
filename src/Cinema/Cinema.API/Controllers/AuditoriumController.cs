@@ -1,4 +1,5 @@
-﻿using Cinema.Application.Auditorium.Queries;
+﻿using Api.Common;
+using Cinema.Application.Auditorium.Queries;
 
 namespace Cinema.Api.Controllers;
 
@@ -26,7 +27,7 @@ public class AuditoriumController : Controller
         }
         catch (Exception e)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e));
         }
     }
 }

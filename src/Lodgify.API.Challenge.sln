@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Api", "Cinema\Cinema
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Aggregator.Api", "Movies\Movies.Aggregator.API\Movies.Aggregator.Api.csproj", "{82C45E58-C794-4376-97A3-3D070A0186A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Common", "Shared\Api.Common\Api.Common.csproj", "{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{82C45E58-C794-4376-97A3-3D070A0186A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C45E58-C794-4376-97A3-3D070A0186A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C45E58-C794-4376-97A3-3D070A0186A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 		{E445CCDC-73BB-40B0-9957-C9F4A17A30AA} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
 		{82C45E58-C794-4376-97A3-3D070A0186A8} = {C4C4CAC6-9959-4BBB-930D-1D845688473C}
+		{BF68D7D3-BCED-4BBB-BC6B-D923E1213ACB} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C52A7E7E-4F02-4B44-B7D4-995DE72CF0B3}

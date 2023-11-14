@@ -1,4 +1,5 @@
-﻿using Cinema.Api.Models.ConfirmReservation;
+﻿using Api.Common;
+using Cinema.Api.Models.ConfirmReservation;
 using Cinema.Api.Models.SeatReservation;
 using Cinema.Application.Ticket.Commands;
 
@@ -75,13 +76,13 @@ public class TicketController : Controller
         {
             _logger.LogError($"{nameof(Put)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse(e));
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Put)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cinema.Api.Models.Showtime;
+﻿using Api.Common;
+using Cinema.Api.Models.Showtime;
 using Cinema.Application.Showtime.Commands;
 
 namespace Cinema.Api.Controllers;
@@ -41,13 +42,13 @@ public class ShowtimeController : Controller
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse(e));
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e));
         }
     }
 }

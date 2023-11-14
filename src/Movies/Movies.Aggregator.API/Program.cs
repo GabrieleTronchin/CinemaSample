@@ -1,3 +1,4 @@
+using Api.Common;
 using Movies.Aggregator.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseMiddleware<DiagnosticsMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

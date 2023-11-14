@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Api.Common;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Aggregator.Api.Models;
 using Movies.Aggregator.Domain;
 
@@ -44,13 +45,13 @@ public class ShowtimeController : Controller
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            return StatusCode(StatusCodes.Status400BadRequest,new ErrorResponse(e));
         }
         catch (Exception e)
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e));
         }
     }
 }
