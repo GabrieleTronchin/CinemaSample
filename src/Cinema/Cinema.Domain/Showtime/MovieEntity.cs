@@ -3,6 +3,11 @@ namespace Cinema.Domain.Showtime;
 
 public class MovieEntity
 {
+    private MovieEntity()
+    {
+            
+    }
+
     public static MovieEntity Create(string title, string stars, string imdbId, DateTime releaseDate)
     {
         return new MovieEntity

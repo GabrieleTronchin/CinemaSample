@@ -5,6 +5,9 @@ namespace Cinema.Domain.Ticket
 {
     public class TicketEntity : AggregateRoot
     {
+        private TicketEntity()
+        {
+        }
 
         public static TicketEntity Create(IEnumerable<Seat> seats, Guid showtimeId, string movieTile)
         {

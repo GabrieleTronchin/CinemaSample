@@ -4,10 +4,18 @@ using Cinema.Domain.AuditoriumDefinition;
 namespace Cinema.Domain.Showtime;
 public class ShowtimeEntity
 {
+    private ShowtimeEntity()
+    {     
+    }
+
     public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, DateTime sessionDate)
     {
-        var showtimeId = Guid.NewGuid();
 
+        if (auditorium == null) throw new ArgumentNullException(nameof(auditorium));
+        if (movie == null) throw new ArgumentNullException(nameof(movie));
+
+
+        var showtimeId = Guid.NewGuid();
         return new ShowtimeEntity
         {
             Id = showtimeId,

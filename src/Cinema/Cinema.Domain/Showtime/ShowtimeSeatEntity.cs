@@ -3,6 +3,9 @@ public class ShowtimeSeatEntity
 {
     const short DEFAULT_COOLDOWN = 10;
 
+    private ShowtimeSeatEntity()
+    {
+    }
     public static ShowtimeSeatEntity Create(Seat seat, Guid showtimeId)
     {
         return new ShowtimeSeatEntity

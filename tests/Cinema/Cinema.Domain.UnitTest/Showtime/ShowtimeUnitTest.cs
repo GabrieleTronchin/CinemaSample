@@ -11,8 +11,8 @@ public class ShowtimeUnitTest
 
         var auditorium = AuditoriumEntity.Create(0, Utility.GenerateSeats(1, 1));
 
-        var test = new MovieEntity();
-        var entity = ShowtimeEntity.Create(auditorium, test, DateTime.UtcNow);
+        var movie = MovieEntity.Create("Test","Test","Test",DateTime.Now);
+        var entity = ShowtimeEntity.Create(auditorium, movie, DateTime.UtcNow);
 
         Assert.NotNull(entity);
     }
@@ -20,11 +20,15 @@ public class ShowtimeUnitTest
     [Fact]
     public void Create_NotAllowed()
     {
-
         var auditorium = AuditoriumEntity.Create(0, Utility.GenerateSeats(1, 1));
+        var movie = MovieEntity.Create("Test", "Test", "Test", DateTime.Now);
+        var ex1 = Assert.Throws<ArgumentNullException>(() => ShowtimeEntity.Create(null, movie, DateTime.UtcNow));
 
-        var test = new MovieEntity();
-        Assert.Throws<ArgumentException>(() => ShowtimeEntity.Create(auditorium, test, DateTime.UtcNow));
+        Assert.Equal("Value cannot be null. (Parameter 'auditorium')", ex1.Message);
+
+        var ex2 = Assert.Throws<ArgumentNullException>(() => ShowtimeEntity.Create(auditorium, null, DateTime.UtcNow));
+
+        Assert.Equal("Value cannot be null. (Parameter 'movie')", ex2.Message);
     }
 
 }
