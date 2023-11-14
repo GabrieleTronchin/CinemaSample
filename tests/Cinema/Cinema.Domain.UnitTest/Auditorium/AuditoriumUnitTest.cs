@@ -1,6 +1,6 @@
 using Cinema.Domain.AuditoriumDefinition;
 
-namespace Cinema.Domain.UnitTest.Ticket;
+namespace Cinema.Domain.UnitTest.Auditorium;
 
 public class AuditoriumUnitTest
 {

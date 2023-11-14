@@ -5,15 +5,17 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7B7247A-2A34-442B-ABD6-F2053B6B3C24}"
 	ProjectSection(SolutionItems) = preProject
+		..\docker\build-docker-images.ps1 = ..\docker\build-docker-images.ps1
 		cUrls.txt = cUrls.txt
-		docker-compose.yaml = docker-compose.yaml
+		..\docker\docker-compose.accessor.yaml = ..\docker\docker-compose.accessor.yaml
+		..\docker\docker-compose.yaml = ..\docker\docker-compose.yaml
 		Feedback.md = Feedback.md
 		Readme.md = Readme.md
+		..\docker\solution-start.ps1 = ..\docker\solution-start.ps1
+		..\docker\solution-stop.ps1 = ..\docker\solution-stop.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aggregator.Movies", "Aggregator.Movies", "{C4C4CAC6-9959-4BBB-930D-1D845688473C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesAggregator", "Movies\MoviesAggregator\MoviesAggregator.csproj", "{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Aggregator.Domain", "Movies\Movies.Aggregator.Domain\Movies.Aggregator.Domain.csproj", "{8C99F691-684D-4221-B4FA-C66D34B59A5F}"
 EndProject
@@ -41,16 +43,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Polly.Wrapper", "Shared\Pol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Api", "Cinema\Cinema.API\Cinema.Api.csproj", "{E445CCDC-73BB-40B0-9957-C9F4A17A30AA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Aggregator.Api", "Movies\Movies.Aggregator.API\Movies.Aggregator.Api.csproj", "{82C45E58-C794-4376-97A3-3D070A0186A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C99F691-684D-4221-B4FA-C66D34B59A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C99F691-684D-4221-B4FA-C66D34B59A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C99F691-684D-4221-B4FA-C66D34B59A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,12 +91,15 @@ Global
 		{E445CCDC-73BB-40B0-9957-C9F4A17A30AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E445CCDC-73BB-40B0-9957-C9F4A17A30AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E445CCDC-73BB-40B0-9957-C9F4A17A30AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C45E58-C794-4376-97A3-3D070A0186A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C45E58-C794-4376-97A3-3D070A0186A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C45E58-C794-4376-97A3-3D070A0186A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C45E58-C794-4376-97A3-3D070A0186A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BD5C4BA1-9C44-43EE-ACBD-15DC49E45776} = {C4C4CAC6-9959-4BBB-930D-1D845688473C}
 		{8C99F691-684D-4221-B4FA-C66D34B59A5F} = {C4C4CAC6-9959-4BBB-930D-1D845688473C}
 		{9AE06E4D-2F3D-4332-A3F1-9083D67FF69A} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 		{0C571608-EDA2-470E-A75B-8A52761CC719} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
@@ -108,6 +111,7 @@ Global
 		{C7EF1521-B262-4BF2-9B34-5A2109CD9598} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 		{CBA77C23-BBD0-4FF9-95F7-98EA328A85A6} = {3EBC81A2-27BA-4603-9A2A-AE5E3305AD6A}
 		{E445CCDC-73BB-40B0-9957-C9F4A17A30AA} = {B24BF83A-81D1-4BC2-971E-EAB41401CDB2}
+		{82C45E58-C794-4376-97A3-3D070A0186A8} = {C4C4CAC6-9959-4BBB-930D-1D845688473C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C52A7E7E-4F02-4B44-B7D4-995DE72CF0B3}

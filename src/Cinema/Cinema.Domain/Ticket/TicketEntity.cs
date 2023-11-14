@@ -1,5 +1,5 @@
 ﻿using Cinema.Domain.Primitives;
-using Cinema.Domain.Ticket.Events;
+using Cinema.Domain.Ticket.DomainEvents;
 
 namespace Cinema.Domain.Ticket
 {

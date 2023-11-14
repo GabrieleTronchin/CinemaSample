@@ -1,7 +1,7 @@
 ﻿using Grpc.Core;
 using System.Net;
 
-namespace Movies.Aggregator.Domain
+namespace Polly.Wrapper
 {
     public static class StatusManager
     {

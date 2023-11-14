@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MoviesAggregator.Models
+namespace Movies.Aggregator.Api.Models
 {
     public class CreateShowTime
     {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.Aggregator.Api.Models;
 using Movies.Aggregator.Domain;
-using MoviesAggregator.Models;
-using Domain = Movies.Aggregator.Domain.Models;
 
-namespace MoviesAggregator.Controllers;
+namespace Movies.Aggregator.Api.Controllers;
 
 [Route("[controller]")]
 [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,7 +31,7 @@ public class ShowtimeController : Controller
                 return BadRequest(ModelState);
             }
 
-            var response = await _showtimeService.Create(new Domain.CreateShowTime()
+            var response = await _showtimeService.Create(new Domain.Models.CreateShowTime()
             {
                 ImdbId = payload.ImdbId,
                 AuditoriumId = payload.AuditoriumId,

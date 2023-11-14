@@ -43,7 +43,7 @@ public class CacheService : ICacheService
 
     }
 
-    public async Task<T> CreateAndSetAsync<T>(string key, Func<Task<T>> createAsync, int expirationMinutes = 0)
+    public async Task<T> CreateAndSetAsync<T>(string key, Func<Task<T>> createAsync)
     {
         T thing;
         try
@@ -60,7 +60,7 @@ public class CacheService : ICacheService
 
             var json = JsonConvert.SerializeObject(thing, serializerSettings);
 
-            await SetAsync(key, Encoding.ASCII.GetBytes(json), GetCacheExpirationOptions(expirationMinutes));
+            await SetAsync(key, Encoding.ASCII.GetBytes(json), GetCacheExpirationOptions());
 
             _logger.LogTrace(string.Format("{0} - Item with key {1} added to cache.", nameof(CreateAndSetAsync), key));
 
@@ -74,15 +74,26 @@ public class CacheService : ICacheService
         return thing;
     }
 
-    private DistributedCacheEntryOptions GetCacheExpirationOptions(int expirationMinutes = 0)
+    private DistributedCacheEntryOptions GetCacheExpirationOptions()
     {
-        if (expirationMinutes <= 0)
-            expirationMinutes = _options.SlidingExpirationToNowInMinutes;
-
         return new DistributedCacheEntryOptions()
         {
             SlidingExpiration = TimeSpan.FromMinutes(_options.SlidingExpirationToNowInMinutes)
         };
+    }
+
+
+    private async Task RemoveAsync(string key)
+    {
+        await Locker.WaitAsync();
+        try
+        {
+            await _cache.RemoveAsync(key);
+        }
+        finally
+        {
+            Locker.Release();
+        }
     }
     private async Task<byte[]?> GetAsync(string key)
     {

@@ -1,7 +1,7 @@
 ﻿using Cinema.Domain.Showtime.Repository;
-using Cinema.Domain.Ticket.Events;
+using Cinema.Domain.Ticket.DomainEvents;
 
-namespace Cinema.Domain.Showtime.Events;
+namespace Cinema.Domain.Showtime.EventHandlers;
 
 internal sealed class PaymentAcceptedEventHandler : INotificationHandler<PaymentAccepted>
 {

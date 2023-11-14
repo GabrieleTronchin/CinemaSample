@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using Movies.Aggregator.Domain;
 using System.Net;
 
 namespace Polly.Wrapper

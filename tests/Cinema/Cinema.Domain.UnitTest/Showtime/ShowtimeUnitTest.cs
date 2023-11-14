@@ -1,7 +1,7 @@
 using Cinema.Domain.AuditoriumDefinition;
 using Cinema.Domain.Showtime;
 
-namespace Cinema.Domain.UnitTest.Ticket;
+namespace Cinema.Domain.UnitTest.Showtime;
 
 public class ShowtimeUnitTest
 {
