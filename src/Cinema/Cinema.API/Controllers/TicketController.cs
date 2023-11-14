@@ -15,8 +15,8 @@ public class TicketController : Controller
     private readonly IApiMapperAccessor _mapper;
 
     public TicketController(ILogger<TicketController> logger,
-                              IMediator mediator,
-                              IApiMapperAccessor apiMapperAccessor)
+                            IMediator mediator,
+                            IApiMapperAccessor apiMapperAccessor)
     {
         _logger = logger;
         _mediator = mediator;

@@ -1,5 +1,6 @@
 ﻿using Api.Common;
 using Cinema.Application.Auditorium.Queries;
+using Cinema.Application.Auditorium.Queries.Commands;
 
 namespace Cinema.Api.Controllers;
 
@@ -8,14 +9,13 @@ namespace Cinema.Api.Controllers;
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 public class AuditoriumController : Controller
 {
-    private readonly IAuditoriumQueries _readModel;
+    private readonly IMediator _mediator;
 
-    public AuditoriumController(IAuditoriumQueries readModel)
+    public AuditoriumController(IMediator mediator)
 
     {
-        _readModel = readModel;
+        _mediator = mediator;
     }
-
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -23,7 +23,7 @@ public class AuditoriumController : Controller
     {
         try
         {
-            return Ok(await _readModel.GetAllAsync());
+            return Ok(await _mediator.Send(new GetEntitiesCommand()));
         }
         catch (Exception e)
         {

@@ -14,7 +14,6 @@ public static class ServicesExtensions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
         services.AddDomainNotification();
-        services.AddTransient<IAuditoriumQueries, AuditoriumQueries>();
         services.AddMassTransit(x =>
         {
             x.UsingInMemory((context, cfg) =>
