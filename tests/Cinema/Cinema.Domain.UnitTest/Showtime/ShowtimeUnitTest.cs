@@ -15,6 +15,7 @@ public class ShowtimeUnitTest
         var entity = ShowtimeEntity.Create(auditorium, movie, DateTime.UtcNow);
 
         Assert.NotNull(entity);
+        Assert.NotEqual(Guid.Empty.ToString(), entity.Id.ToString());
     }
 
     [Fact]

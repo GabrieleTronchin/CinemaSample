@@ -11,6 +11,8 @@ public class AuditoriumUnitTest
         var entity = AuditoriumEntity.Create(1, Utility.GenerateSeats(8, 8));
 
         Assert.NotNull(entity);
+        Assert.NotEqual(Guid.Empty.ToString(),entity.Id.ToString());
+        Assert.NotEmpty(entity.Seats);
     }
 
     [Fact]

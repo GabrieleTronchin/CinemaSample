@@ -11,9 +11,9 @@ namespace Cinema.Domain.Ticket
 
         public static TicketEntity Create(IEnumerable<Seat> seats, Guid showtimeId, string movieTile)
         {
-            if (!seats.Any()) throw new ArgumentException($"Invalid {seats}");
+            if (!seats.Any()) throw new ArgumentException($"Invalid {nameof(seats)}");
 
-            if (string.IsNullOrWhiteSpace(movieTile)) throw new ArgumentException($"Invalid {movieTile}");
+            if (string.IsNullOrWhiteSpace(movieTile)) throw new ArgumentException($"Invalid {nameof(movieTile)}");
 
             var ticket = new TicketEntity
             {
