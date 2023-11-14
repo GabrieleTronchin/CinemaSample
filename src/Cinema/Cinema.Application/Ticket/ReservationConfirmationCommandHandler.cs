@@ -43,7 +43,7 @@ public class ReservationConfirmationCommandHandler : IRequestHandler<Reservation
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred completing payment.");
-            return new ReservationConfirmationComplete() { Success = false };
+            throw;
         }
 
     }

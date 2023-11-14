@@ -63,7 +63,7 @@ internal class ShowtimeService : IShowtimeService
             _logger.LogError(ex, "Unable to retrieve data from movie endpoint.");
         }
 
-        return await _serviceCache.GetOrDefault<ProtoDefinitions.showResponse>(imdbId, null);
+        return await _serviceCache.GetOrDefault<ProtoDefinitions.showResponse?>(imdbId, null);
     }
 
 

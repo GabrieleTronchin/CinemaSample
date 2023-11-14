@@ -57,7 +57,7 @@ public class ShowtimeEntity
 
     public Guid Id { get; private set; }
     public int AuditoriumId { get; private set; }
-    public ICollection<ShowtimeSeatEntity> Seats { get; private set; }
+    public ICollection<ShowtimeSeatEntity> Seats { get; private set; } = new HashSet<ShowtimeSeatEntity>();
 
     public Guid MovieId { get; private set; }
     public MovieEntity Movie { get; private set; }

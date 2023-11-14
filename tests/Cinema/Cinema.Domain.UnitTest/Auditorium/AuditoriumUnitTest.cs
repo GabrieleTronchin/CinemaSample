@@ -16,7 +16,8 @@ public class AuditoriumUnitTest
     [Fact]
     public void Create_NotAllowed()
     {
-        Assert.Throws<ArgumentException>(() => AuditoriumEntity.Create(1, new List<Seat>()));
+        var ex = Assert.Throws<ArgumentException>(() => AuditoriumEntity.Create(1, new List<Seat>()));
+        Assert.Equal("An Auditorium should contains seats", ex.Message);
     }
 
 }
