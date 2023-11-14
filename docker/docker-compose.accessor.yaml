@@ -10,14 +10,30 @@ services:
     networks:
       - default
 
-  redis-lodgify:  
-    image: redis:latest
-    ports:
-      - "6666:6379"
+  cinema-api:
+    image: cinema-api:latest
     restart: unless-stopped
+    ports:
+      - "8172:80"
+      - "8443:443"
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENV}
+      - ASPNETCORE_URLS=https://+:443;http://+:80
     networks:
       - default
 
+  movie-aggregator-api:
+    image:  movie-aggregator-api:latest
+    restart: unless-stopped
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENV}
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "9172:80"
+      - "9443:443"
+    networks:
+      - default
+  
 networks:
   default:
     driver: bridge
