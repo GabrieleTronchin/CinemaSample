@@ -52,16 +52,6 @@ In this scenario, it is not necessary to develop a new aggregator project. The c
 *(Not chosen for time reasons; for this demo, Dapr is considered overkill.)*
 
 
-## Movie Aggregator Architecture Overview
-
-GRPC Clients
-Polly
-Service Cache
-
-
-In the Shared folder, a project called ServiceCache has been added.
-This service uses IDistributedCache from Microsoft Extension Library; this component is bound to reading using the "AddStackExchangeRedisCache" method provided by the same library.
-
 ## Cinema Architecture Overview
 
 The approach used is Domain-Driven Design (DDD).
@@ -86,23 +76,6 @@ The application's structure is as follows:
 - **Domain**: contains domain entities.
 - **Persistence**: manages persistence with EF Core.
 
-### API
-
-Model versioned, using a package called AutoMapper to decouple API Models from Read and Write Application Models.
-
-### Application
-
-CQRS approach for CRUD: two separate models for read and write.
-Currently, the same Data Model is used, but this could change in the future.
-
-- Manages the publication of domain events.
-- Handles any Integration Events with other services (e.g., Payment).
-
-### Persistence
-
-Details of the persistence layer:
-- Refactored the persistence layer: IConfigurationBuilder for greater order.
-- Implemented saving domain events with an interceptor.
 
 ### Test
 
@@ -123,6 +96,10 @@ Here is an example of the output:
 - [Output at the first run](docs/mutation-report.FirstRun.html)
 - [Output after the second run and some fixes](docs/mutation-report.SecondRun.html)
 
+## Cache
+
+In the Shared folder, a project called ServiceCache has been added.
+This service uses IDistributedCache from Microsoft Extension Library; this component is bound to reading using the "AddStackExchangeRedisCache" method provided by the same library.
 
 ## Execution Tracking
 
