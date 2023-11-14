@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Cinema/Cinema.API/Cinema.Api.csproj", "Cinema/Cinema.API/"]
+COPY ["Shared/Api.Common/Api.Common.csproj", "Shared/Api.Common/"]
 COPY ["Cinema/Cinema.Application/Cinema.Application.csproj", "Cinema/Cinema.Application/"]
 COPY ["Cinema/Cinema.Persistence/Cinema.Persistence.csproj", "Cinema/Cinema.Persistence/"]
 COPY ["Cinema/Cinema.Domain/Cinema.Domain.csproj", "Cinema/Cinema.Domain/"]

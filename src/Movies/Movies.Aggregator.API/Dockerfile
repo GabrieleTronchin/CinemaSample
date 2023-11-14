@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Movies/Movies.Aggregator.API/Movies.Aggregator.Api.csproj", "Movies/Movies.Aggregator.API/"]
+COPY ["Shared/Api.Common/Api.Common.csproj", "Shared/Api.Common/"]
 COPY ["Movies/Movies.Aggregator.Domain/Movies.Aggregator.Domain.csproj", "Movies/Movies.Aggregator.Domain/"]
 COPY ["Shared/Cache/ServiceCache.csproj", "Shared/Cache/"]
 COPY ["Shared/Cinema.Client/Cinema.Client.csproj", "Shared/Cinema.Client/"]
