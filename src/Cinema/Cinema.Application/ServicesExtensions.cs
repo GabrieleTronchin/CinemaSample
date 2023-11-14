@@ -1,5 +1,4 @@
-﻿using Cinema.Application.Auditorium.Queries;
-using Cinema.Domain;
+﻿using Cinema.Domain;
 using Cinema.Persistence;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

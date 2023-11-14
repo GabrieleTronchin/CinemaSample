@@ -1,5 +1,4 @@
 ﻿using Api.Common;
-using Cinema.Application.Auditorium.Queries;
 using Cinema.Application.Auditorium.Queries.Commands;
 
 namespace Cinema.Api.Controllers;

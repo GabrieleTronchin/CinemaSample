@@ -5,7 +5,7 @@ namespace Cinema.Domain.Showtime;
 public class ShowtimeEntity
 {
     private ShowtimeEntity()
-    {     
+    {
     }
 
     public static ShowtimeEntity Create(AuditoriumEntity auditorium, MovieEntity movie, DateTime sessionDate)

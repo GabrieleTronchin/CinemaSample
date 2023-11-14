@@ -2,7 +2,8 @@
 public class AuditoriumEntity
 {
 
-    private AuditoriumEntity() {
+    private AuditoriumEntity()
+    {
     }
 
     public static AuditoriumEntity Create(int Id, ICollection<Seat> seats)

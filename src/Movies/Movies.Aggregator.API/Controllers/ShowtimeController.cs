@@ -45,7 +45,7 @@ public class ShowtimeController : Controller
         {
             _logger.LogError($"{nameof(Post)}", e);
 
-            return StatusCode(StatusCodes.Status400BadRequest,new ErrorResponse(e));
+            return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse(e));
         }
         catch (Exception e)
         {

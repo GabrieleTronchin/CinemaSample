@@ -11,7 +11,7 @@ public class ShowtimeUnitTest
 
         var auditorium = AuditoriumEntity.Create(0, Utility.GenerateSeats(1, 1));
 
-        var movie = MovieEntity.Create("Test","Test","Test",DateTime.Now);
+        var movie = MovieEntity.Create("Test", "Test", "Test", DateTime.Now);
         var entity = ShowtimeEntity.Create(auditorium, movie, DateTime.UtcNow);
 
         Assert.NotNull(entity);

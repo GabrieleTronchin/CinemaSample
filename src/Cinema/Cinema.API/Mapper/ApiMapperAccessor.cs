@@ -21,7 +21,7 @@ public class ApiMapperAccessor : IApiMapperAccessor
             m.CreateMap<Seat, ReservationSeat>().ReverseMap();
 
             m.CreateMap<ShowtimeCreationRequest, CreateShowtimeCommand>()
-             .ForMember(x =>x.SessionDate, 
+             .ForMember(x => x.SessionDate,
              opts => opts.MapFrom(src => src.SessionDate.ToDateTime()));
 
 
