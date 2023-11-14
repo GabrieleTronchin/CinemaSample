@@ -7,9 +7,7 @@ public class TicketUnitTest
     [Fact]
     public void CreateTicketTest()
     {
-
         var entity = TicketEntity.Create(Utility.GenerateSeats(28, 22), Guid.NewGuid(), "My Test Movie");
-
         Assert.NotNull(entity);
         Assert.NotEqual(Guid.Empty.ToString(), entity.Id.ToString());
         Assert.NotEmpty(entity.Seats);
