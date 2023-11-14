@@ -12,7 +12,7 @@ The repository's folder structure consists of:
 ## Prerequisite Steps to Solve the Challenge
 
 1. Update the .NET version from 3.1 to 7 (since .NET Core 3.1 is out of support).
-2. Adjust the Docker Compose file and separate the core app service from the accessor service.
+2. Adjust the Docker Compose and add some powershell.
 3. Resolve the issue on the Movie service: run `docker log` to locate the environment variable that needs modification.
 4. Solve the GRPC implementation; simply add the API KEY found in Swagger.
 
@@ -38,7 +38,7 @@ Create another service external to "Cinema" that is responsible for communicatin
 - Advantages: Decoupled from receivers.
 - Disadvantages: More complex than the Synchronous approach.
 
-*(Not chosen for time reasons.)*
+*(Not chosen for time reasons, a working implementation of rabbit/kafka need to be put in place. )*
 
 ### 3 - Sidecar Container
 
@@ -51,7 +51,18 @@ In this scenario, it is not necessary to develop a new aggregator project. The c
 
 *(Not chosen for time reasons; for this demo, Dapr is considered overkill.)*
 
-## Architecture Overview
+
+## Movie Aggregator Architecture Overview
+
+GRPC Clients
+Polly
+Service Cache
+
+
+In the Shared folder, a project called ServiceCache has been added.
+This service uses IDistributedCache from Microsoft Extension Library; this component is bound to reading using the "AddStackExchangeRedisCache" method provided by the same library.
+
+## Cinema Architecture Overview
 
 The approach used is Domain-Driven Design (DDD).
 The first step was to create the DomainModel project and remodel the entities, decoupling them as much as possible.
@@ -59,8 +70,8 @@ The first step was to create the DomainModel project and remodel the entities, d
 The following modifications were made:
 
 - `Seat` has become a record and, therefore, a value type.
-- The `Auditorium` entity has become a separate entity invoked in the creation of showtimes to obtain the definition of the halls.
-- `Showtime + Movie + Showtime seats` (new): When creating a showtime, the auditorium definitions are retrieved, and seats for the showtime are created.
+- The `Auditorium` entity has become a separate entity invoked in the creation of showtimes to obtain the seats definition.
+- `Showtime + Movie + Showtime seats`: When creating a showtime, auditorium definition are retrieved, and seats for the showtime are created.
 - `TicketEntity` should not have references to other entities.
 
 Some patterns used in the Domain:
@@ -109,13 +120,9 @@ In the src solution, there is a RunStryker.ps1 file that allows running test mut
 
 Here is an example of the output:
 
-- [Output at the first run](docs\mutation-report.FirstRun.html)
-- [Output after the second run and some fixes](docs\mutation-report.SecondRun.html)
+- [Output at the first run](docs/mutation-report.FirstRun.html)
+- [Output after the second run and some fixes](docs/mutation-report.SecondRun.html)
 
-## Cache
-
-In the Shared folder, a project called ServiceCache has been added.
-This service uses IDistributedCache from Microsoft Extension Library; this component is bound to reading using the "AddStackExchangeRedisCache" method provided by the same library.
 
 ## Execution Tracking
 
