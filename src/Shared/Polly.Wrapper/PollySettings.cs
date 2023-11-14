@@ -3,6 +3,9 @@ using System.Net;
 
 namespace Polly.Wrapper
 {
+    /// <summary>
+    /// Just a sample of retry strategy
+    /// </summary>
     public static class PollySettings
     {
         private static HttpStatusCode[] serverErrors = new HttpStatusCode[] {

@@ -53,7 +53,6 @@ internal class ShowtimeService : IShowtimeService
 
     private async Task<ProtoDefinitions.showResponse?> GetMovieByImdbId(string imdbId)
     {
-
         try
         {
             return await _serviceCache.CreateAndSetAsync(imdbId, () => _moviesClient.GetById(imdbId));

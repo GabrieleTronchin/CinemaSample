@@ -5,7 +5,7 @@ using Movies.Aggregator.Domain;
 
 namespace Movies.Aggregator.Api.Controllers;
 
-[Route("[controller]")]
+[Route("v1/[controller]")]
 [ProducesResponseType(StatusCodes.Status400BadRequest)]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 public class ShowtimeController : Controller

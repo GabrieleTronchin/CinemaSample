@@ -33,7 +33,6 @@ public class ReservationCommandHandler : IRequestHandler<ReservationCommand, Res
             showtime.ReserveSeats(seatsToReserve);
 
             var newTicket = TicketEntity.Create(seatsToReserve, showtime.Id, showtime.Movie.Title);
-            // TODO manage expired reservation for already create tickets
             await _ticketsRepository.AddAsync(newTicket);
 
             await _showtimesRepository.SaveChangesAsync();
