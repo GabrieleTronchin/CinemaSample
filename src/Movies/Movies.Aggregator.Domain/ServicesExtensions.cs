@@ -10,8 +10,8 @@ public static partial class ServicesExtensions
 {
     public static IServiceCollection AddDomainLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMoviesClient();
-        services.AddCinemaClient();
+        services.AddMoviesClient(configuration);
+        services.AddCinemaClient(configuration);
         services.AddServiceCache(configuration);
         services.AddTransient<IShowtimeService, ShowtimeService>();
         return services;

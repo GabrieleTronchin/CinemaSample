@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Domain.UnitTest;
 
-public class Utility
+public static class Utility
 {
     public static List<Seat> GenerateSeats(short rows, short seatsPerRow)
     {

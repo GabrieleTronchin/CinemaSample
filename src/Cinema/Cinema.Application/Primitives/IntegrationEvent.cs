@@ -1,11 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace Cinema.Application.Primitives;
 
-namespace Cinema.Application.Primitives;
-
-[ExcludeFromCodeCoverage]
 public abstract class IntegrationEvent
 {
-    public IntegrationEvent()
+    protected IntegrationEvent()
     {
         CorrelationId = Guid.NewGuid();
         CreationDate = DateTime.UtcNow;

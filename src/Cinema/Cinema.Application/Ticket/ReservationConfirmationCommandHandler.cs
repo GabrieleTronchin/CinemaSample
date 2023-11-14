@@ -12,8 +12,6 @@ public class ReservationConfirmationCommandHandler : IRequestHandler<Reservation
     private readonly ITicketsRepository _ticketsRepository;
     private readonly ILogger<ReservationConfirmationCommandHandler> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
-    private readonly IPublisher _domainEventPublisher;
-
     public ReservationConfirmationCommandHandler(
         ILogger<ReservationConfirmationCommandHandler> logger,
         ITicketsRepository ticketsRepository,

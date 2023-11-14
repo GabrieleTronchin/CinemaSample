@@ -17,6 +17,11 @@ public class PaymentSagaDefinition : SagaDefinition<PaymentState>
         Endpoint(e => e.ConcurrentMessageLimit = 16);
     }
 
+    /// <summary>
+    /// Sample idea taken from MassTransit site
+    /// </summary>
+    /// <param name="endpointConfigurator"></param>
+    /// <param name="sagaConfigurator"></param>
     protected override void ConfigureSaga(IReceiveEndpointConfigurator endpointConfigurator, ISagaConfigurator<PaymentState> sagaConfigurator)
     {
         var partition = endpointConfigurator.CreatePartitioner(16);

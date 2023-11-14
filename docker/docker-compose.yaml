@@ -11,7 +11,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=${CERT_PATH}
-      - FailurePercentage=90
+      - FailurePercentage=0
     networks:
       - default
   

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Polly.Wrapper;
 using ShowTimeProto;
 
@@ -6,11 +7,15 @@ namespace Cinema.Client;
 
 public static partial class ServicesExtensions
 {
-    public static IServiceCollection AddCinemaClient(this IServiceCollection services)
+    public static IServiceCollection AddCinemaClient(this IServiceCollection services, IConfiguration configuration)
     {
+
+        var endpoint = configuration.GetSection("CinemaGrpc:Endpoint").Value ?? throw new MissingFieldException("CinemaGrpc:Endpoint");
+
+
         services.AddGrpcClient<ShowTimeApi.ShowTimeApiClient>((services, options) =>
         {
-            options.Address = new Uri("https://localhost:7629"); //TODO move to app settings
+            options.Address = new Uri(endpoint);
         }).ConfigureChannel(o =>
         {
             o.HttpHandler = new HttpClientHandler
