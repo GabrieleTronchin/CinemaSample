@@ -68,9 +68,7 @@ public class TicketController : Controller
 
             var response = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
 
-            response.Success
-
-            return StatusCode(StatusCodes.Status202Accepted);
+            return StatusCode(StatusCodes.Status202Accepted, response);
 
         }
         catch (ArgumentNullException e)

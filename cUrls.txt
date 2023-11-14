@@ -1,2 +1,14 @@
 Please add the cURLs of your tests here:
 
+curl -X 'POST' \
+  'https://localhost:7007/Showtime' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "imdbId": "ID-test1",
+  "sessionDate": "2023-11-14T09:20:43.039Z",
+  "auditoriumId": 1
+}'
+
+
+
