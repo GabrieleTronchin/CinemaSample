@@ -64,11 +64,6 @@ The following modifications were made:
 - `Showtime + Movie + Showtime seats`: When creating a showtime, auditorium definition are retrieved, and seats for the showtime are created.
 - `TicketEntity` should not have references to other entities.
 
-Some patterns used in the Domain:
-
-- Factory pattern static create (Always Valid pattern)
-- Outbox pattern used in the `Ticket` entity to manage domain events.
-
 The application's structure is as follows:
 
 - **API**: contains models, controllers, and startup configurations.
@@ -80,7 +75,6 @@ The application's structure is as follows:
 ### Test
 
 In the test folder, there is a .jmx file that allows testing endpoints with [JMeter](https://jmeter.apache.org/).
-
 As an example, a unit test project for some domains has been included in the solution.
 
 *Analyzing Tests*
