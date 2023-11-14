@@ -48,8 +48,9 @@ public class CacheService : ICacheService
         T thing;
         try
         {
-            await RemoveAsync(key);
             thing = await createAsync();
+
+            await RemoveAsync(key);
 
             JsonSerializerSettings serializerSettings = new()
             {
