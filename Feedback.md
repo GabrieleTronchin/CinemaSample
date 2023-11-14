@@ -18,11 +18,11 @@ The repository's folder structure consists of:
 
 ## Challenge Analysis 
 
-**[Provided API](http://localhost:7172/swagger/index.html).** should be considered an external service. The purpose of the challenge is to see how to handle an external service.
+**[Provided API](http://localhost:7172/swagger/index.html)** should be considered an external service. The challenge aims to explore how to handle an external service.
 
 From my point of view, we have three options:
 
-### 1 - Synchronous approach
+### 1 - Synchronous Approach
 
 Create another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Everything is handled synchronously using GRPC calls.
 
@@ -31,7 +31,7 @@ Create another service external to "Cinema" that is responsible for communicatin
 
 *(For this demo, even if I choose this solution, I will not suggest it in a real-world scenario.)*
 
-### 2 - Asynchronous approach
+### 2 - Asynchronous Approach
 
 Create another service external to "Cinema" that is responsible for communicating with the "Provided API" to retrieve movies and create showtimes. Communication with the Provided API is handled in GRPC synchronously, but communication with the target service will be made using Service Bus messages.
 
@@ -53,7 +53,8 @@ In this scenario, it is not necessary to develop a new aggregator project. The c
 
 ## Architecture Overview
 
-The approach used is Domain-Driven Design (DDD). The first step was to create the DomainModel project and remodel the entities, decoupling them as much as possible.
+The approach used is Domain-Driven Design (DDD).
+The first step was to create the DomainModel project and remodel the entities, decoupling them as much as possible.
 
 The following modifications were made:
 
@@ -76,25 +77,46 @@ The application's structure is as follows:
 
 ### API
 
-- Model versioned, using a package called AutoMapper to decouple API Models from Read and Write Application Models.
+Model versioned, using a package called AutoMapper to decouple API Models from Read and Write Application Models.
 
 ### Application
 
-CQRS approach for CRUD: two separate models for read and write. Currently, the same repository is used, but this could change in the future.
+CQRS approach for CRUD: two separate models for read and write.
+Currently, the same Data Model is used, but this could change in the future.
 
 - Manages the publication of domain events.
 - Handles any Integration Events with other services (e.g., Payment).
 
 ### Persistence
 
-- Manages persistence on InMemoryDB with EF Core.
+Details of the persistence layer:
 - Refactored the persistence layer: IConfigurationBuilder for greater order.
 - Implemented saving domain events with an interceptor.
 
 ### Test
 
-In the test folder, there is a .jmx file that allows testing endpoints with JMeter.
+In the test folder, there is a .jmx file that allows testing endpoints with [JMeter](https://jmeter.apache.org/).
 
 As an example, a unit test project for some domains has been included in the solution.
 
-In the src solution, there is a RunStryker.ps1 file that allows running mutant tests. In my opinion, code coverage alone is not sufficient as a parameter.
+*Analyzing Tests*
+
+Reaching a satisfactory test coverage percentage does not guarantee well-written tests.
+
+A useful tool to check the robustness of our tests is [Stryker](https://stryker-mutator.io/).
+
+In the src solution, there is a RunStryker.ps1 file that allows running test mutators.
+
+Here is an example of the output:
+
+- [Output at the first run](docs\mutation-report.FirstRun.html)
+- [Output after the second run and some fixes](docs\mutation-report.SecondRun.html)
+
+## Cache
+
+In the Shared folder, a project called ServiceCache has been added.
+This service uses IDistributedCache from Microsoft Extension Library; this component is bound to reading using the "AddStackExchangeRedisCache" method provided by the same library.
+
+## Execution Tracking
+
+To solve this task, a DiagnosticsMiddleware has been added to the solution under the "Api.Common" project.
