@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Api.Common;
 
@@ -23,7 +23,11 @@ public class DiagnosticsMiddleware
 
         sw.Stop();
 
-        _logger.LogInformation("Method execution complete.Method:{Method} - {Path} - ElapsedTime:{ElapsedTime} ms.", context.Request.Method, context.Request.Path.Value, sw.ElapsedMilliseconds);
+        _logger.LogInformation(
+            "Method execution complete.Method:{Method} - {Path} - ElapsedTime:{ElapsedTime} ms.",
+            context.Request.Method,
+            context.Request.Path.Value,
+            sw.ElapsedMilliseconds
+        );
     }
-
 }

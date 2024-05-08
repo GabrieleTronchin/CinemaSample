@@ -1,6 +1,7 @@
 ﻿namespace Cinema.Domain.Primitives;
 
-public interface IRepository<in T> where T : class
+public interface IRepository<in T>
+    where T : class
 {
     Task SaveChangesAsync();
 

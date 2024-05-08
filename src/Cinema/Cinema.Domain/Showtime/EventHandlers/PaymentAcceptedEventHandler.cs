@@ -14,7 +14,10 @@ internal sealed class PaymentAcceptedEventHandler : INotificationHandler<Payment
 
     public async Task Handle(PaymentAccepted notification, CancellationToken cancellationToken)
     {
-        var showtime = await _showtimesRepository.GetAsync(notification.ShowtimeId, cancellationToken);
+        var showtime = await _showtimesRepository.GetAsync(
+            notification.ShowtimeId,
+            cancellationToken
+        );
 
         showtime.HasBeenPurchased(notification.Seats);
         await _showtimesRepository.SaveChangesAsync();

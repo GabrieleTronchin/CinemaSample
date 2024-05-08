@@ -4,13 +4,11 @@ namespace Cinema.Application.Showtime.Commands;
 
 public class CreateShowtimeCommand : IRequest<CreateShowtimeCommandComplete>
 {
-
     public DateTime SessionDate { get; set; }
 
     public int AuditoriumId { get; set; }
 
     public Movie Movie { get; set; }
-
 }
 
 public class Movie

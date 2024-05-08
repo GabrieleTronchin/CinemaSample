@@ -9,4 +9,3 @@ internal class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessa
         builder.HasKey(t => t.Id);
     }
 }
-

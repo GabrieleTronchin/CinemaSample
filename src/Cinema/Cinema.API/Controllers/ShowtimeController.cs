@@ -13,15 +13,16 @@ public class ShowtimeController : Controller
     private readonly IMediator _mediator;
     private readonly IApiMapperAccessor _mapper;
 
-    public ShowtimeController(ILogger<ShowtimeController> logger,
-                              IMediator mediator,
-                              IApiMapperAccessor apiMapperAccessor)
+    public ShowtimeController(
+        ILogger<ShowtimeController> logger,
+        IMediator mediator,
+        IApiMapperAccessor apiMapperAccessor
+    )
     {
         _logger = logger;
         _mediator = mediator;
         _mapper = apiMapperAccessor;
     }
-
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -34,7 +35,9 @@ public class ShowtimeController : Controller
                 return BadRequest(ModelState);
             }
 
-            var response = await _mediator.Send(_mapper.ApiMapper.Map<CreateShowtimeCommand>(payload));
+            var response = await _mediator.Send(
+                _mapper.ApiMapper.Map<CreateShowtimeCommand>(payload)
+            );
 
             return StatusCode(StatusCodes.Status201Created, response);
         }

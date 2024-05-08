@@ -1,5 +1,5 @@
-﻿using Cinema.Domain.AuditoriumDefinition.Repository;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using Cinema.Domain.AuditoriumDefinition.Repository;
 
 namespace Cinema.Persistence.Repositories
 {
@@ -12,27 +12,27 @@ namespace Cinema.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<AuditoriumEntity>> GetAllAsync(Expression<Func<AuditoriumEntity, bool>> filter, CancellationToken cancel)
+        public async Task<IEnumerable<AuditoriumEntity>> GetAllAsync(
+            Expression<Func<AuditoriumEntity, bool>> filter,
+            CancellationToken cancel
+        )
         {
             if (filter == null)
             {
-                return await _context.Auditoriums
-                                .ToListAsync(cancel);
+                return await _context.Auditoriums.ToListAsync(cancel);
             }
 
-            return await _context.Auditoriums
-                                .Where(filter)
-                                .ToListAsync(cancel);
+            return await _context.Auditoriums.Where(filter).ToListAsync(cancel);
         }
-
-
 
         public async Task<AuditoriumEntity> GetAsync(int auditoriumId, CancellationToken cancel)
         {
-            return await _context.Auditoriums
-                .Include(x => x.Seats)
-                .SingleOrDefaultAsync(x => x.Id == auditoriumId, cancel) ??
-                    throw new InvalidOperationException($"System could not find any {nameof(auditoriumId)} with value {auditoriumId}");
+            return await _context
+                    .Auditoriums.Include(x => x.Seats)
+                    .SingleOrDefaultAsync(x => x.Id == auditoriumId, cancel)
+                ?? throw new InvalidOperationException(
+                    $"System could not find any {nameof(auditoriumId)} with value {auditoriumId}"
+                );
         }
 
         public async Task AddAsync(AuditoriumEntity entity)

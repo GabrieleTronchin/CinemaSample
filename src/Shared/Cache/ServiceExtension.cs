@@ -5,10 +5,15 @@ namespace ServiceCache;
 
 public static partial class ServicesExtensions
 {
-    public static IServiceCollection AddServiceCache(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddServiceCache(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
-
-        services.AddOptions<CacheOptions>().Bind(configuration.GetSection("Cache")).ValidateDataAnnotations();
+        services
+            .AddOptions<CacheOptions>()
+            .Bind(configuration.GetSection("Cache"))
+            .ValidateDataAnnotations();
 
         if (!string.IsNullOrEmpty(configuration.GetSection("RedisCache:Configuration").Value))
         {
@@ -24,7 +29,5 @@ public static partial class ServicesExtensions
 
         services.AddTransient<ICacheService, CacheService>();
         return services;
-
     }
-
 }

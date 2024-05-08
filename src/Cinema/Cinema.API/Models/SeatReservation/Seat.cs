@@ -4,7 +4,5 @@
     {
         public short SeatsNumber { get; set; }
         public short Row { get; set; }
-
     }
-
 }

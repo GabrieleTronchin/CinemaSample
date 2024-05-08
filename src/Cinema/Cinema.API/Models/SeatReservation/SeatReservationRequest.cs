@@ -6,10 +6,11 @@ namespace Cinema.Api.Models.SeatReservation
     {
         [Required]
         public string ShowtimeId { get; set; }
+
         [Required]
         public IEnumerable<Seat> Seats { get; set; }
+
         [Required]
         public int AuditoriumId { get; set; }
-
     }
 }

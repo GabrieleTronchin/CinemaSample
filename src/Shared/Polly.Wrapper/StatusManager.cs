@@ -1,5 +1,5 @@
-﻿using Grpc.Core;
-using System.Net;
+﻿using System.Net;
+using Grpc.Core;
 
 namespace Polly.Wrapper
 {

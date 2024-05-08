@@ -11,7 +11,6 @@ public class AuditoriumController : Controller
     private readonly IMediator _mediator;
 
     public AuditoriumController(IMediator mediator)
-
     {
         _mediator = mediator;
     }

@@ -13,10 +13,12 @@ internal class ShowtimeService : IShowtimeService
     private readonly ICinemaClientGrpc _cinemaClientGrpc;
     private readonly ICacheService _serviceCache;
 
-    public ShowtimeService(ILogger<ShowtimeService> logger,
-                           IMoviesClientGrpc moviesClient,
-                           ICinemaClientGrpc cinemaClientGrpc,
-                           ICacheService serviceCache)
+    public ShowtimeService(
+        ILogger<ShowtimeService> logger,
+        IMoviesClientGrpc moviesClient,
+        ICinemaClientGrpc cinemaClientGrpc,
+        ICacheService serviceCache
+    )
     {
         _logger = logger;
         _moviesClient = moviesClient;
@@ -26,12 +28,18 @@ internal class ShowtimeService : IShowtimeService
 
     public async Task<CreateShowTimeResponse> Create(CreateShowTime createRequest)
     {
-        var movieResponse = await GetMovieByImdbId(createRequest.ImdbId) ?? throw new ArgumentException($"Unable to find any movie with the provided id:{createRequest.ImdbId}");
+        var movieResponse =
+            await GetMovieByImdbId(createRequest.ImdbId)
+            ?? throw new ArgumentException(
+                $"Unable to find any movie with the provided id:{createRequest.ImdbId}"
+            );
 
         var showReq = new ShowTimeProto.ShowtimeCreationRequest()
         {
             AuditoriumId = createRequest.AuditoriumId,
-            SessionDate = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(createRequest.SessionDate),
+            SessionDate = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(
+                createRequest.SessionDate
+            ),
             Movie = new ShowTimeProto.movieRequest()
             {
                 ImdbId = createRequest.ImdbId,
@@ -44,21 +52,26 @@ internal class ShowtimeService : IShowtimeService
         var cinemaResponse = await _cinemaClientGrpc.CreateShowTime(showReq);
 
         if (!cinemaResponse.Success)
-            throw new InvalidOperationException(string.Join(',', cinemaResponse.Exceptions.Select(x => x.Message)));
-
+            throw new InvalidOperationException(
+                string.Join(',', cinemaResponse.Exceptions.Select(x => x.Message))
+            );
 
         if (!Guid.TryParse(cinemaResponse.ShotimeId, out var shotimeId))
-            throw new InvalidCastException($"{nameof(cinemaResponse.ShotimeId)} is not a valid guid");
+            throw new InvalidCastException(
+                $"{nameof(cinemaResponse.ShotimeId)} is not a valid guid"
+            );
 
         return new CreateShowTimeResponse() { Id = shotimeId };
-
     }
 
     private async Task<ProtoDefinitions.showResponse?> GetMovieByImdbId(string imdbId)
     {
         try
         {
-            return await _serviceCache.CreateAndSetAsync(imdbId, () => _moviesClient.GetById(imdbId));
+            return await _serviceCache.CreateAndSetAsync(
+                imdbId,
+                () => _moviesClient.GetById(imdbId)
+            );
         }
         catch (Exception ex)
         {
@@ -67,6 +80,4 @@ internal class ShowtimeService : IShowtimeService
 
         return await _serviceCache.GetOrDefault<ProtoDefinitions.showResponse?>(imdbId, null);
     }
-
-
 }
