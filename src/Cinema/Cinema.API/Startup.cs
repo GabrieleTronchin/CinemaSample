@@ -66,7 +66,6 @@ public class Startup
         {
             endpoints.MapControllers();
             endpoints.MapGrpcService<ShowtimeService>();
-
         });
 
         SeedDb.Initialize(app);

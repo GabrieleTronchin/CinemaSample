@@ -17,18 +17,20 @@ namespace Cinema.Persistence
 
             services.AddSingleton<TicketEntityDomainEventInterceptor>();
 
-            var tcInterceptor = services.BuildServiceProvider().GetRequiredService<TicketEntityDomainEventInterceptor>();
+            var tcInterceptor = services
+                .BuildServiceProvider()
+                .GetRequiredService<TicketEntityDomainEventInterceptor>();
 
             services.AddDbContext<CinemaDbContext>(options =>
             {
-                options.UseInMemoryDatabase("CinemaDb")
+                options
+                    .UseInMemoryDatabase("CinemaDb")
                     .AddInterceptors(tcInterceptor)
                     .EnableSensitiveDataLogging()
                     .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             });
 
             return services;
-
         }
     }
 }

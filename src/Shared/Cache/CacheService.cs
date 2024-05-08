@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace ServiceCache;
 
@@ -13,9 +13,11 @@ public class CacheService : ICacheService
     private readonly ILogger<CacheService> _logger;
     private readonly CacheOptions _options;
 
-    public CacheService(ILogger<CacheService> logger,
-                        IOptions<CacheOptions> options,
-                        IDistributedCache cache)
+    public CacheService(
+        ILogger<CacheService> logger,
+        IOptions<CacheOptions> options,
+        IDistributedCache cache
+    )
     {
         _cache = cache;
         _logger = logger;
@@ -24,7 +26,6 @@ public class CacheService : ICacheService
 
     public async Task<T> GetOrDefault<T>(string key, T defaultVal)
     {
-
         var bytesResult = await GetAsync(key);
 
         if (bytesResult?.Length > 0)
@@ -36,11 +37,13 @@ public class CacheService : ICacheService
             ser.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
 
             var result = ser.Deserialize<T>(jsonReader);
-            if (result != null) { return result; }
+            if (result != null)
+            {
+                return result;
+            }
         }
 
         return defaultVal;
-
     }
 
     public async Task<T> CreateAndSetAsync<T>(string key, Func<Task<T>> createAsync)
@@ -52,19 +55,25 @@ public class CacheService : ICacheService
 
             await RemoveAsync(key);
 
-            JsonSerializerSettings serializerSettings = new()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                TypeNameHandling = TypeNameHandling.All,
-                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-            };
+            JsonSerializerSettings serializerSettings =
+                new()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    TypeNameHandling = TypeNameHandling.All,
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
 
             var json = JsonConvert.SerializeObject(thing, serializerSettings);
 
             await SetAsync(key, Encoding.ASCII.GetBytes(json), GetCacheExpirationOptions());
 
-            _logger.LogTrace(string.Format("{0} - Item with key {1} added to cache.", nameof(CreateAndSetAsync), key));
-
+            _logger.LogTrace(
+                string.Format(
+                    "{0} - Item with key {1} added to cache.",
+                    nameof(CreateAndSetAsync),
+                    key
+                )
+            );
         }
         catch (Exception e)
         {
@@ -83,7 +92,6 @@ public class CacheService : ICacheService
         };
     }
 
-
     private async Task RemoveAsync(string key)
     {
         await Locker.WaitAsync();
@@ -96,6 +104,7 @@ public class CacheService : ICacheService
             Locker.Release();
         }
     }
+
     private async Task<byte[]?> GetAsync(string key)
     {
         await Locker.WaitAsync();
@@ -122,5 +131,4 @@ public class CacheService : ICacheService
             Locker.Release();
         }
     }
-
 }

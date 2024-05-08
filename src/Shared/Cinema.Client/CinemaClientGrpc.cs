@@ -16,9 +16,9 @@ public class CinemaClientGrpc : ICinemaClientGrpc
             { "X-Apikey", "68e5fbda-9ec9-4858-97b2-4a8349764c63" } //just for test purpose
         };
     }
+
     public async Task<responseModel> CreateShowTime(ShowtimeCreationRequest request)
     {
         return await _client.CreateShowTimeAsync(request, _metadata);
     }
-
 }

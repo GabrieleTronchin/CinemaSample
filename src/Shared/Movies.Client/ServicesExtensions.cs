@@ -7,22 +7,31 @@ namespace Movies.Client;
 
 public static partial class ServicesExtensions
 {
-    public static IServiceCollection AddMoviesClient(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMoviesClient(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
+        var endpoint =
+            configuration.GetSection("MovieGrpc:Endpoint").Value
+            ?? throw new MissingFieldException("MovieGrpc:Endpoint");
 
-        var endpoint = configuration.GetSection("MovieGrpc:Endpoint").Value ?? throw new MissingFieldException("MovieGrpc:Endpoint");
-
-        services.AddGrpcClient<MoviesApi.MoviesApiClient>((services, options) =>
-        {
-            options.Address = new Uri(endpoint);
-        }).ConfigureChannel(o =>
-        {
-            o.HttpHandler = new HttpClientHandler
+        services
+            .AddGrpcClient<MoviesApi.MoviesApiClient>(
+                (services, options) =>
+                {
+                    options.Address = new Uri(endpoint);
+                }
+            )
+            .ConfigureChannel(o =>
             {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            };
-        }).AddPolicyHandler(PollySettings.DefaultRetryPolicy());
-
+                o.HttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback =
+                        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+            })
+            .AddPolicyHandler(PollySettings.DefaultRetryPolicy());
 
         services.AddTransient<IMoviesClientGrpc, MoviesClientGrpc>();
         return services;

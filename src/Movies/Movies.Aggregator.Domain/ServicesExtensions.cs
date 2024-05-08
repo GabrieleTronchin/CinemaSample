@@ -8,7 +8,10 @@ namespace Movies.Aggregator.Domain;
 
 public static partial class ServicesExtensions
 {
-    public static IServiceCollection AddDomainLayer(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDomainLayer(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddMoviesClient(configuration);
         services.AddCinemaClient(configuration);

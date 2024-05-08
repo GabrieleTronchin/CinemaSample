@@ -16,12 +16,14 @@
     {
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string ImdbId { get; set; }
+
         [Required]
         public string Stars { get; set; }
+
         [Required]
         public DateTime ReleaseDate { get; set; }
     }
-
 }

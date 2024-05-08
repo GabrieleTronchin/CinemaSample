@@ -6,9 +6,8 @@ namespace Cinema.Persistence
 {
     public class CinemaDbContext : DbContext
     {
-        public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options)
-        {
-        }
+        public CinemaDbContext(DbContextOptions<CinemaDbContext> options)
+            : base(options) { }
 
         public DbSet<AuditoriumEntity> Auditoriums { get; set; }
         public DbSet<MovieEntity> Movies { get; set; }
@@ -21,6 +20,5 @@ namespace Cinema.Persistence
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CinemaDbContext).Assembly);
         }
-
     }
 }

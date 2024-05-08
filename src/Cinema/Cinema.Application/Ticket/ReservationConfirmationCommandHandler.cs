@@ -7,26 +7,35 @@ using Microsoft.Extensions.Logging;
 
 namespace Cinema.Application.Ticket;
 
-public class ReservationConfirmationCommandHandler : IRequestHandler<ReservationConfirmationCommand, ReservationConfirmationComplete>
+public class ReservationConfirmationCommandHandler
+    : IRequestHandler<ReservationConfirmationCommand, ReservationConfirmationComplete>
 {
     private readonly ITicketsRepository _ticketsRepository;
     private readonly ILogger<ReservationConfirmationCommandHandler> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
+
     public ReservationConfirmationCommandHandler(
         ILogger<ReservationConfirmationCommandHandler> logger,
         ITicketsRepository ticketsRepository,
-        IPublishEndpoint publishEndpoint)
+        IPublishEndpoint publishEndpoint
+    )
     {
         _ticketsRepository = ticketsRepository;
         _logger = logger;
         _publishEndpoint = publishEndpoint;
     }
 
-    public async Task<ReservationConfirmationComplete> Handle(ReservationConfirmationCommand request, CancellationToken cancellationToken)
+    public async Task<ReservationConfirmationComplete> Handle(
+        ReservationConfirmationCommand request,
+        CancellationToken cancellationToken
+    )
     {
         try
         {
-            var ticket = await _ticketsRepository.GetAsync(request.ReservationId, cancellationToken);
+            var ticket = await _ticketsRepository.GetAsync(
+                request.ReservationId,
+                cancellationToken
+            );
 
             // Requirement asking for a direct call to payment service, but in order to have more decupled code is better a MassTransit event.
             // A draft of Payment saga has been added to the solution just as a sample idea, payment code in the future may be in a separate service.
@@ -43,6 +52,5 @@ public class ReservationConfirmationCommandHandler : IRequestHandler<Reservation
             _logger.LogError(ex, "An error occurred completing payment.");
             throw;
         }
-
     }
 }

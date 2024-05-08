@@ -14,20 +14,28 @@ public class ReservationCommandHandler : IRequestHandler<ReservationCommand, Res
     private readonly IShowtimesRepository _showtimesRepository;
     private readonly ITicketsRepository _ticketsRepository;
 
-    public ReservationCommandHandler(ILogger<ReservationCommandHandler> logger,
-                                     IShowtimesRepository showtimesRepository,
-                                     ITicketsRepository ticketsRepository)
+    public ReservationCommandHandler(
+        ILogger<ReservationCommandHandler> logger,
+        IShowtimesRepository showtimesRepository,
+        ITicketsRepository ticketsRepository
+    )
     {
         _logger = logger;
         _showtimesRepository = showtimesRepository;
         _ticketsRepository = ticketsRepository;
     }
 
-    public async Task<ReservationComplete> Handle(ReservationCommand request, CancellationToken cancellationToken)
+    public async Task<ReservationComplete> Handle(
+        ReservationCommand request,
+        CancellationToken cancellationToken
+    )
     {
         try
         {
-            var showtime = await _showtimesRepository.GetAsync(request.ShowtimeId, cancellationToken);
+            var showtime = await _showtimesRepository.GetAsync(
+                request.ShowtimeId,
+                cancellationToken
+            );
 
             var seatsToReserve = request.Seats.Select(x => new Seat(x.Row, x.SeatsNumber));
             showtime.ReserveSeats(seatsToReserve);
@@ -47,9 +55,12 @@ public class ReservationCommandHandler : IRequestHandler<ReservationCommand, Res
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred at {CommandHandler}", nameof(ReservationCommandHandler));
+            _logger.LogError(
+                ex,
+                "An error occurred at {CommandHandler}",
+                nameof(ReservationCommandHandler)
+            );
             throw;
         }
-
     }
 }

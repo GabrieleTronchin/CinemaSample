@@ -2,6 +2,4 @@
 
 namespace Cinema.Application.Payment.Events;
 
-public class PaymentCancelled : IntegrationEvent
-{
-}
+public class PaymentCancelled : IntegrationEvent { }

@@ -22,11 +22,20 @@ public class PaymentSagaDefinition : SagaDefinition<PaymentState>
     /// </summary>
     /// <param name="endpointConfigurator"></param>
     /// <param name="sagaConfigurator"></param>
-    protected override void ConfigureSaga(IReceiveEndpointConfigurator endpointConfigurator, ISagaConfigurator<PaymentState> sagaConfigurator)
+    protected override void ConfigureSaga(
+        IReceiveEndpointConfigurator endpointConfigurator,
+        ISagaConfigurator<PaymentState> sagaConfigurator
+    )
     {
         var partition = endpointConfigurator.CreatePartitioner(16);
-        sagaConfigurator.Message<PaymentRequest>(x => x.UsePartitioner(partition, m => m.Message.CorrelationId));
-        sagaConfigurator.Message<PaymentCompleted>(x => x.UsePartitioner(partition, m => m.Message.CorrelationId));
-        sagaConfigurator.Message<PaymentCancelled>(x => x.UsePartitioner(partition, m => m.Message.CorrelationId));
+        sagaConfigurator.Message<PaymentRequest>(x =>
+            x.UsePartitioner(partition, m => m.Message.CorrelationId)
+        );
+        sagaConfigurator.Message<PaymentCompleted>(x =>
+            x.UsePartitioner(partition, m => m.Message.CorrelationId)
+        );
+        sagaConfigurator.Message<PaymentCancelled>(x =>
+            x.UsePartitioner(partition, m => m.Message.CorrelationId)
+        );
     }
 }

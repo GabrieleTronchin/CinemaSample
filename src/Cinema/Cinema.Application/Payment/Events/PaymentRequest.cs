@@ -2,7 +2,5 @@
 
 namespace Cinema.Application.Payment.Events
 {
-    public class PaymentRequest : IntegrationEvent
-    {
-    }
+    public class PaymentRequest : IntegrationEvent { }
 }

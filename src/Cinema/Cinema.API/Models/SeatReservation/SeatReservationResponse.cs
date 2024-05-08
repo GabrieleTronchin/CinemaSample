@@ -11,7 +11,5 @@ namespace Cinema.Api.Models.SeatReservation
         public int AuditoriumId { get; set; }
 
         public string MovieTitle { get; set; }
-
     }
-
 }

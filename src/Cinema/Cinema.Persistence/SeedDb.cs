@@ -6,8 +6,14 @@ public static class SeedDb
 {
     public static void Initialize(IApplicationBuilder app)
     {
-        using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-        var context = serviceScope.ServiceProvider.GetService<CinemaDbContext>() ?? throw new NullReferenceException($"Cannot find any service for {nameof(CinemaDbContext)}");
+        using var serviceScope = app
+            .ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+            .CreateScope();
+        var context =
+            serviceScope.ServiceProvider.GetService<CinemaDbContext>()
+            ?? throw new NullReferenceException(
+                $"Cannot find any service for {nameof(CinemaDbContext)}"
+            );
         context.Database.EnsureCreated();
 
         context.Auditoriums.Add(AuditoriumEntity.Create(1, GenerateSeats(28, 22)));
@@ -21,9 +27,8 @@ public static class SeedDb
     {
         var seats = new List<Seat>();
         for (short r = 1; r <= rows; r++)
-            for (short s = 1; s <= seatsPerRow; s++)
-                seats.Add(new Seat(r, s));
+        for (short s = 1; s <= seatsPerRow; s++)
+            seats.Add(new Seat(r, s));
         return seats;
     }
 }
-

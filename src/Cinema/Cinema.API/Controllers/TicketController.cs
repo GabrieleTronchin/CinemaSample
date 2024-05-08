@@ -14,9 +14,11 @@ public class TicketController : Controller
     private readonly IMediator _mediator;
     private readonly IApiMapperAccessor _mapper;
 
-    public TicketController(ILogger<TicketController> logger,
-                            IMediator mediator,
-                            IApiMapperAccessor apiMapperAccessor)
+    public TicketController(
+        ILogger<TicketController> logger,
+        IMediator mediator,
+        IApiMapperAccessor apiMapperAccessor
+    )
     {
         _logger = logger;
         _mediator = mediator;
@@ -25,7 +27,9 @@ public class TicketController : Controller
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<SeatReservationResponse>> Post([FromBody] SeatReservationRequest payload)
+    public async Task<ActionResult<SeatReservationResponse>> Post(
+        [FromBody] SeatReservationRequest payload
+    )
     {
         try
         {
@@ -38,7 +42,6 @@ public class TicketController : Controller
 
             var apiResult = _mapper.ApiMapper.Map<SeatReservationResponse>(response);
             return StatusCode(StatusCodes.Status201Created, apiResult);
-
         }
         catch (Exception e)
         {
@@ -48,11 +51,11 @@ public class TicketController : Controller
         }
     }
 
-
-
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<SeatReservationResponse>> Put([FromBody] ConfirmReservationRequest payload)
+    public async Task<ActionResult<SeatReservationResponse>> Put(
+        [FromBody] ConfirmReservationRequest payload
+    )
     {
         try
         {
@@ -61,10 +64,11 @@ public class TicketController : Controller
                 return BadRequest(ModelState);
             }
 
-            var response = await _mediator.Send(_mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload));
+            var response = await _mediator.Send(
+                _mapper.ApiMapper.Map<ReservationConfirmationCommand>(payload)
+            );
 
             return StatusCode(StatusCodes.Status202Accepted, response);
-
         }
         catch (ArgumentNullException e)
         {

@@ -5,15 +5,19 @@ namespace Cinema.Domain.Ticket
 {
     public class TicketEntity : AggregateRoot
     {
-        private TicketEntity()
-        {
-        }
+        private TicketEntity() { }
 
-        public static TicketEntity Create(IEnumerable<Seat> seats, Guid showtimeId, string movieTile)
+        public static TicketEntity Create(
+            IEnumerable<Seat> seats,
+            Guid showtimeId,
+            string movieTile
+        )
         {
-            if (!seats.Any()) throw new ArgumentException($"Invalid {nameof(seats)}");
+            if (!seats.Any())
+                throw new ArgumentException($"Invalid {nameof(seats)}");
 
-            if (string.IsNullOrWhiteSpace(movieTile)) throw new ArgumentException($"Invalid {nameof(movieTile)}");
+            if (string.IsNullOrWhiteSpace(movieTile))
+                throw new ArgumentException($"Invalid {nameof(movieTile)}");
 
             var ticket = new TicketEntity
             {
@@ -30,7 +34,8 @@ namespace Cinema.Domain.Ticket
 
         public void ConfirmPayment()
         {
-            if (Paid) throw new InvalidOperationException("It's already paid.");
+            if (Paid)
+                throw new InvalidOperationException("It's already paid.");
 
             RaiseEvent(new PaymentAccepted(ShowtimeId, Seats));
 
@@ -44,5 +49,4 @@ namespace Cinema.Domain.Ticket
         public DateTime CreatedTime { get; private set; }
         public bool Paid { get; private set; }
     }
-
 }

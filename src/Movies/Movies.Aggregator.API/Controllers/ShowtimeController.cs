@@ -13,13 +13,11 @@ public class ShowtimeController : Controller
     private readonly ILogger<ShowtimeController> _logger;
     private readonly IShowtimeService _showtimeService;
 
-    public ShowtimeController(ILogger<ShowtimeController> logger,
-                              IShowtimeService showtimeService)
+    public ShowtimeController(ILogger<ShowtimeController> logger, IShowtimeService showtimeService)
     {
         _logger = logger;
         _showtimeService = showtimeService;
     }
-
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -32,12 +30,14 @@ public class ShowtimeController : Controller
                 return BadRequest(ModelState);
             }
 
-            var response = await _showtimeService.Create(new Domain.Models.CreateShowTime()
-            {
-                ImdbId = payload.ImdbId,
-                AuditoriumId = payload.AuditoriumId,
-                SessionDate = payload.SessionDate
-            });
+            var response = await _showtimeService.Create(
+                new Domain.Models.CreateShowTime()
+                {
+                    ImdbId = payload.ImdbId,
+                    AuditoriumId = payload.AuditoriumId,
+                    SessionDate = payload.SessionDate
+                }
+            );
 
             return StatusCode(StatusCodes.Status201Created, response);
         }

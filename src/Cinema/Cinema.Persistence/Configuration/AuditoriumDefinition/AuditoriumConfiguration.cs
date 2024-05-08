@@ -6,10 +6,13 @@ internal class AuditoriumConfiguration : IEntityTypeConfiguration<AuditoriumEnti
     {
         builder.HasKey(entry => entry.Id);
         builder.Property(entry => entry.Id).ValueGeneratedOnAdd();
-        builder.OwnsMany(a => a.Seats, seatBuilder =>
+        builder.OwnsMany(
+            a => a.Seats,
+            seatBuilder =>
             {
                 seatBuilder.Property(s => s.RowNumber);
                 seatBuilder.Property(s => s.SeatNumber);
-            });
+            }
+        );
     }
 }

@@ -11,4 +11,3 @@ internal class MovieEntityConfiguration : IEntityTypeConfiguration<MovieEntity>
         builder.HasIndex(t => t.Title); //example
     }
 }
-

@@ -1,14 +1,15 @@
-﻿
-namespace Cinema.Domain.Showtime;
+﻿namespace Cinema.Domain.Showtime;
 
 public class MovieEntity
 {
-    private MovieEntity()
-    {
+    private MovieEntity() { }
 
-    }
-
-    public static MovieEntity Create(string title, string stars, string imdbId, DateTime releaseDate)
+    public static MovieEntity Create(
+        string title,
+        string stars,
+        string imdbId,
+        DateTime releaseDate
+    )
     {
         return new MovieEntity
         {
@@ -26,4 +27,3 @@ public class MovieEntity
     public string Stars { get; private set; } = string.Empty;
     public DateTime ReleaseDate { get; private set; }
 }
-

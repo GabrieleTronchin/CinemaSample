@@ -23,5 +23,4 @@ public class MoviesClientGrpc : IMoviesClientGrpc
         movie.Data.TryUnpack<showResponse>(out var data);
         return data;
     }
-
 }

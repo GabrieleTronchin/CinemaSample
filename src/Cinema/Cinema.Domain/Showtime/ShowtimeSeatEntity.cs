@@ -1,11 +1,11 @@
 ﻿namespace Cinema.Domain.Showtime;
+
 public class ShowtimeSeatEntity
 {
     const short DEFAULT_COOLDOWN = 10;
 
-    private ShowtimeSeatEntity()
-    {
-    }
+    private ShowtimeSeatEntity() { }
+
     public static ShowtimeSeatEntity Create(Seat seat, Guid showtimeId)
     {
         return new ShowtimeSeatEntity
@@ -19,22 +19,30 @@ public class ShowtimeSeatEntity
         };
     }
 
-
     public void SetReserved()
     {
         if (Purchased)
-            throw new InvalidOperationException("It shouldn't be possible to reserve an already sold seat.");
+            throw new InvalidOperationException(
+                "It shouldn't be possible to reserve an already sold seat."
+            );
 
-        if (ReservationTime.HasValue && DateTime.UtcNow <= ReservationTime.Value.Add(ReservationCooldown))
-            throw new InvalidOperationException($"It should not be possible to reserve the same seats two times in {DEFAULT_COOLDOWN} minutes");
-
+        if (
+            ReservationTime.HasValue
+            && DateTime.UtcNow <= ReservationTime.Value.Add(ReservationCooldown)
+        )
+            throw new InvalidOperationException(
+                $"It should not be possible to reserve the same seats two times in {DEFAULT_COOLDOWN} minutes"
+            );
 
         ReservationTime = DateTime.UtcNow;
     }
 
     public void SetPurchased()
     {
-        if (Purchased) throw new InvalidOperationException("It is not possible to buy two times the same seat.");
+        if (Purchased)
+            throw new InvalidOperationException(
+                "It is not possible to buy two times the same seat."
+            );
         Purchased = true;
     }
 
@@ -44,5 +52,4 @@ public class ShowtimeSeatEntity
     public TimeSpan ReservationCooldown { get; private set; }
     public DateTime? ReservationTime { get; private set; }
     public bool Purchased { get; private set; }
-
 }
