@@ -1,4 +1,4 @@
-﻿namespace Cinema.Application.Auditorium.Queries.Models;
+﻿namespace Cinema.Application.Auditorium.Queries.Commands;
 
 public class AuditoriumReadModel
 {

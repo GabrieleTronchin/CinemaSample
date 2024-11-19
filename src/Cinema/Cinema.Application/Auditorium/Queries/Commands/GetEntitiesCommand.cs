@@ -1,5 +1,4 @@
-﻿using Cinema.Application.Auditorium.Queries.Models;
-using MediatR;
+﻿using MediatR;
 
 namespace Cinema.Application.Auditorium.Queries.Commands
 {
