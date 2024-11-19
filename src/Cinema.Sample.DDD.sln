@@ -123,4 +123,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C52A7E7E-4F02-4B44-B7D4-995DE72CF0B3}
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\Cinema.Sample.DDD.ndproj"
+	EndGlobalSection
 EndGlobal
